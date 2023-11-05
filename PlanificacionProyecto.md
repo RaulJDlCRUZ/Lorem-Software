@@ -69,7 +69,15 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 |**Agenda**      |Semana 1   |Semana 2   |Semana 2        |2/3   |Semana 3        |Semana 3   |Semana 4        |Semana 5   |5/6        |Semana 6   |6/7        |
 
 **Agenda**
-|**SEMANA**     |  **MES**   |    **L**    |    **M**    |    **X**    |    **J**    |    **V**    |    **S**    | 
+|    SEMANA    |    MES    |    L    |    M    |    X    |    J    |    V    |    S    |
+|:------------:|:---------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
+|      1       |  Octubre  |    30   |    31   |    1    |    2    |    3    |    4    |
+|      2       | Noviembre |    6    |    7    |    8    |    9    |    10   |    11   |
+|      3       |           |    13   |    14   |    15   |    16   |    17   |    18   |
+|      4       |           |    20   |    21   |    22   |    23   |    24   |    25   |
+|      5       |           |    27   |    28   |    29   |    30   |    1    |    2    |
+|      6       | Diciembre |    4    |    5    |    6    |    7    |    8    |    9    |
+|      7       |           |    11   |    12   |    13   |    14   |    15   |    16   |
 
 El proyecto está organizado en 2 ciclos:
 
