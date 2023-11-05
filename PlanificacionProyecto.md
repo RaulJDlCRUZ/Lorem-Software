@@ -79,8 +79,8 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 |      6       | Diciembre |    4    |    5    |    ***6***    |    7    |    ***8***    |    9    |
 |      7       |           |    11   |    12   |    13   |    14   |    15   |    16   |
 
-- Los dias señalados (por ejemplo ***1***) son días de festividad nacional marcados por el calendario laboral del 2023.
-- Los dias 16, 17, 18, 19 y 20 de Diciembre quedarán como días libres, en los cuales se revisará el la versión final del proyecto para ver si es necesario realizar algún cambio, actualización o modificación de esta versión final antes de la entrega de nuestro proyecto (el dia 20 de Diciembre).
+- Los dias señalados (por ejemplo ***1***) son días de festividad nacional marcados por el calendario laboral del año 2023.
+- Los dias 16, 17, 18, 19 y 20 de Diciembre quedarán como días libres, en los cuales se revisará la versión final del proyecto para ver si es necesario realizar algún cambio, actualización o modificación de esta versión final antes de la entrega de nuestro proyecto (el dia 20 de Diciembre).
 
 El proyecto está organizado en 2 ciclos:
 
