@@ -71,7 +71,7 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 **Agenda**
 |    SEMANA    |    MES    |    L    |    M    |    X    |    J    |    V    |    S    |
 |:------------:|:---------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
-|      1       |  Octubre  |    30   |    31   |    1    |    2    |    3    |    4    |
+|      1       |  Octubre  |    30   |    31   |\textcolor{red}{1}    |    2    |    3    |    4    |
 |      2       | Noviembre |    6    |    7    |    8    |    9    |    10   |    11   |
 |      3       |           |    13   |    14   |    15   |    16   |    17   |    18   |
 |      4       |           |    20   |    21   |    22   |    23   |    24   |    25   |
