@@ -1,6 +1,6 @@
 Feature 1
 
-<img width="553" alt="ISO2" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/dd7cd582-ec8d-430e-9d64-4565313f856b">
+<img width="192" alt="ISO Cdu1" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/da4e0764-5aca-487f-96bd-79c4c1e49206">
 
 Dar de alta un título:
 
