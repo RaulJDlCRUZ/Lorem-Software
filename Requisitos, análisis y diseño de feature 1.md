@@ -1,5 +1,9 @@
 Feature 1
+
+<img width="553" alt="ISO2" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/dd7cd582-ec8d-430e-9d64-4565313f856b">
+
 Dar de alta un título:
+
 Este requisito o función es la más importante de nuestro proyecto, ya que sin títulos no podremos tener ejemplares de libros que están en la biblioteca y que, próximamente,
 serán prestados a los distintos clientes de esa biblioteca. 
 Por lo tanto, si no se da de alta algún título no se podría realizar ninguno de los siguientes requisitos o funciones dados por el cliente a cumplir en nuestro proyecto.
