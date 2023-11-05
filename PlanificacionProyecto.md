@@ -68,6 +68,9 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 |**Duración (d)**|  4        |  3        | 2         |  1        | 1         |  3        |   4       |  3        |  6        |   6       |   5       |
 |**Agenda**      |Semana 1   |Semana 2   |Semana 2        |2/3   |Semana 3        |Semana 3   |Semana 4        |Semana 5   |5/6        |Semana 6   |6/7        |
 
+**Agenda**
+|**SEMANA**     |  **MES**   |    **L**    |    **M**    |    **X**    |    **J**    |    **V**    |    **S**    | 
+
 El proyecto está organizado en 2 ciclos:
 
 - **El primer ciclo** concluirá el martes 14 de noviembre y abarcará hasta la iteración 5 (que será el producto mínimo viable), dando lugar a la versión 1.0.0 del proyecto.
