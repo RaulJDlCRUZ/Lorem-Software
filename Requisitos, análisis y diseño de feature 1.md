@@ -14,7 +14,7 @@ Para dar de alta un título debemos de saber una serie de datos como:
 -	Nombre del autor.
 -	Apellido del autor.
 -	El tipo del título, es decir, si es libro o es revista.
--	Número de ejemplares.
+-	Número de reserva.
 
 Al tener que realizar una gran cantidad de apuntes en nuestro requisito de dar de alta un título debemos de tener en cuenta los posibles casos de errores que podríamos llegar
 a tener al realizar la implementación de este caso:
