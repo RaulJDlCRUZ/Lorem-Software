@@ -82,7 +82,3 @@ Tras analizar todos los diferentes requisitos que debemos cumplir en nuestro pro
 - **Control de errores**: Podría darse el escenario en cual los errores de la inserción errónea de datos no fuesen visibles al gestionarse los títulos y toda la información de los libros con cadenas de texto. También podría ser necesario controlar aquellas posibilidades como dar de alta un ejemplar de un título que no existe, solicitar un ejemplar que no existe por no haber unidades de un título...
 - **Fallos en la Base de Datos**: Al estar gestionado todo el <<servidor>> por la base de datos, si se produce un fallo en ella, no podríamos acceder a la información necesaria para realizar ninguna de las otras funciones.
 - **Vulnerabilidades de seguridad**: Si la información no se codifica apropiadamente y/o no se protege el acceso de los bibliotecarios o el administrador usando, por ejemplo, verificación en dos pasos, el sistema podría verse alterado u observado por un usuario externo.
-
-# Gestión de la Configuración
-## Plan de Gestión de la Configuración
-//TODO: Implement CMP
