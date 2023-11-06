@@ -7,9 +7,9 @@
 <body>
     <h1>Formulario para dar de alta un libro</h1>
     <form action="#" th:action="@{/guardarLibro}" th:object="${libro}" method="post">
-        <p>Título: <input type="text" th:field="*{titulo}" /></p>
+        <p>Título: <input type="text" th:field="*{Titulo}" /></p>
         <p>ISBN: <input type="text" th:field="*{ISBN}" /></p>
-        <p>Autores ({nombre-apellido,nombre-apellido,...}): <input type="text" th:field="*{autores}" /></p>
+        <p>Autores &ltFormato = Autor1;Autor2;...;AutorN&gt: <input type="text" th:field="*{autores}" /></p>
         <p>
             <input type="submit" value="Guardar" /> <input type="reset" value="Reset" />
         </p>

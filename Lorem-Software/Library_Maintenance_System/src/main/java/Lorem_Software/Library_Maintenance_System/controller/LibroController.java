@@ -1,4 +1,5 @@
-package es.uclm.library.business.controller;
+package Lorem_Software.Library_Maintenance_System.controller;
+
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -10,30 +11,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import es.uclm.library.business.entity.Libro;
-import es.uclm.library.business.entity.Autor;
-import es.uclm.library.persistence.LibroDAO;
+import Lorem_Software.Library_Maintenance_System.business.entity.Libro;
+import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
+import Lorem_Software.Library_Maintenance_System.persistance.LibroDAO;
 
 @Controller
 public class LibroController {
 	private static final Logger log = LoggerFactory.getLogger(LibroController.class);
 	@Autowired
 	private LibroDAO libroDAO;
-	
+
 	@GetMapping("/guardarLibro")
-	public String altaTitulo(@ModelAttribute String Titulo, String ISBN, String[] autores, Model model) {
-	Libro Nuevo = new Libro(Titulo,ISBN,autores);
-	libroDAO.save(Nuevo);
-	log.info("Libro guardado: " + Nuevo.getTitulo());
-	return Titulo;
+	public String altaTitulo(Model model) {
+		model.addAttribute("libro", new Libro());
+		log.info(libroDAO.findAll().toString());
+		return "libro";
 	}
-	
-	//@PostMapping("/libro")
-	//public String libroSubmit(@ModelAttribute Libro libro, Model model) {
-	//model.addAttribute("libro", libro);
-	//Libro savedLibro = libroDAO.save(libro);
-	//log.info("Saved libro: " + savedLibro);
-	//return "result";
-	//}
-	
+
+	@PostMapping("/guardarLibro")
+	public String libroSubmit(@ModelAttribute Libro libro, Model model) {
+	model.addAttribute("libro", libro);
+	Libro savedLibro = libroDAO.save(libro);
+	log.info("Saved libro: " + savedLibro);
+	return "result";
+	}
+
 }
