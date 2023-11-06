@@ -1,5 +1,7 @@
 package es.uclm.library.business.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,41 +12,49 @@ import jakarta.persistence.Id;
 @Entity
 public class Libro {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+
 	
 	private String Titulo;
-	private String informacion;
-	public int num_ejemplares;
+	@Id
+	private String ISBN;
 
+	private String numReserva;
+	private List<Autor> autores;
 
 	public Libro() {}
-	public Libro(String Titulo, String informacion, int num_ejemplares) {
+	public Libro(String Titulo, String ISBN, String[] autoresdados ) {
 		super();
-		this.setTitulo(Titulo);
-		this.setInformacion(informacion);
-		this.num_ejemplares = num_ejemplares;
+		for (int i = 0; i<autoresdados.length; i++) {
+			String partes[] = autoresdados[i].split("-");
+			if (partes.length == 2) {
+	            		Autor autor = new Autor(partes[0], partes[1]);
+	            		autores.add(autor);
+	        	}
+		}
+		this.Titulo = Titulo;
+		this.ISBN = ISBN;
+		this.setNumReserva(numReserva);
 	}
 	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id_new) {
-		id = id_new;
-	}
 	public String getTitulo() {
 		return Titulo;
 	}
+	
 	public void setTitulo(String titulo) {
 		Titulo = titulo;
 	}
-	public String getInformacion() {
-		return informacion;
+
+	public String getISBN() {
+		return ISBN;
 	}
-	public void setInformacion(String informacion) {
-		this.informacion = informacion;
+	
+	
+	public String getNumReserva() {
+		return numReserva;
+	}
+	
+	public void setNumReserva(String numReserva) {
+		this.numReserva = numReserva;
 	}
 }
 	
