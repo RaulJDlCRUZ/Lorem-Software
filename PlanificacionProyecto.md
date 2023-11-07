@@ -26,7 +26,7 @@ Estas son las diferentes funciones que se llevarán a cabo en nuestro proyecto, 
 - **Hacer un préstamo (RF5)**: Esto va justo después de cualquier modificación de títulos o ejemplares porque, para poder tomar prestado un libro, necesitamos el título del libro más la cantidad de ejemplares que tenemos disponibles.
 - **Hacer una devolución (RF6)**: Este requisito va justo detrás de hacer un préstamo ya que, para poder devolver un libro, debe haber sido previamente prestado.
 - **Aplicar una penalización (RF7)**: Las penalizaciones a un cliente se aplican cuando este no devuelve un ejemplar de un libro a tiempo (pasado el periodo de préstamo), por lo tanto, este requisito depende del préstamo de un libro y de la devolución de este ejemplar.
-- **Reservar un ejemplar (RF8)**: Este requisito se produciría si nos están pidiendo un libro del cual tenemos todos los ejemplares prestados. En este caso, debemos conocer toda la información proporcionada por las funciones anteriores para poder realizar la reserva del ejemplar (los títulos disponibles, los ejemplares, etc.).
+- **Reservar un ejemplar (RF8)**: Este requisito se produciría si nos están pidiendo un libro del cual tenemos todos los ejemplares prestados. En este caso, debemos conocer toda la información proporcionada por las funciones anteriores (los títulos disponibles, los ejemplares, etc.).
 - **Borrar las reservas (RF9)**: Para poder realizar la acción de borrar una o varias reservas, antes de ello, debemos de tener creadas las reservas de los distintos ejemplares. Por ello esta función se posiciona justo a continuación de Reservar un ejemplar.
 
 Se incide con esta estimación de prioridades en que lo primero que debe estar operativo, casi en su totalidad, es el servidor. Esto también se debe a que es un servidor con unas funciones muy limitadas que son esenciales en la gestión de una biblioteca. El cliente pasa así a un plano relativamente secundario frente a este.
@@ -66,6 +66,7 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 |**Iteración**   |  It0      |  It1      |  It2      |  It3      |  It4      |  It5      |  It6      |  It7      |  It8      |  It9      |  It10     |
 |**Coste (€)**   |   30.000  |85.000     |75.000     |70.000     |80.000     |100.000    |50.000     |30.000     |60.000     |60.000     |160.000    |
 |**Duración (d)**|  4        |  3        | 2         |  1        | 1         |  3        |   4       |  3        |  6        |   6       |   5       |
+
 |**Agenda**      |Semana 1   |Semana 2   |Semana 2        |2/3   |Semana 3        |Semana 3   |Semana 4        |Semana 5   |5/6        |Semana 6   |6/7        |
 
 **Agenda**
@@ -81,6 +82,7 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 
 - Los dias señalados (por ejemplo ***1***) son días de festividad nacional marcados por el calendario laboral del año 2023.
 - Los dias 16, 17, 18, 19 y 20 de Diciembre quedarán como días libres, en los cuales se revisará la versión final del proyecto para ver si es necesario realizar algún cambio, actualización o modificación de esta versión final antes de la entrega de nuestro proyecto (el dia 20 de Diciembre).
+
 
 El proyecto está organizado en 2 ciclos:
 
