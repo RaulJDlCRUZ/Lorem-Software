@@ -67,23 +67,6 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 |**Coste (€)**   |   30.000  |85.000     |75.000     |70.000     |80.000     |100.000    |50.000     |30.000     |60.000     |60.000     |160.000    |
 |**Duración (d)**|  4        |  3        | 2         |  1        | 1         |  3        |   4       |  3        |  6        |   6       |   5       |
 
-|**Agenda**      |Semana 1   |Semana 2   |Semana 2        |2/3   |Semana 3        |Semana 3   |Semana 4        |Semana 5   |5/6        |Semana 6   |6/7        |
-
-**Agenda**
-|    SEMANA    |    MES    |    L    |    M    |    X    |    J    |    V    |    S    |
-|:------------:|:---------:|:-------:|:-------:|:-------:|:-------:|:-------:|:-------:|
-|      1       |  Octubre  |    30   |    31   |    ***1***    |    2    |    3    |    4    |
-|      2       | Noviembre |    6    |    7    |    8    |    9    |    10   |    11   |
-|      3       |           |    13   |    14   |    15   |    16   |    17   |    18   |
-|      4       |           |    20   |    21   |    22   |    23   |    24   |    25   |
-|      5       |           |    27   |    28   |    29   |    30   |    1    |    2    |
-|      6       | Diciembre |    4    |    5    |    ***6***    |    7    |    ***8***    |    9    |
-|      7       |           |    11   |    12   |    13   |    14   |    15   |    16   |
-
-- Los dias señalados (por ejemplo ***1***) son días de festividad nacional marcados por el calendario laboral del año 2023.
-- Los dias 16, 17, 18, 19 y 20 de Diciembre quedarán como días libres, en los cuales se revisará la versión final del proyecto para ver si es necesario realizar algún cambio, actualización o modificación de esta versión final antes de la entrega de nuestro proyecto (el dia 20 de Diciembre).
-
-
 El proyecto está organizado en 2 ciclos:
 
 - **El primer ciclo** concluirá el martes 14 de noviembre y abarcará hasta la iteración 5 (que será el producto mínimo viable), dando lugar a la versión 1.0.0 del proyecto.
