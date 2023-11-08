@@ -1,5 +1,7 @@
 Feature 2
 
+<img width="195" alt="ISO Cdu3" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/bea9dff8-b685-48d4-9e5e-25ffbbb806fe">
+
 Actualizar o dar de baja un título
 
 Este requisito o función es bastante importante en nuestro proyecto, ya que, al tener un título debemos de poder modificar su título por si hubiese algún dato erróneo o por si algún dato cambiase con el tiempo y además, también tenemos que poder dar de baja un título ya que, por diferentes motivos, podría nuestro cliente o el administrador de la biblioteca borrar el título, ya sea porque el título ya sea muy antiguo, ya no tengamos más ejemplares porque todos estén ya muy defectuosos, etc.
