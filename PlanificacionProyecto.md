@@ -66,7 +66,6 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 |**Iteración**   |  It0      |  It1      |  It2      |  It3      |  It4      |  It5      |  It6      |  It7      |  It8      |  It9      |  It10     |
 |**Coste (€)**   |   30.000  |85.000     |75.000     |70.000     |80.000     |100.000    |50.000     |30.000     |60.000     |60.000     |160.000    |
 |**Duración (d)**|  4        |  3        | 2         |  1        | 1         |  3        |   4       |  3        |  6        |   6       |   5       |
-|**Agenda**      |Semana 1   |Semana 2   |2/3        |Semana 3   |3/4        |Semana 4   |4/5        |Semana 5   |5/6        |Semana 6   |6/7        |
 
 El proyecto está organizado en 2 ciclos:
 

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Dar de alta Libro</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <h1>Formulario para dar de alta un libro</h1>
+    <form action="#" th:action="@{/guardarLibro}" th:object="${libro}" method="post">
+        <p>Título: <input type="text" th:field="*{Titulo}" /></p>
+        <p>ISBN: <input type="text" th:field="*{ISBN}" /></p>
+        <p>Autores &ltFormato = Autor1;Autor2;...;AutorN&gt: <input type="text" th:field="*{autores}" /></p>
+        <p>
+            <input type="submit" value="Guardar" /> <input type="reset" value="Reset" />
+        </p>
+    </form>
+</body>
+</html>
