@@ -1,24 +1,26 @@
-
+Feature 2
 
 Actualizar o dar de baja un título
 
 Este requisito o función es bastante importante en nuestro proyecto, ya que, al tener un título debemos de poder modificar su título por si hubiese algún dato erróneo o por si algún dato cambiase con el tiempo y además, también tenemos que poder dar de baja un título ya que, por diferentes motivos, podría nuestro cliente o el administrador de la biblioteca borrar el título, ya sea porque el título ya sea muy antiguo, ya no tengamos más ejemplares porque todos estén ya muy defectuosos, etc.
 Para poder actualizar los datos de un título debemos de tener una serie de datos y saber cuál de todos ellos es el dato a cambiar: 
-- 	Título.
--	ISBN.
--	Nombre del autor.
--	Apellido del autor.
--	El tipo del título, es decir, si es libro o es revista.
--	Número de reserva.
+- Título.
+- ISBN.
+- Nombre del autor.
+- Apellido del autor.
+- El tipo del título, es decir, si es libro o es revista.
+- Número de reserva.
+
 Además, para dar de baja un título también es necesario poner todos los datos al igual que en el anterior.
 Al ser un requisito o funcionalidad muy parecida a dar de alta un título y que depende de ella, ya que si no tenemos ningún título creado no podremos actualizar la información de este ni tampoco podremos dar de baja ese título, los errores que podemos tener con esta funcionalidad serán los mismos o muy parecidos a los de dar de alta, incluyendo alguno único de esta funcionalidad:
+
 - Que alguna de las características del título a introducir no coincida con el tipo de dato que se espera, es decir, que introduzcan datos que no corresponden en la casilla necesaria, por ejemplo, el año, se espere un carácter numérico y la persona que vaya a crear el título introduzca en esa casilla una cadena de texto, etc.
 - Que haya algún error con la base de datos del sistema.
 - Que se intente borrar o actualizar un título que no existe.
 
 Además debemos de realizar un control de errores para hacer que estos se minimicen o puedan ser controlados:
--	Comprobar que exista el título del cual vamos a cambiar alguna característica o vamos a borrar, ya que, si no existe ese título no podremos realizar ningún cambio ni eliminarle y nos dará un error.
--	Realizar una comprobación de los datos introducidos, que en una casilla en la que se espere un carácter numérico no se introduzca una cadena de texto, etc.
+- Comprobar que exista el título del cual vamos a cambiar alguna característica o vamos a borrar, ya que, si no existe ese título no podremos realizar ningún cambio ni eliminarle y nos dará un error.
+- Realizar una comprobación de los datos introducidos, que en una casilla en la que se espere un carácter numérico no se introduzca una cadena de texto, etc.
 
 Para este caso de uso tenemos un flujo de eventos que descritos textualmente serian así:
 - Lo primero de todo, el administrador de la biblioteca, que es el encargado de realizar todos los cambios, actualizaciones, modificaciones de la biblioteca entra al software del sistema y se identifica como el administrador.
