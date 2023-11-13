@@ -1,10 +1,10 @@
 package Lorem_Software.Library_Maintenance_System.persistance;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import Lorem_Software.Library_Maintenance_System.business.entity.Libro;
+import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
 
 @Repository
-public interface LibroDAO extends JpaRepository<Libro, String> {
+public interface TituloDAO extends JpaRepository<Titulo, Long> {
 /*
 * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las 
 entidades:
@@ -18,4 +18,5 @@ entidades:
 * 
 * Aquí se podrían definir consultas de selección más específicas y complejas
 **/
+
 }
