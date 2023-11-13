@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/template :: head">
+    <title>Dar de Alta un Autor de Titulo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/template :: header"></header>
+    <div class="container">
+      <h1 th:text="${titulo}"></h1>
+    </div>
+    <div class="container">
+      <form
+        action="#"
+        th:action="@{/AltaAutor}"
+        th:object="${autor}"
+        method="post">
+        <!--Sin esto primero, al modificar se crea uno nuevo, queremos mantener el ID y cambiar el resto-->
+        <p> <input type="hidden" th:field="*{id}"/> </p>
+        <p>Nombre: <input type="text" th:field="*{nombre}" /></p>
+        <p>Apellidos: <input type="text" th:field="*{apellido}" /></p>
+        <p>
+          <input type="submit" value="Submit" />
+          <input type="reset" value="Limpiar" />
+        </p>
+      </form>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="ID">ID</th>
+            <th scope="Nombre">Nombre</th>
+            <th scope="Apellidos">Apellidos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="cl:${listautores}">
+            <th scope="row" th:text="${cl.id}"></th>
+            <th scope="row" th:text="${cl.nombre}"></th>
+            <th scope="row" th:text="${cl.apellido}"></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
