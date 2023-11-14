@@ -86,12 +86,12 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 
 El proyecto está organizado en 2 ciclos:
 
-- **El primer ciclo** concluirá el martes 14 de noviembre y abarcará hasta la iteración 5 (que será el producto mínimo viable), dando lugar a la versión 1.0.0 del proyecto.
+- **El primer ciclo** concluirá el martes 14 de noviembre y abarcará hasta la iteración 4, dando lugar a la versión 1.0.0 del proyecto. Esta versión será ligeramente inferior al producto mínimo viable solicitado por el cliente, pero, aún así, mostrará su funcionalidad con precisión y será una demostración ilustrativa para el cliente. Esta modificación del primer ciclo se ha dado por los mismos motivos por los que se ha alterado la agenda inicial (problemas con las herramientas y estimación inicial poco precisa del esfuerzo necesario en implementación)
 - **El segundo ciclo** abarcará el resto de las iteraciones y finalizará el miércoles 20 de diciembre, dando lugar a la versión 2.0.0 del sistema. Cabe resaltar que los períodos establecidos para cada iteración de este ciclo están distribuidos tomando como punto de partida el día 15 de noviembre.
 
 Se ha de tener en cuenta que la duración de cada iteración está estimada de manera que, pudiendo invertir relativamente poco tiempo diario (entre 4 personas), se pueda realizar en el plazo estimado. Las horas de trabajo diarias no son siempre las mismas, sino que varían en función de la disponibilidad de cada uno de los recursos y la necesidad del proyecto. También es importante resaltar que no existe agrupación de funciones en cuanto a recursos en Lorem Software.
 
-**Se ha actualizado a posteriori tanto los esfuerzos estimados como los días planificados en la agenda para los primeros casos de uso debido a problemas imprevistos en la implementación y a un mayor esfuerzo necesario no inicialmente estimado con precisión**
+**Se ha actualizado a posteriori tanto los esfuerzos estimados como los días planificados en la agenda para los primeros casos de uso debido a problemas imprevistos con algunas herramientas y a un mayor esfuerzo necesario en implementación, no estimado inicialmente con precisión**
 
 ## Riesgos
 
