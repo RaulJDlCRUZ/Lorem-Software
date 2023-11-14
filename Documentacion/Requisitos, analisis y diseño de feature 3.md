@@ -1,8 +1,8 @@
 Feature 3
 
-Dar de alta un ejemplar.
-
 <img width="170" alt="ISO Cdu3" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/4c72cb2e-ebfe-4e01-9501-3890d93692bf">
+
+Dar de alta un ejemplar
 
 Este requisito o función es, al igual que los dos requisitos anteriores, bastante importante en nuestro proyecto. Al tener un título, debemos de poder crear ejemplares de este mismo para así poder realizar el préstamo de ejemplares de ese título, ya que, si no creamos ningún ejemplar, no podremos realizar prácticamente ninguna de las funciones siguientes. 
 Para poder dar de alta un ejemplar de cualquier título debemos de tener una serie de datos, lo cuales serían estos: 
