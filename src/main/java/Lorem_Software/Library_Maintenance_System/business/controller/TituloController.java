@@ -33,9 +33,15 @@ public class TituloController {
 
 	Titulo titulo=new Titulo(); //TODO hacer la inicialización en constructor
 
+	/* Constante para permitir ordenamiento de titulos. 0=no, 1=si */
+	final int __NAME__SORT = 1;
+
 	@GetMapping("/ListarTitulos")
 	public String listarTitulos(Model model){
 		List<Titulo> listadoTitulos = tituloDAO.findAll();
+		if (__NAME__SORT == 1) {
+			Collections.sort(listadoTitulos, new TitleComparator());
+		}
 
 		model.addAttribute("titulo", "Listado de Títulos");
 		model.addAttribute("titulos", listadoTitulos);
@@ -51,7 +57,7 @@ public class TituloController {
 		// Atributo de lista de autores, para poder mostrarlos en la tabla
 		List<Autor> listadoAutores = autorDAO.findAll();
 		// Ordenamos la lista por nombre
-		Collections.sort(listadoAutores, new TitleComparator());
+		Collections.sort(listadoAutores, new AutorComparator());
 		
 
 		model.addAttribute("listautores", listadoAutores);
@@ -69,7 +75,7 @@ public class TituloController {
 		log.info("Saved title: " + savedTitulo);
 		/* Añadir 1 ejemplar de manera predeterminada */
 		Ejemplar ejemplar = new Ejemplar();
-		ejemplar.setTitulo(savedTitulo);
+		ejemplar.setTit(savedTitulo);
 		ejemplarDAO.save(ejemplar);
 		return "redirect:/ListarTitulos";
 	}
@@ -78,7 +84,7 @@ public class TituloController {
 	public String formularioEditarTitulo(@PathVariable("id") long id, Model model) {
 		Optional<Titulo> titulo = tituloDAO.findById(id);
 		List<Autor> listadoAutores = autorDAO.findAll();
-		Collections.sort(listadoAutores, new TitleComparator());
+		Collections.sort(listadoAutores, new AutorComparator());
 		model.addAttribute("titulo", titulo);
 		// Aunque vaya a editar el título, me llevo todos los autores, para poderlos cambiar
 		model.addAttribute("listautores", listadoAutores);
@@ -93,14 +99,32 @@ public class TituloController {
 
 	@GetMapping("delete/{id}")
 	public String eliminarTitulo(@PathVariable("id") long idTitulo){
-		tituloDAO.deleteById(idTitulo);
+		/*
+		Se obtiene el título con id específico, y se guarda momentáneamente en una lista para
+		poder iterar sobre los ejemplares, para guardarlos así en una lista. Así, podemos quitar
+		los ejemplares uno a uno antes de borrar el título
+		*/
+		Titulo t = tituloDAO.findById(idTitulo).get();
+		List<Long> ids = List.of(Long.valueOf(idTitulo));
+		List<Ejemplar> ejemplareslibro = ejemplarDAO.findAllById(ids);
+		for (Ejemplar e : ejemplareslibro)
+			ejemplarDAO.delete(e);
+
+		tituloDAO.delete(t);
 		return "redirect:/ListarTitulos";
 	}
 
-	class TitleComparator implements java.util.Comparator<Autor> {
+	class AutorComparator implements java.util.Comparator<Autor> {
 		@Override
 		public int compare(Autor a, Autor b) {
 			return a.getNombre().compareTo(b.getNombre());
+		}
+	}
+
+	class TitleComparator implements java.util.Comparator<Titulo> {
+		@Override
+		public int compare(Titulo a, Titulo b) {
+			return a.getTitulo().compareTo(b.getTitulo());
 		}
 	}
 

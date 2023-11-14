@@ -36,6 +36,25 @@ public class EjemplarController {
 
     Ejemplar ejemplar = new  Ejemplar();
 
+    @GetMapping("/ListarEjemplares/{idTitulo}")
+    public String listarEjemplares(@PathVariable("idTitulo") long idTitulo, Model model){
+        List<Ejemplar> ejemplaresProv = ejemplarDAO.findAll();
+        List<Ejemplar> ejemplares =new ArrayList<Ejemplar>();
+        String TituloName="";
+
+        for(Ejemplar e:ejemplaresProv){
+            if(e.getTit().getId().equals(idTitulo)){
+                TituloName=e.getTit().getTitulo();
+                ejemplares.add(e);
+            }
+        }
+
+        model.addAttribute("ListEjemplarHeader", "Lista de Ejemplares de "+ TituloName);
+        model.addAttribute("ejemplares", ejemplares);
+
+        return "ejemplar/ListarEjemplares";
+    }
+
     @GetMapping("/AltaEjemplar")
     public String altaEjemplar(Model model) {
         //Atributo para título de la página
@@ -66,6 +85,12 @@ public class EjemplarController {
         ejemplarDAO.save(ejemplar);
         return "redirect:/ListarTitulos";
     }
+
+    @GetMapping("/AltaEjemplar/delete/{IdPrestamo}")
+	public String eliminarTitulo(@PathVariable("IdPrestamo") long IdPrestamo){
+		ejemplarDAO.deleteById(IdPrestamo);
+		return "redirect:/ListarTitulos";
+	}
 
     class TitleComparator implements java.util.Comparator<Titulo> {
 		@Override

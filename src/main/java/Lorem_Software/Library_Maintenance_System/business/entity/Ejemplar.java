@@ -32,12 +32,12 @@ public class Ejemplar {
 		this.IdPrestamo = IdPrestamo;
 	}
 
-    public Titulo getTitulo() {
+    public Titulo getTit() {
         return tit;
     }
 
-    public void setTitulo(Titulo titulo) {
-        this.tit = titulo;
+    public void setTit(Titulo tit) {
+        this.tit = tit;
     }
 
 }
