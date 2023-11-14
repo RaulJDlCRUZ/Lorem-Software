@@ -34,11 +34,11 @@ Se incide con esta estimación de prioridades en que lo primero que debe estar o
 
 |REF        |CDU        |Requisitos  |Análisis    |Diseño    |Implementación    |Pruebas    |
 |:---------:|:---------:|:----------:|:----------:|:--------:|:----------------:|:---------:|
-|RF1        |CDU1       |2           |1           |1         |18                |1          |
-|RF2        |CDU2       |4           |1           |1         |9                 |5          |
+|RF1        |CDU1       |2           |1           |1         |36               |1          |
+|RF2        |CDU2       |4           |1           |1         |18                 |6          |
 |RF3        |CDU3       |2           |1           |1         |5               |3          |
 |RF4        |CDU4       |1           |1           |1         |3                 |5          |
-|RF5        |CDU5       |6           |1           |1         |11                |5          |
+|RF5        |CDU5       |6           |1           |1         |22                |5          |
 |RF6        |CDU6       |2           |1           |1         |6                 |1          |
 |RF7        |CDU7       |1           |1           |1         |3                 |2          |
 |RF8        |CDU8       |3           |1           |1         |8                 |3          |
@@ -65,8 +65,10 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 |----------------|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
 |**Iteración**   |  It0      |  It1      |  It2      |  It3      |  It4      |  It5      |  It6      |  It7      |  It8      |  It9      |  It10     |
 |**Coste (€)**   |   30.000  |85.000     |75.000     |70.000     |80.000     |100.000    |50.000     |30.000     |60.000     |60.000     |160.000    |
-|**Duración (d)**|  4        |  3        | 2         |  1        | 1         |  3        |   4       |  3        |  6        |   6       |   5       |
-|**Agenda**      |Semana 1   |Semana 2   |Semana 2        |2/3   |Semana 3        |Semana 3   |Semana 4        |Semana 5   |5/6        |Semana 6   |6/7        |
+|**Duración (d)**|  4        |  5        | 3         |  1        | 1         |  4        |   4       |  3        |  6        |   6       |   5       |
+|**Agenda**      |Semana 1   |Semana 1/2   |Semana 2/3 |semana 3   |Semana 3   |Semana 3 |Semana 4 |Semana 4/5   |semana 5/6        |Semana 7   | semana 7/8        |
+
+
 
 **Agenda**
 |    SEMANA    |    MES    |    L    |    M    |    X    |    J    |    V    |    S    |
@@ -88,6 +90,8 @@ El proyecto está organizado en 2 ciclos:
 - **El segundo ciclo** abarcará el resto de las iteraciones y finalizará el miércoles 20 de diciembre, dando lugar a la versión 2.0.0 del sistema. Cabe resaltar que los períodos establecidos para cada iteración de este ciclo están distribuidos tomando como punto de partida el día 15 de noviembre.
 
 Se ha de tener en cuenta que la duración de cada iteración está estimada de manera que, pudiendo invertir relativamente poco tiempo diario (entre 4 personas), se pueda realizar en el plazo estimado. Las horas de trabajo diarias no son siempre las mismas, sino que varían en función de la disponibilidad de cada uno de los recursos y la necesidad del proyecto. También es importante resaltar que no existe agrupación de funciones en cuanto a recursos en Lorem Software.
+
+**Se ha actualizado a posteriori tanto los esfuerzos estimados como los días planificados en la agenda para los primeros casos de uso debido a problemas imprevistos en la implementación y a un mayor esfuerzo necesario no inicialmente estimado con precisión**
 
 ## Riesgos
 
