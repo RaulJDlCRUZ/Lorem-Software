@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import jakarta.persistence.PreRemove;
 
-import Lorem_Software.Library_Maintenance_System.business.controller.TituloController.TitleComparator;
+// import Lorem_Software.Library_Maintenance_System.business.controller.TituloController.TitleComparator;
 import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
 import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
 import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
@@ -85,7 +85,7 @@ public class AutorController {
 		for (Titulo t : a.getTitulos()){
 			t.getAutores().remove(a);
 		}
-	}//
+	}
 
 	class TitleComparator implements java.util.Comparator<Autor> {
 		@Override

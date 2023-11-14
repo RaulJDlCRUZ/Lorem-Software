@@ -15,17 +15,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
 import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
-import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
+import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
+
 import Lorem_Software.Library_Maintenance_System.persistance.TituloDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.EjemplarDAO;
 
 @Controller
 public class TituloController {
 	private static final Logger log = LoggerFactory.getLogger(TituloController.class);
 	@Autowired
 	private TituloDAO tituloDAO;
-
 	@Autowired
 	private AutorDAO autorDAO;
+	@Autowired
+	private EjemplarDAO ejemplarDAO;
 
 	Titulo titulo=new Titulo(); //TODO hacer la inicialización en constructor
 
@@ -59,10 +63,14 @@ public class TituloController {
 	@PostMapping("/guardarTitulo")
 	public String libroSubmit(@ModelAttribute Titulo titulo, Model model) {
 		this.titulo = titulo;
-		model.addAttribute("libro", titulo);
-		/* En este punto tengo que tener el autor <- llamo a agregarAutor */
+		model.addAttribute("titulo", titulo);
+		/* En este punto tengo que tener el autor (ya incluido en dropdown en titulo) */
 		Titulo savedTitulo = tituloDAO.save(titulo);
 		log.info("Saved title: " + savedTitulo);
+		/* Añadir 1 ejemplar de manera predeterminada */
+		Ejemplar ejemplar = new Ejemplar();
+		ejemplar.setTitulo(savedTitulo);
+		ejemplarDAO.save(ejemplar);
 		return "redirect:/ListarTitulos";
 	}
 
