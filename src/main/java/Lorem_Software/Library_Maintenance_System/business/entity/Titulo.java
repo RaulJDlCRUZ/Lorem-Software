@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Titulo {
@@ -36,6 +37,9 @@ public class Titulo {
 		inverseJoinColumns = @JoinColumn(name = "autor_id"))
 		// @OnDelete(action = OnDeleteAction.CASCADE)
 	Set<Autor> autores;
+
+	@OneToMany(mappedBy="tit", cascade=CascadeType.ALL)
+	private Set<Ejemplar> ejemplares;
 
 	public Titulo() {
 	}
@@ -85,5 +89,13 @@ public class Titulo {
 	public void setAutores(Set<Autor> autores) {
 		this.autores = autores;
 	}
+
+	public Set<Ejemplar> getEjemplares() {
+		return ejemplares;
+	}
+
+	public void setEjemplares(Set<Ejemplar> ejemplares) {
+		this.ejemplares = ejemplares;
+	}	
 
 }

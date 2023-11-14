@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-    <head th:replace="plantilla_bs/template :: head">
-        <title>Títulos inscritos</title>
+  <head th:replace="plantilla_bs/template :: head">
+    <title>Títulos inscritos</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    </head>
-    <body>
-        <div class="container">
-            <h1 th:text="${titulo}"></h1>
-        </div>
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/template :: header"></header>
+    <div class="container">
+      <h1 th:text="${titulo}"></h1>
+    </div>
 
-        <div class="container">
-          <a class="btn btn-primary btn-sm" th:href="@{guardarTitulo}" th:text="'Nuevo Título'" title="Insertar Nuevo Título"></a>
-            <table class="table">
-                <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">ISBN</th>
-                    <th scope="col">Nombre del título</th>
-                    <th scope="col">Editar</th>
-                    <th scope="col">Eliminar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr th:each="tl:${titulos}">
-                    <th scope="row" th:text="${tl.id}"></th>
-                    <td th:text="${tl.ISBN}"></td>
-                    <td th:text="${tl.Titulo}"></td>
-                  </tr>
-                </tbody>
-              </table>
-        </div>
-    </body>
+    <div class="container">
+      <a
+        class="btn btn-primary btn-sm"
+        th:href="@{guardarTitulo}"
+        th:text="'Nuevo Título'"
+        title="Insertar Nuevo Título"
+      ></a>
+      <a
+        class="btn btn-primary btn-sm"
+        th:href="@{AltaEjemplar}"
+        th:text="'Añadir Ejemplar'"
+        title="Añadir un nuevo ejemplar"
+      ></a>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Nombre del título</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="tl:${titulos}">
+            <th scope="row" th:text="${tl.id}"></th>
+            <td th:text="${tl.ISBN}"></td>
+            <td th:text="${tl.Titulo}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
 </html>
