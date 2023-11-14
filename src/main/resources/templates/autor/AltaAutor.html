@@ -20,18 +20,20 @@
         <p>Nombre: <input type="text" th:field="*{nombre}" /></p>
         <p>Apellidos: <input type="text" th:field="*{apellido}" /></p>
         <p>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Guardar" />
           <input type="reset" value="Limpiar" />
         </p>
       </form>
     </div>
     <div class="container">
       <table class="table">
-        <thead>
+        <thead class="thead-dark">
           <tr>
             <th scope="ID">ID</th>
             <th scope="Nombre">Nombre</th>
             <th scope="Apellidos">Apellidos</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -39,6 +41,25 @@
             <th scope="row" th:text="${cl.id}"></th>
             <th scope="row" th:text="${cl.nombre}"></th>
             <th scope="row" th:text="${cl.apellido}"></th>
+            <td>
+              <a
+                class="btn btn-success btn-sm"
+                th:href="@{/AltaAutor/edit/} + ${cl.id}"
+                th:text="Editar"
+                title="Editar el Autor"
+              >
+              </a>
+            </td>
+            <td>
+              <a
+                class="btn btn-danger btn-sm"
+                th:href="@{/AltaAutor/delete/} + ${cl.id}"
+                th:text="Eliminar"
+                title="Eliminar el Autor"
+                onclick="return confirm('Estás seguro de eliminar el Autor?');"
+              >
+              </a>
+            </td>
           </tr>
         </tbody>
       </table>

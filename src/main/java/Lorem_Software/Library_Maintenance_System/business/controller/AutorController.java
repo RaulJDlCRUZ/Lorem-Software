@@ -30,7 +30,7 @@ public class AutorController {
     Autor autor=new Autor(); //TODO hacer la inicialización en constructor
 	// CONSTANTE PARA ORDENAR POR NOMBRE O NO
 	final int __NAME__SORT = 1;
-    
+
 	@GetMapping("/AltaAutor")
 	public String altaAutor(Model model) {
         List<Autor> listadoAutores = autorDAO.findAll();
@@ -54,27 +54,27 @@ public class AutorController {
 		Autor savedAutor = autorDAO.save(autor);
 		log.info("Saved autor: " + savedAutor);
 		// titulo.addAutor(autor);
-		return "autor/NuevoAutor";
+		return "redirect:/AltaAutor";
 	}
 
 	@GetMapping("/AltaAutor/edit/{id}")
 	public String formularioEditarAutor(@PathVariable("id") long id, Model model) {
 		Optional<Autor> autor = autorDAO.findById(id);
 		model.addAttribute("autor", autor);
-		return "autor/NuevoAutor";
+		return "autor/AltaAutor";
 	}
 
 	@PostMapping("/AltaAutor/update/{id}")
 	public String actualizarAutor(@PathVariable("id") long id, Autor autor) {
 		autorDAO.save(autor);
-		return "autor/AltaAutor";
+		return "redirect:/AltaAutor";
 	}
 
 	@GetMapping("/AltaAutor/delete/{id}")
 	public String deleteAutor(@PathVariable("id") long id) {
 		suprimirAsociacionesAutorLibro(autorDAO.findById(id));
 		autorDAO.deleteById(id);
-		return "redirect:/autor/AltaAutor";
+		return "redirect:/AltaAutor";
 	}
 
 	@PreRemove
