@@ -8,7 +8,7 @@ Para poder realizar un préstamo de cualquier ejemplar debemos de tener una seri
 -	Identificador de ejemplar
 -	Fecha inicio.
 - 	Fecha fin.	
-- 	Activo.  
+- 	Activo.
 Los posibles errores que podemos tener con esta funcionalidad, por su estrecha relación, estarán relacionados con los de las funcionalidades de hacer y devolver préstamo mencionadas anteriormente:
 - Que alguna de las características que vayamos a introducir del ejemplar que vamos a prestar no coincida con los datos de ese mismo ejemplar que esta creado y por lo tanto haya problemas pensando que no existe ese ejemplar cuando sí.
 - Que haya algún error con la base de datos del sistema.
