@@ -4,7 +4,8 @@ Hacer un préstamo.
 
 - Este requisito o función consiste en realizar un préstamo a un cliente de un ejemplar creado sobre un título en nuestro proyecto. Las funciones previas son, como ya se ha 
   indicado previamente, necesarias para desarrollar esta, por ello se sitúa en la posición asignada.
-- Para poder realizar un préstamo de cualquier ejemplar debemos de tener una serie de datos, lo cuales serían estos: 
+- Para poder realizar un préstamo de cualquier ejemplar debemos de tener una serie de datos, lo cuales serían estos:
+    - ISBN.
     -	Id Usuario.
     -	Identificador de ejemplar
     -	Fecha inicio.
