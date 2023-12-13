@@ -12,16 +12,14 @@ Para esta clase los parámetros serían los siguientes:
 <img width="840" alt="Autor" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/7b5fa612-eb04-4634-9837-522d414a49cb">  
 
 Para esta clase los parámetros serían los siguientes:
--	Nombre: sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el nombre del autor, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números.
--	Apellidos: sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el apellido del autor, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser unos apellidos no deben de meter números.
--	Id: Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
+-	**Nombre:** sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el nombre del autor, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números.
+-	**Apellidos:** sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el apellido del autor, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser unos apellidos no deben de meter números.
+-	**Id:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
 
 -	Clase Ejemplar:
-  <img width="856" alt="Ejemplar" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/e4e47e42-0b69-4222-80f2-7480a7c218b5">
+  <img width="856" alt="Ejemplar" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/e4e47e42-0b69-4222-80f2-7480a7c218b5">  
 
-
- 
 Para esta clase los parámetros serían los siguientes:
--	IdPrestamo: Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
--	Título: sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el nombre del libro o ejemplar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner solo números porque, al ser un título no deben de meter solo números.
+-	**IdPrestamo:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
+-	**Título:** sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el nombre del libro o ejemplar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner solo números porque, al ser un título no deben de meter solo números.
 
