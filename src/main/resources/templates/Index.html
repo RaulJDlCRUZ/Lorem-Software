@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/template :: head">
+    <title>Realizar un nuevo Préstamo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <div class="container d-flex justify-content-center gap-5 mt-5">
+      <h1>BIENVENIDO AL SISTEMA DE BIBLIOTECA DE LOREM SOFTWARE</h1>
+    </div>
+
+    <div
+      class="container d-flex justify-content-center gap-5 mt-5"
+      th:action="@{/}"
+    >
+      <a
+        class="btn btn-primary btn-sm"
+        th:href="@{ListarTitulos}"
+        th:text="'Acceder a las Funciones de Administrador'"
+        title="Entra al sistema como si fueras un administrador"
+      ></a>
+      <a
+        class="btn btn-primary btn-sm"
+        th:href="@{ListarEjemplares}"
+        th:text="'Acceder a las Funiones de Bibliotecario/Cliente'"
+        title="Entra al sistema como si fueras un trabajador de la biblioteca o un cliente"
+      ></a>
+    </div>
+    <footer th:fragment="footer">
+        <div class="container d-flex justify-content-center gap-5 mt-5">
+            <p>&copy; 2023 Lorem Software</p>
+        </div>
+    </footer>
+  </body>
+</html>

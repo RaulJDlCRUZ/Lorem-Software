@@ -1,20 +1,20 @@
 ----------------------------------------------------------------
-Wed Oct 18 21:01:01 CEST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018b-4429-9ff7-0000011b7458 
-on database directory C:\Users\raulj\git\Lorem-Software\Lorem-Software\Library_Maintenance_System\database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
-Loaded from file:/C:/Users/raulj/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+Thu Dec 14 00:14:07 CET 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-6575-7b86-00000286c9e8 
+on database directory C:\Users\pablo\git\Lorem-Software\database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
+Loaded from file:/C:/Users/pablo/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=21+35-LTS-2513
-user.dir=C:\Users\raulj\git\Lorem-Software\Lorem-Software\Library_Maintenance_System
-os.name=Windows 11
+user.dir=C:\Users\pablo\git\Lorem-Software
+os.name=Windows 10
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
 ----------------------------------------------------------------
-Wed Oct 18 21:04:35 CEST 2023:
-Shutting down instance a816c00e-018b-4429-9ff7-0000011b7458 on database directory C:\Users\raulj\git\Lorem-Software\Lorem-Software\Library_Maintenance_System\database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
-Wed Oct 18 21:04:35 CEST 2023 Thread[#86,Thread-19,5,main] Cleanup action starting
+Thu Dec 14 00:14:47 CET 2023:
+Shutting down instance a816c00e-018c-6575-7b86-00000286c9e8 on database directory C:\Users\pablo\git\Lorem-Software\database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@33909752 
+Thu Dec 14 00:14:48 CET 2023 Thread[#75,Thread-19,5,main] Cleanup action starting
 ERROR XBM0I: Directory database cannot be removed.
 	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:299)
 	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:294)
@@ -29,7 +29,7 @@ ERROR XBM0I: Directory database cannot be removed.
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
 Cleanup action completed
-Wed Oct 18 21:04:35 CEST 2023 Thread[#86,Thread-19,5,main] Cleanup action starting
+Thu Dec 14 00:14:48 CET 2023 Thread[#75,Thread-19,5,main] Cleanup action starting
 ERROR XBM0I: Directory database cannot be removed.
 	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:299)
 	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:294)

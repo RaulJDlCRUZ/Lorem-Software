@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-  <head th:replace="plantilla_bs/template :: head">
+  <head th:replace="plantilla_bs/AdminTempl :: head">
     <title>Lista de Ejemplares</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
-    <header th:replace="plantilla_bs/template :: header"></header>
+    <header th:replace="plantilla_bs/AdminTempl :: header"></header>
     <div class="container">
       <h1 th:text="${ListEjemplarHeader}"></h1>
     </div>
@@ -18,12 +18,12 @@
             </thead>
             <tbody>
                 <tr th:each="ej:${ejemplares}">
-                    <th scope="row" th:text="${ej.IdPrestamo}"></th>
+                    <th scope="row" th:text="${ej.IdEjemplar}"></th>
                     <td th:text="${ej.tit.getTitulo()}"></td>
                     <td>
                         <a
                           class="btn btn-danger btn-sm"
-                          th:href="@{/AltaEjemplar/delete/} + ${ej.IdPrestamo}"
+                          th:href="@{/AltaEjemplar/delete/} + ${ej.IdEjemplar}"
                           th:text="Eliminar"
                           title="Eliminar el Ejemplar"
                           onclick="return confirm('Estás seguro de eliminar el Ejemplar?');"

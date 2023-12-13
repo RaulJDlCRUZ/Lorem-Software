@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/UserTempl :: head">
+    <title>Préstamos activos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/UserTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${titulo}"></h1>
+    </div>
+
+    <div class="container">
+      <a
+        class="btn btn-primary btn-sm"
+        th:href="@{HacerPrestamo}"
+        th:text="'Formar un nuevo Préstamo'"
+        title="Formar un prétamo"
+      ></a>
+      <a
+        class="btn btn-primary btn-sm"
+        th:href="@{AltaUsuario}"
+        th:text="'Añadir un Nuevo Usuario'"
+        title="Añadir un nuevo usuario"
+      ></a>
+      <a
+        class="btn btn-primary btn-sm"
+        th:href="@{/}"
+        th:text="'Volver al Inicio'"
+        title="Volver a la selección inicial"
+      ></a>
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Título del Libro</th>
+            <th scope="col">Número de Ejemplar</th>
+            <th scope="col">¿Disponible?</th>
+            <th scope="col">Reservado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="ej:${ejemplares}">
+            <th scope="row" th:text="${ej.tit.getTitulo()}"></th>
+            <td th:text="${ej.IdEjemplar}"></td>
+            <td th:switch="${ej.prestamo}">
+              <span th:case="${null}">No hay préstamo</span>
+              <span th:case="*">
+                <span th:if="${ej.prestamo.isActivo()}">Prestado</span>
+                <span th:if="${!ej.prestamo.isActivo()}">Disponible</span>
+              </span>
+            </td>
+            <td>No Implementado</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

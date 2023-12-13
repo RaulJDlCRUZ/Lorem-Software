@@ -1,103 +1,93 @@
 package Lorem_Software.Library_Maintenance_System.business.entity;
 
-import java.util.Date;
-import java.util.Set;
+import java.time.LocalDate;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+// import java.util.List;
+// import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+//import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 
 @Entity
 public class Prestamo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idPrestamo;
+    private long IdPrestamo;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+    @Column
+    private LocalDate fechaInicio;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+    @Column
+    private LocalDate fechaFin;
 
-    private Boolean activo;
-
-    @ManyToOne
-    @JoinColumn(name = "titulo_id") 
-    private Titulo tit;
+    @Column
+    private boolean activo;
 
     @OneToOne
     @JoinColumn(name="ejemplar_id")
-    private Ejemplar ejemplar;
+    private Ejemplar ejem;
+
+    @ManyToOne
+    @JoinColumn(name="usuario_id")
+    private Usuario user;
 
     public Prestamo() {
-        // Constructor vacío
+
     }
 
-    public Prestamo(Date fechaInicio, Date fechaFin, Long idPrestamo) {
-    	this.fechaInicio=fechaInicio;
-    	this.fechaFin=fechaFin;// Constructor vacío
-    	this.idPrestamo=idPrestamo;
-    }
-    // Constructor con parámetros si se desea
-    // ...
-
-    // Getters y setters
-    // ...
-
-    public Long getId() {
-        return idPrestamo;
+    public long getIdPrestamo() {
+        return IdPrestamo;
     }
 
-    public void setId(Long id) {
-        this.idPrestamo = id;
+    public void setIdPrestamo(long idPrestamo) {
+        IdPrestamo = idPrestamo;
     }
 
-    public Date getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 
-    public Boolean getActivo() {
+    public boolean isActivo() {
         return activo;
     }
 
-    public void setActivo(Boolean activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 
-    public Titulo getTitulo() {
-        return tit;
+    public Ejemplar getEjem() {
+        return ejem;
     }
 
-    public void setTitulo(Titulo titulo) {
-        this.tit = titulo;
+    public void setEjem(Ejemplar ejemplar) {
+        this.ejem = ejemplar;
     }
 
-    public Ejemplar getEjemplar() {
-        return ejemplar;
+    public Usuario getUser(){
+        return user;
     }
 
-    public void setEjemplares(Ejemplar ejemplares) {
-        this.ejemplar = ejemplares;
+    public void setUser(Usuario usuario){
+        this.user = usuario;
     }
+
 }

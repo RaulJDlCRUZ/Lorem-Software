@@ -16,28 +16,24 @@ public class Ejemplar {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long IdEjemplar;
-    
-
-    @OneToOne (mappedBy = "ejemplar")
-    private Prestamo prestamo;
-    
 
     @ManyToOne
     @JoinColumn(name="titulo_id")
     private Titulo tit;
-    
+
+    @OneToOne(mappedBy = "ejem")
+    private Prestamo prestamo;
 
     public Ejemplar () {
 
     }
-    
-    
+
     public Long getIdEjemplar() {
 		return IdEjemplar;
 	}
 
-    public void setIdEjemplar(Long IdPrestamo) {
-		this.IdEjemplar = IdPrestamo;
+    public void setIdEjemplar(Long IdEjemplar) {
+		this.IdEjemplar = IdEjemplar;
 	}
 
     public Titulo getTit() {
@@ -46,6 +42,14 @@ public class Ejemplar {
 
     public void setTit(Titulo tit) {
         this.tit = tit;
+    }
+
+    public Prestamo getPrestamo(){
+        return prestamo;
+    }
+
+    public void setPrestamo(Prestamo nPrestamo){
+        this.prestamo = nPrestamo;
     }
 
 }
