@@ -41,6 +41,9 @@ public class Titulo {
 	@OneToMany(mappedBy="tit", cascade=CascadeType.ALL)
 	private Set<Ejemplar> ejemplares;
 
+	@OneToMany(mappedBy = "tit", cascade = CascadeType.ALL)
+    private Set<Prestamo> prestamos;
+	
 	public Titulo() {
 	}
 

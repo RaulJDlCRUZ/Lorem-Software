@@ -8,28 +8,36 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Ejemplar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long IdPrestamo;
+    private long IdEjemplar;
+    
+
+    @OneToOne (mappedBy = "ejemplar")
+    private Prestamo prestamo;
+    
 
     @ManyToOne
     @JoinColumn(name="titulo_id")
     private Titulo tit;
+    
 
     public Ejemplar () {
 
     }
-
-    public Long getIdPrestamo() {
-		return IdPrestamo;
+    
+    
+    public Long getIdEjemplar() {
+		return IdEjemplar;
 	}
 
-    public void setIdPrestamo(Long IdPrestamo) {
-		this.IdPrestamo = IdPrestamo;
+    public void setIdEjemplar(Long IdPrestamo) {
+		this.IdEjemplar = IdPrestamo;
 	}
 
     public Titulo getTit() {

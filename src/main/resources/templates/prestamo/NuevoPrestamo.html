@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/template :: head">
+    <title>Crear Nuevo Préstamo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <header th:replace="plantilla_bs/template :: header"></header>
+    <div class="container">
+      <h1>Crear Nuevo Préstamo</h1>
+    </div>
+
+    <div class="container">
+      <form
+        id="form1"
+        action="#"
+        th:action="@{/AltaPrestamo}"
+        th:object="${prestamo}"
+        method="post"
+      >
+
+        <p>Fecha de Inicio: <input type="date" th:field="*{fechaInicio}" /></p>
+        <p>Fecha de Fin: <input type="date" th:field="*{fechaFin}" /></p>
+        <p>Activo: <input type="checkbox" th:field="*{activo}" /></p>
+        
+        <!-- Select para elegir el título asociado al préstamo -->
+        <div class="form-group row">
+          <label for="title">Título</label>
+          <select
+            class="from-control form-control-sm col-md-6"
+            id="ejemplar"
+            th:field="*{ejemplar}"
+          >
+            <option
+              th:each="e:${listaEjemplares}"
+              th:value="${e.IdEjemplar}"
+              
+              th:text="${e.tit.getTitulo() + '-' + e.IdEjemplar}"
+            ></option>
+          </select>
+        </div>
+
+        <p>
+          <input type="submit" value="Guardar" />
+          <input type="reset" value="Limpiar" />
+        </p>
+      </form>
+    </div>
+  </body>
+</html>
