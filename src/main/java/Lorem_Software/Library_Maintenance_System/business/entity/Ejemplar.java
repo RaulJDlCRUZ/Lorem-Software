@@ -8,28 +8,32 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Ejemplar {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long IdPrestamo;
+    private long IdEjemplar;
 
     @ManyToOne
     @JoinColumn(name="titulo_id")
     private Titulo tit;
 
+    @OneToOne(mappedBy = "ejem")
+    private Prestamo prestamo;
+
     public Ejemplar () {
 
     }
 
-    public Long getIdPrestamo() {
-		return IdPrestamo;
+    public Long getIdEjemplar() {
+		return IdEjemplar;
 	}
 
-    public void setIdPrestamo(Long IdPrestamo) {
-		this.IdPrestamo = IdPrestamo;
+    public void setIdEjemplar(Long IdEjemplar) {
+		this.IdEjemplar = IdEjemplar;
 	}
 
     public Titulo getTit() {
@@ -38,6 +42,14 @@ public class Ejemplar {
 
     public void setTit(Titulo tit) {
         this.tit = tit;
+    }
+
+    public Prestamo getPrestamo(){
+        return prestamo;
+    }
+
+    public void setPrestamo(Prestamo nPrestamo){
+        this.prestamo = nPrestamo;
     }
 
 }

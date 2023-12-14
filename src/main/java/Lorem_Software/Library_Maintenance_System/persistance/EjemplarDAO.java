@@ -1,9 +1,10 @@
 package Lorem_Software.Library_Maintenance_System.persistance;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.stereotype.Repository;
 import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
 
+@Repository
 public interface EjemplarDAO extends JpaRepository<Ejemplar, Long> {
 /*
 * Se hereda de JpaRepository operaciones de acceso a datos comunes a todas las entidades:
