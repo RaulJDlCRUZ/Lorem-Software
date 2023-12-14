@@ -1,4 +1,4 @@
-ENTITY:
+ENTITY:  
 -	Clase Título:  
 <img width="842" alt="Titulo" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/5e65e116-cb7e-4053-b631-d3764a7895c3">  
 
@@ -17,9 +17,40 @@ Para esta clase los parámetros serían los siguientes:
 -	**Id:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
 
 -	Clase Ejemplar:
-  <img width="856" alt="Ejemplar" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/e4e47e42-0b69-4222-80f2-7480a7c218b5">  
+<img width="856" alt="Ejemplar" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/e4e47e42-0b69-4222-80f2-7480a7c218b5">  
 
 Para esta clase los parámetros serían los siguientes:
 -	**IdPrestamo:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
 -	**Título:** sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el nombre del libro o ejemplar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner solo números porque, al ser un título no deben de meter solo números.
+
+CONTROLLER:  
+-	AutorController:
+<img width="828" alt="AutorController" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/8f11748f-ef63-4ccc-bd93-9acc1aac5bc5">
+
+Para esta clase los parámetros serían los siguientes:
+-	AltaAutor: sería un String, como clase de equivalencia serían los datos del autor que vamos a dar de alta en nuestro software, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números.
+-	AltaAutor/edit: sería un String, como clase de equivalencia serían los datos del autor que vamos a editar en nuestro software y se filtraría y buscaría por el id del autor que vamos a editar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números o que el autor que estamos buscando no exista porque, si no existe el autor, no podremos editar los datos de este.
+-	AltaAutor/update: sería un String, como clase de equivalencia serían los datos del autor que vamos a modificar en nuestro software y se filtraría y buscaría por el id del autor que vamos a modificar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números o que el autor que estamos buscando no exista porque, si no existe el autor, no podremos modificar los datos de este.
+-	AltaAutor/delete: sería un String, como clase de equivalencia serían los datos del autor que vamos a borrar en nuestro software y se filtraría y buscaría por el id del autor que vamos a editar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números o que el autor que estamos buscando no exista porque, si no existe el autor, no podremos borrar los datos de este.
+
+-	TituloController:
+  
+<img width="855" alt="TituloController" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/6af2a4ec-0a9e-4abf-a89b-7cab4211cda7">
+
+Para esta clase los parámetros serían los siguientes:
+-	ListarTitulos: sería un String o un Array (ya que son todos los títulos que tenemos guardados en nuestra base de datos), como clase de equivalencia serían todos los libros que tenemos dados de alta en nuestro software, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números, o como es un título como mucho podrías meter unos números, pero no un número muy grande.
+-	GuardarTitulo: sería un String, como clase de equivalencia serían los datos del título que vamos a dar de alta en nuestro software, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números, o como es un título como mucho podrías meter unos números, pero no un número muy grande.
+-	GuardarTitulo /edit: sería un String, como clase de equivalencia serían los datos del título que vamos a editar en nuestro software y se filtraría y buscaría por el id del título que vamos a editar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números , o como es un título como mucho podrías meter unos números, pero no un número muy grande, o que el título que estamos buscando no exista porque, si no existe el título, no podremos editar los datos de este.
+-	GuardarTitulo /update: sería un String, como clase de equivalencia serían los datos del título que vamos a modificar en nuestro software y se filtraría y buscaría por el id del título que vamos a modificar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números , o como es un título como mucho podrías meter unos números, pero no un número muy grande, o que el título que estamos buscando no exista porque, si no existe el título, no podremos modificar los datos de este.
+-	GuardarTitulo /delete: sería un String, como clase de equivalencia serían los datos del título que vamos a borrar en nuestro software y se filtraría y buscaría por el id del título que vamos a borrar, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner números porque, al ser un nombre no deben de meter números , o como es un título como mucho podrías meter unos números, pero no un número muy grande, o que el título que estamos buscando no exista porque, si no existe el título, no podremos borrar los datos de este.
+
+-	EjemplarController:
+
+<img width="852" alt="EjemplarController" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/2bc2a2ab-51b5-4a42-b333-1a3edf35cfbb">
+
+Para esta clase los parámetros serían los siguientes:
+-	ListarEjemplares: sería un String o un Array (ya que son todos los ejemplares que tenemos guardados en nuestra base de datos), como clase de equivalencia serían todos los libros que tenemos dados de alta en nuestro software y se filtraría o buscaría por el idTitulo, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería que el título del cual se están listando los ejemplares no exista.
+-	AltaEjemplar: sería un String, como clase de equivalencia serían los datos del ejemplar que vamos a dar de alta en nuestro software, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería que el título del cual se está dando de alta el ejemplar no exista, porque entonces no podríamos crear un ejemplar de ese título dicho.
+-	AltaEjemplar /delete: sería un String, como clase de equivalencia serían los datos del ejemplar que vamos a borrar en nuestro software y se filtraría y buscaría por el id del préstamo, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería que el título del cual se está dando de alta el ejemplar no exista, porque entonces no podríamos crear un ejemplar de ese título dicho, o que el ejemplar que queremos borrar no exista, porque entonces no podremos borrar ese ejemplar.
+
 
