@@ -1,5 +1,7 @@
 Realizar una devolución:
 
+<img width="229" alt="ISO Cdu 6" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/21934a43-85ae-4a91-95e2-9e9b274df380">
+
 Este requisito o función consiste en, una vez realizado el préstamo de alguno de los ejemplares de los títulos que tenemos en nuestra base de datos de la biblioteca, poder registrar cuando se debe de realizar la devolución de este ejemplar y cuando se realiza esta devolución.
 Para poder realizar una devolución de un ejemplar necesitamos los siguientes datos:
 -	ISBN.
