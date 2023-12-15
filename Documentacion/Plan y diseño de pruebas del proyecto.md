@@ -45,6 +45,16 @@ Para esta clase los parámetros serían los siguientes:
 -	**FechaFinPenalización:** Sería un date, como clase de equivalencia sería una fecha formada por un día, un mes y un año, un valor de la clase de equivalencia podría ser cualquier fecha a utilizar como por ejemplo esa y no tendría valores límite. La conjetura de error sería que introdujese algo que no fuese una fecha o que introdujese una fecha que no sea del formado dd/mm/aa.
 -	**Préstamos:** Sería un Array, como clase de equivalencia serían todos los préstamos de ejemplares que estén asociados a ese usuario en concreto. No tendría ni valores límite ni tampoco valores de la clase de equivalencia ni conjetura de error porque el préstamo es un número junto con el título del ejemplar prestado.
 
+-	*Clase Reserva:*
+
+ <img width="870" alt="Reserva" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/e5d1697f-5f2d-4e14-a17a-d4934355c3aa">
+
+Para esta clase los parámetros serían los siguientes:
+-	**id:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
+-	**Fecha:** Sería un date, como clase de equivalencia sería una fecha formada por un día, un mes y un año, un valor de la clase de equivalencia podría ser cualquier fecha a utilizar como por ejemplo esa y no tendría valores límite. La conjetura de error sería que introdujese algo que no fuese una fecha o que introdujese una fecha que no sea del formado dd/mm/aa.
+-	**Usuario:** sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el nombre del usuario, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería poner solo números porque, al ser un nombre no deben de meter solo números.
+-	**Título:** sería un String, como clase de equivalencia sería un conjunto de letras que conformarían el título del ejemplar que están reservando, no tendría ni valores de equivalencia ni valores límites y la conjetura de error si pone únicamente un conjunto de números muy grande. 
+
 
 **CONTROLLER:**  
 -	*AutorController:*
