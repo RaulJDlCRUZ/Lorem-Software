@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import jakarta.persistence.PreRemove;
 
 
@@ -79,16 +81,22 @@ public class EjemplarController {
     }
 
     @PostMapping("/AltaEjemplar")
-    public String ejemplarSubmit(@ModelAttribute Ejemplar ejemplar, Model model) {
+    public String ejemplarSubmit(@ModelAttribute Ejemplar ejemplar, Model model, RedirectAttributes attribute) {
         this.ejemplar = ejemplar;
         model.addAttribute("ejemplar", ejemplar);
         ejemplarDAO.save(ejemplar);
+        attribute.addFlashAttribute("success", "El ejemplar se ha dado correctamente de alta");
         return "redirect:/ListarTitulos";
     }
 
     @GetMapping("/AltaEjemplar/delete/{IdPrestamo}")
-	public String eliminarTitulo(@PathVariable("IdPrestamo") long IdPrestamo){
+	public String eliminarTitulo(@PathVariable("IdPrestamo") long IdPrestamo, RedirectAttributes attribute){
+        if(ejemplarDAO.findById(IdPrestamo).get().getPrestamo()!=null){
+            attribute.addFlashAttribute("error", "No se puede eliminar el ejemplar porque está prestado");
+            return "redirect:/ListarEjemplares/"+ejemplarDAO.findById(IdPrestamo).get().getTit().getId();
+        }
 		ejemplarDAO.deleteById(IdPrestamo);
+        attribute.addFlashAttribute("warning", "El ejemplar ha sido eliminado");
 		return "redirect:/ListarTitulos";
 	}
 

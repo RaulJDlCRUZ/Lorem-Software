@@ -46,7 +46,15 @@
               <span th:case="${null}">No hay préstamo</span>
               <span th:case="*">
                 <span th:if="${ej.prestamo.isActivo()}">Prestado</span>
-                <span th:if="${!ej.prestamo.isActivo()}">Disponible</span>
+                <a
+                  class="btn btn-danger btn-sm"
+                  th:href="@{/ListarEjemplares/devolverPrestamo/} + ${ej.prestamo.IdPrestamo}"
+                  th:text="Devolver"
+                  title="Devolver el Préstamo"
+                  onclick="return confirm('¿Desea devolver el préstamo?');"
+                >
+                </a>
+                <!-- <span th:if="${!ej.prestamo.isActivo()}">Disponible</span> -->
               </span>
             </td>
             <td>No Implementado</td>

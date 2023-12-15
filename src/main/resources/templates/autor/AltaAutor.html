@@ -17,8 +17,8 @@
         method="post">
         <!--Sin esto primero, al modificar se crea uno nuevo, queremos mantener el ID y cambiar el resto-->
         <p> <input type="hidden" th:field="*{id}"/> </p>
-        <p>Nombre: <input type="text" th:field="*{nombre}" /></p>
-        <p>Apellidos: <input type="text" th:field="*{apellido}" /></p>
+        <p>Nombre: <input type="text" maxlength="255" required th:field="*{nombre}" /></p>
+        <p>Apellidos: <input type="text" maxlength="255" required th:field="*{apellido}" /></p>
         <p>
           <input type="submit" value="Guardar" />
           <input type="reset" value="Limpiar" />

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html xmlns:th="https://www.thymeleaf.org" lang="es">
     <head>
         <meta charset="utf-8">
         <title>LOREM SOFTWARE</title>
@@ -32,6 +32,24 @@
                   </div>
                 </div>
               </nav>
+              <!--Mensajes-->
+              <div class="alert alert-success alert-dismissable" th:if="${success != null}">
+                <label th:text="${success}"></label>
+                <!-- <button type="button" class="btn-close" data-dismiss="alert">&times;</button> -->
+              </div>
+              <div class="alert alert-danger alert-dismissable" th:if="${error != null}">
+                <label th:text="${error}"></label>
+                <!-- <button type="button" class="btn-close" data-dismiss="alert">&times;</button> -->
+              </div>
+              <div class="alert alert-warning alert-dismissable" th:if="${warning != null}">
+                <label th:text="${warning}"></label>
+                <!-- <button type="button" class="btn-close" data-dismiss="alert">&times;</button> -->
+              </div>
+              <div class="alert alert-info alert-dismissable" th:if="${info != null}">
+                <label th:text="${info}"></label>
+                <!-- <button type="button" class="btn-close" data-dismiss="alert">&times;</button> -->
+              </div>
+        </header>
         <!--CONTENIDO-->
         <div class="container"></div> 
         <!--PIE DE PAGINA-->
