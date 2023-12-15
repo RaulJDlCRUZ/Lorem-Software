@@ -1,11 +1,10 @@
 package Lorem_Software.Library_Maintenance_System.business.controller;
 
 import java.util.List;
-import java.util.Optional;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 
-import org.apache.derby.tools.sysinfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import Lorem_Software.Library_Maintenance_System.persistance.*;
-import Lorem_Software.Library_Maintenance_System.business.controller.UsuarioController.UsuarioComparator;
 import Lorem_Software.Library_Maintenance_System.business.entity.*;
 
 @Controller
@@ -72,11 +70,11 @@ public class PrestamoController {
         this.prestamo.setFechaInicio(LocalDate.now());
         this.prestamo.setFechaFin(this.prestamo.getFechaInicio().plusMonths(1));
         this.prestamo.setActivo(true);
-        System.out.println("Id ejemplar: "+this.prestamo.getEjem().getIdEjemplar()+
-        "\nFecha inicio: "+ this.prestamo.getFechaInicio()+
-        "\nFecha fin: "+ this.prestamo.getFechaFin()+
-        "\nActivo: " + this.prestamo.isActivo() +
-        "\nUsuario: "+ this.prestamo.getUser().getNombre() +" "+ this.prestamo.getUser().getApellidos());
+        if(this.prestamo.getUser().getFechaFinPenalizacion().isAfter(this.prestamo.getFechaFin())){
+            attribute.addFlashAttribute("error", this.prestamo.getUser().getNombre()+" "+ this.prestamo.getUser().getApellidos()+
+            " no puede tomar prestado ejemplares hasta el "+this.prestamo.getUser().getFechaFinPenalizacion());
+            return "redirect:/ListarEjemplares";
+        }
         prestamoDAO.save(this.prestamo);
         attribute.addFlashAttribute("success", "El préstamo se ha realizado correctamente");
         return "redirect:/ListarEjemplares";
@@ -84,18 +82,19 @@ public class PrestamoController {
 
     @GetMapping("/ListarEjemplares/devolverPrestamo/{IdPrestamo}")
     public String devolverPrestamo(@PathVariable("IdPrestamo") long IdPrestamo, RedirectAttributes attribute){
-        //* LocalDate FechaDevuelto = LocalDate.now();
+        LocalDate FechaDevuelto = LocalDate.now();
 
+        Usuario usuarioPrestamo = usuarioDAO.findById(prestamoDAO.findById(IdPrestamo).get().getUser().getIdUsuario()).get();
+        Prestamo prestamoDevolver = prestamoDAO.findById(IdPrestamo).get();
 
-        /*
-         TODO: Penalizar si el préstamo se devuelve con retraso
-         ! usuarioDAO.findById(prestamoDAO.findById(IdPrestamo).get().getUser().getIdUsuario());
-         * Se obtiene el usuario, se comprueba si la fecha de fin del prestamo es superior o inferior a
-         * cuando devuelves el préstamo: 
-         *      Si fechaFin > FechaDevuelto --> No aplica;
-         *      Si fechaFin < FechaDevuelto --> Aplica y haces un attribute.addFlashAttribute de warning informando;
-         * Actualizas a el usuario, eliminas el préstamo y rediriges a listar ejemplares
-         */
+        if(FechaDevuelto.isAfter(prestamoDevolver.getFechaFin())){
+            usuarioPrestamo.setFechaFinPenalizacion(FechaDevuelto.plusDays(3*ChronoUnit.DAYS.between(prestamoDevolver.getFechaFin(), FechaDevuelto)));
+            usuarioDAO.save(usuarioPrestamo);
+            attribute.addFlashAttribute("error", "El usuario "+usuarioPrestamo.getNombre()+" "+usuarioPrestamo.getApellidos()+
+            " ha recibido una penalización por devolución tardía de "+ChronoUnit.DAYS.between(prestamoDevolver.getFechaFin(), FechaDevuelto)+
+            " días hasta el "+ usuarioPrestamo.getFechaFinPenalizacion());
+        }
+
         prestamoDAO.deleteById(IdPrestamo);
         attribute.addFlashAttribute("info", "El préstamo ha sido devuelto satisfactoriamente");
         return "redirect:/ListarEjemplares";
