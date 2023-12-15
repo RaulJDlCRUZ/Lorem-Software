@@ -40,6 +40,9 @@ public class Titulo {
 
 	@OneToMany(mappedBy="tit", cascade=CascadeType.ALL)
 	private Set<Ejemplar> ejemplares;
+	
+    @OneToMany(mappedBy = "titulo")
+    private Set<Reserva> reservas;
 
 	public Titulo() {
 	}
