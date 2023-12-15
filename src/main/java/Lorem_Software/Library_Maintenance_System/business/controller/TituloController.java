@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
 import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
@@ -67,7 +68,7 @@ public class TituloController {
 	}
 
 	@PostMapping("/guardarTitulo")
-	public String libroSubmit(@ModelAttribute Titulo titulo, Model model) {
+	public String libroSubmit(@ModelAttribute Titulo titulo, Model model, RedirectAttributes attribute) {
 		this.titulo = titulo;
 		model.addAttribute("titulo", titulo);
 		/* En este punto tengo que tener el autor (ya incluido en dropdown en titulo) */
@@ -77,6 +78,7 @@ public class TituloController {
 		Ejemplar ejemplar = new Ejemplar();
 		ejemplar.setTit(savedTitulo);
 		ejemplarDAO.save(ejemplar);
+		attribute.addFlashAttribute("success", "Título creado correctamente");
 		return "redirect:/ListarTitulos";
 	}
 
@@ -92,25 +94,34 @@ public class TituloController {
 	}
 
 	@PostMapping("/guardarTitulo/update/{id}")
-	public String actualizarTitulo(@PathVariable("id") long id, Titulo titulo) {
+	public String actualizarTitulo(@PathVariable("id") long id, Titulo titulo, RedirectAttributes attribute) {
 		tituloDAO.save(titulo);
+		attribute.addFlashAttribute("success", "Título modificado correctamente");
 		return "ListarTitulos";
 	}
 
 	@GetMapping("delete/{id}")
-	public String eliminarTitulo(@PathVariable("id") long idTitulo){
+	public String eliminarTitulo(@PathVariable("id") long idTitulo, RedirectAttributes attribute){
 		/*
 		Se obtiene el título con id específico, y se guarda momentáneamente en una lista para
 		poder iterar sobre los ejemplares, para guardarlos así en una lista. Así, podemos quitar
 		los ejemplares uno a uno antes de borrar el título
 		*/
 		Titulo t = tituloDAO.findById(idTitulo).get();
+		for(Ejemplar ej:t.getEjemplares()){
+			if(ej.getPrestamo()!=null){
+				System.out.println("Noc Noc");
+				attribute.addFlashAttribute("error", "No se puede eliminar el título porque tiene un ejemplar prestado");
+				return "redirect:/ListarTitulos";
+			}
+		}
 		List<Long> ids = List.of(Long.valueOf(idTitulo));
 		List<Ejemplar> ejemplareslibro = ejemplarDAO.findAllById(ids);
 		for (Ejemplar e : ejemplareslibro)
 			ejemplarDAO.delete(e);
 
 		tituloDAO.delete(t);
+		attribute.addFlashAttribute("warning", "Título eliminado correctamente");
 		return "redirect:/ListarTitulos";
 	}
 
