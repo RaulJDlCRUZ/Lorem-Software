@@ -3,7 +3,6 @@ package Lorem_Software.Library_Maintenance_System.business.controller;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Optional;
 
 // import org.hibernate.mapping.List;
 import org.slf4j.Logger;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import jakarta.persistence.PreRemove;
 
 
 import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
@@ -82,6 +79,7 @@ public class EjemplarController {
 
     @PostMapping("/AltaEjemplar")
     public String ejemplarSubmit(@ModelAttribute Ejemplar ejemplar, Model model, RedirectAttributes attribute) {
+        log.info("El id del ejemplar es"+ejemplar.getIdEjemplar());
         this.ejemplar = ejemplar;
         model.addAttribute("ejemplar", ejemplar);
         ejemplarDAO.save(ejemplar);
