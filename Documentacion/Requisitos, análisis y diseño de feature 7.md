@@ -11,12 +11,12 @@ Para poder realizar una penalización necesitamos los siguientes datos:
 -	Fecha
 -	Fecha Inicio
 -	Fecha Fin
--	Activo
-Al ser un requisito o funcionalidad que está totalmente relacionada con el requisito o función de Realizar una Devolución de un préstamo de un ejemplar, va a tener que contemplar una serie de errores que no pueden producirse que serán muy parecidos o los mismos que al Realizar una Devolución pero añadiendo alguno que es propio de la función de Aplicar una Penalización:
+-	Activo  
+Al ser un requisito o funcionalidad que está totalmente relacionada con el requisito o función de Realizar una Devolución de un préstamo de un ejemplar, va a tener que contemplar una serie de errores que no pueden producirse que serán muy parecidos o los mismos que al Realizar una Devolución pero añadiendo alguno que es propio de la función de Aplicar una Penalización:  
 - Que cuando metamos algún dato del usuario alguno de ellos sea erróneo y no nos encuentre el usuario al que tenemos que penalizar.
 - Que haya algún error con la base de datos del sistema.
 - Que no exista la devolución o no se haya realizado esta.
-- Que no exista el usuario a penalizar.
+- Que no exista el usuario a penalizar.  
 Además debemos de realizar un control de errores para hacer que estos se minimicen o puedan ser controlados:
 -	Comprobar que exista el ejemplar y que ese mismo ejemplar ha sido devuelto con anterioridad para poder ver si hay que realizar o no una penalización al usuario.
 -	Que la fecha de inicio sea anterior a la fecha de fin del préstamo y, que si se equivocan y las fechas no coinciden se avise del error. 
