@@ -11,18 +11,18 @@ Para poder realizar una penalización necesitamos los siguientes datos:
 -	Fecha
 -	Fecha Inicio
 -	Fecha Fin
--	Activo  
+-	Activo
 Al ser un requisito o funcionalidad que está totalmente relacionada con el requisito o función de Realizar una Devolución de un préstamo de un ejemplar, va a tener que contemplar una serie de errores que no pueden producirse que serán muy parecidos o los mismos que al Realizar una Devolución pero añadiendo alguno que es propio de la función de Aplicar una Penalización:
 - Que cuando metamos algún dato del usuario alguno de ellos sea erróneo y no nos encuentre el usuario al que tenemos que penalizar.
 - Que haya algún error con la base de datos del sistema.
 - Que no exista la devolución o no se haya realizado esta.
-- Que no exista el usuario a penalizar.  
+- Que no exista el usuario a penalizar.
 Además debemos de realizar un control de errores para hacer que estos se minimicen o puedan ser controlados:
 -	Comprobar que exista el ejemplar y que ese mismo ejemplar ha sido devuelto con anterioridad para poder ver si hay que realizar o no una penalización al usuario.
 -	Que la fecha de inicio sea anterior a la fecha de fin del préstamo y, que si se equivocan y las fechas no coinciden se avise del error. 
 -	Que la fecha de fin del préstamo sea la misma o sea posterior al día en el que se está realizando la devolución, sino se realizará la penalización.
 -	Realizar una comprobación de los datos introducidos, que en una casilla en la que se espere un carácter numérico no se introduzca una cadena de texto, etc.
-- 	Que el usuario al que tenemos que penalizar exista y todos sus datos sean correctos para poder así aplicar la penalización necesaria.  
+- 	Que el usuario al que tenemos que penalizar exista y todos sus datos sean correctos para poder así aplicar la penalización necesaria.
 Para este caso de uso tenemos un flujo de eventos que descritos textualmente serian así:
 - Lo primero de todo, el cliente viene a la biblioteca e indica al bibliotecario que quiere devolver un préstamo. Después, el bibliotecario, se mete en el software e introduce el ejemplar que quiere devolver ese cliente para ver si este existe o no y si fue prestado a ese cliente con anterioridad.
 - Posterior a esto el bibliotecario entra en la base de datos y realiza la búsqueda del ejemplar seleccionado por el cliente, para ello introduce los datos necesarios para encontrar el ejemplar: su id, y así puede ver si este libro se encuentra activo y si fue prestado a ese usuario con anterioridad.
