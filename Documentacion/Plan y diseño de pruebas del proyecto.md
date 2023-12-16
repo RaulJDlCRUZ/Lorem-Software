@@ -17,7 +17,7 @@ Para esta clase los parámetros serían los siguientes:
 -	**Id:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
 
 -	*Clase Ejemplar:*
-<img width="856" alt="Ejemplar" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/e4e47e42-0b69-4222-80f2-7480a7c218b5">  
+  <img width="872" alt="ejemplar" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/84c03028-34fa-44d6-919c-5d0a38fe41ba">
 
 Para esta clase los parámetros serían los siguientes:
 -	**IdPrestamo:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
@@ -27,7 +27,7 @@ Para esta clase los parámetros serían los siguientes:
 
 -	*Clase Préstamo:*
 
-<img width="858" alt="Prestamo" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/2379aacb-8239-4436-8b8d-660c62fdf6e9">
+<img width="878" alt="prestamo" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/9c23d067-a8ca-467c-8eab-cd35959e9b3e">
 
 Para esta clase los parámetros serían los siguientes:
 -	**IdPrestamo:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
