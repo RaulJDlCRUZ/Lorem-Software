@@ -91,13 +91,16 @@ Para esta clase los parámetros serían los siguientes:
 -	**AltaEjemplar:** sería un String, como clase de equivalencia serían los datos del ejemplar que vamos a dar de alta en nuestro software, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería que el título del cual se está dando de alta el ejemplar no exista, porque entonces no podríamos crear un ejemplar de ese título dicho.
 -	**AltaEjemplar/delete:** sería un String, como clase de equivalencia serían los datos del ejemplar que vamos a borrar en nuestro software y se filtraría y buscaría por el id del préstamo, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería que el título del cual se está dando de alta el ejemplar no exista, porque entonces no podríamos crear un ejemplar de ese título dicho, o que el ejemplar que queremos borrar no exista, porque entonces no podremos borrar ese ejemplar.
 
--	*PrestamoController:*
+-	*PrestamoReservaController:*
 
-<img width="872" alt="PrestamoCont" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/0cbfc7cc-dc04-4749-abcc-4373ee8534f7">
+<img width="818" alt="prestamorescon" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/5e9213e1-47ae-423c-ba24-4c06570be09b">
  
 Para esta clase los parámetros serían los siguientes:
 -	**ListarEjemplares:** sería un String o un Array (ya que son todos los ejemplares que tenemos guardados en nuestra base de datos), como clase de equivalencia serían todos los libros que tenemos dados de alta en nuestro software, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería que el título del cual se están listando los ejemplares no exista.
 -	**HacerPrestamo:** sería un String, como clase de equivalencia serían los datos del  ejemplar del que vamos a realizar el prestamo, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería el ejemplar que vamos a prestar no exista o el título de este no exista.
+-	**HacerReserva:** sería un String, como clase de equivalencia serían los datos del  ejemplar del cual vamos a realizar la reserva, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería el ejemplar que vamos a reservar no exista o el título de este no exista.
+-	**ListarEjemplares/devolverPrestamo:** sería un String o un Array (ya que son todos los ejemplares que tenemos guardados en nuestra base de datos) y se filtraría o buscaría por el id del préstamo, como clase de equivalencia serían todos los libros que tenemos dados de alta en nuestro software, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería que el título del cual se están listando los ejemplares no exista o no haya sido prestado con anterioridad.
+
 
 
 -	*UsuarioController:*
