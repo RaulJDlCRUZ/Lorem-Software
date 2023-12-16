@@ -109,9 +109,8 @@ public class TituloController {
 		*/
 		Titulo t = tituloDAO.findById(idTitulo).get();
 		for(Ejemplar ej:t.getEjemplares()){
-			if(ej.getPrestamo()!=null){
-				System.out.println("Noc Noc");
-				attribute.addFlashAttribute("error", "No se puede eliminar el título porque tiene un ejemplar prestado");
+			if(ej.getPrestamo()!=null || ej.getReserva()!=null){
+				attribute.addFlashAttribute("error", "No se puede eliminar el título porque tiene un ejemplar prestado o una reserva asociada");
 				return "redirect:/ListarTitulos";
 			}
 		}

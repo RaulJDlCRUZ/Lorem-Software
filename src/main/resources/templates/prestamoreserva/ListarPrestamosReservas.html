@@ -36,15 +36,26 @@
                   onclick="return confirm('¿Desea devolver el préstamo?');"
                 >
                 </a>
-                <!-- <span th:if="${!ej.prestamo.isActivo()}">Disponible</span> -->
               </span>
             </td>
             <td th:switch="${ej.reserva}">
               <span th:case="${null}">No hay reserva</span>
               <span th:case="*">
-              	<span th:if="${ej.reserva.fechaReserva!=null}" th:text="'Reservado hasta el '+${ej.reserva.fechaReserva}"></span>
+                <span
+                  th:if="${ej.reserva.fechaReserva!=null}"
+                  th:text="'Reservado hasta el '+${ej.reserva.fechaReserva} +' por '+${ej.reserva.user.nombre}+' '+${ej.reserva.user.apellidos}"
+                ></span>
+                <br>
+                <a
+                  class="btn btn-danger btn-sm"
+                  th:href="@{/ListarEjemplares/cancelarReserva/} + ${ej.reserva.IdReserva}"
+                  th:text="Cancelar"
+                  title="Cancelar la Reserva"
+                  onclick="return confirm('¿Desea cancelar la reserva?');"
+                >
+                </a>
               </span>
-			</td>
+            </td>
           </tr>
         </tbody>
       </table>

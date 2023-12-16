@@ -31,6 +31,9 @@ public class Usuario {
     @OneToMany(mappedBy = "user")
     private Set<Prestamo> prestamos;
 
+    @OneToMany(mappedBy = "user")
+    private Set<Reserva> reservas;
+
     public Usuario(){
 
     }
@@ -73,6 +76,14 @@ public class Usuario {
 
     public void setPrestamos(Set<Prestamo> nPrestamos){
         this.prestamos = nPrestamos;
+    }
+
+    public Set<Reserva> getReservas(){
+        return reservas;
+    }
+
+    public void setReservas(Set<Reserva> nReservas){
+        this.reservas = nReservas;
     }
 
 }
