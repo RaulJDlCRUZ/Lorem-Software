@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import Lorem_Software.Library_Maintenance_System.business.entity.Prestamo;
+import Lorem_Software.Library_Maintenance_System.business.entity.Reserva;
 import Lorem_Software.Library_Maintenance_System.business.entity.Usuario;
 import Lorem_Software.Library_Maintenance_System.persistance.PrestamoDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.ReservaDAO;
 import Lorem_Software.Library_Maintenance_System.persistance.UsuarioDAO;
 import jakarta.persistence.PreRemove;
 
@@ -30,6 +32,9 @@ public class UsuarioController {
 
     @Autowired
     private PrestamoDAO prestamoDAO;
+
+    @Autowired
+    private ReservaDAO reservaDAO;
 
     Usuario usuario = new Usuario();
 
@@ -72,6 +77,7 @@ public class UsuarioController {
     public String deleteUsuario(@PathVariable("IdUsuario") long id){
 
         suprimirAsociacionesPrestamo(usuarioDAO.findById(id));
+        suprimirAsociacionesReserva(usuarioDAO.findById(id));
         usuarioDAO.deleteById(id);
         return "redirect:/AltaUsuario";
     }
@@ -81,6 +87,14 @@ public class UsuarioController {
         Usuario u = us.get();
         for(Prestamo p : u.getPrestamos()){
             prestamoDAO.deleteById(p.getIdPrestamo());
+        }
+    }
+
+    @PreRemove
+    private void suprimirAsociacionesReserva(Optional<Usuario> us){
+        Usuario u = us.get();
+        for(Reserva r : u.getReservas()){
+            reservaDAO.deleteById(r.getIdReserva());
         }
     }
 
