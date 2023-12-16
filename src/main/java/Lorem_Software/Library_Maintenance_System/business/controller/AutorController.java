@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import jakarta.persistence.PreRemove;
 
 // import Lorem_Software.Library_Maintenance_System.business.controller.TituloController.TitleComparator;
@@ -48,12 +50,13 @@ public class AutorController {
 	}
     
 	@PostMapping("/AltaAutor")
-	public String autorSubmit(@ModelAttribute Autor autor, Model model) {
+	public String autorSubmit(@ModelAttribute Autor autor, Model model, RedirectAttributes attribute) {
         this.autor = autor;
 		model.addAttribute("autor", autor);
 		Autor savedAutor = autorDAO.save(autor);
 		log.info("Saved autor: " + savedAutor);
 		// titulo.addAutor(autor);
+		attribute.addFlashAttribute("success", "El autor se ha creado con éxito");
 		return "redirect:/AltaAutor";
 	}
 
@@ -65,15 +68,17 @@ public class AutorController {
 	}
 
 	@PostMapping("/AltaAutor/update/{id}")
-	public String actualizarAutor(@PathVariable("id") long id, Autor autor) {
+	public String actualizarAutor(@PathVariable("id") long id, Autor autor, RedirectAttributes attribute) {
 		autorDAO.save(autor);
+		attribute.addFlashAttribute("info", "El autor ha sido modificado");
 		return "redirect:/AltaAutor";
 	}
 
 	@GetMapping("/AltaAutor/delete/{id}")
-	public String deleteAutor(@PathVariable("id") long id) {
+	public String deleteAutor(@PathVariable("id") long id, RedirectAttributes attribute) {
 		suprimirAsociacionesAutorLibro(autorDAO.findById(id));
 		autorDAO.deleteById(id);
+		attribute.addFlashAttribute("warning", "El autor se ha eliminado");
 		return "redirect:/AltaAutor";
 	}
 
