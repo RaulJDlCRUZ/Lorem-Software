@@ -25,7 +25,7 @@ import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
 @Controller
 public class AutorController {
 
-	private static final Logger log = LoggerFactory.getLogger(TituloController.class);
+	private static final Logger log = LoggerFactory.getLogger(AutorController.class);
     @Autowired
 	private AutorDAO autorDAO;
 
