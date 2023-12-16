@@ -2,9 +2,8 @@ package Lorem_Software.Library_Maintenance_System.business.entity;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
+
 // import java.util.List;
-// import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -35,11 +34,11 @@ public class Reserva {
 		
 	}
 
-	public Long getId() {
+	public Long getIdReserva() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setIdReserva(Long id) {
 		this.id = id;
 	}
 

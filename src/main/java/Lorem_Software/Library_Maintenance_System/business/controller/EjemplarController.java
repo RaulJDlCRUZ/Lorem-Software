@@ -89,8 +89,8 @@ public class EjemplarController {
 
     @GetMapping("/AltaEjemplar/delete/{IdPrestamo}")
 	public String eliminarTitulo(@PathVariable("IdPrestamo") long IdPrestamo, RedirectAttributes attribute){
-        if(ejemplarDAO.findById(IdPrestamo).get().getPrestamo()!=null){
-            attribute.addFlashAttribute("error", "No se puede eliminar el ejemplar porque está prestado");
+        if(ejemplarDAO.findById(IdPrestamo).get().getPrestamo()!=null || ejemplarDAO.findById(IdPrestamo).get().getReserva() != null){
+            attribute.addFlashAttribute("error", "No se puede eliminar el ejemplar porque está prestado o tiene una reserva");
             return "redirect:/ListarEjemplares/"+ejemplarDAO.findById(IdPrestamo).get().getTit().getId();
         }
 		ejemplarDAO.deleteById(IdPrestamo);
