@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/UserTempl :: head">
+    <title>Realizar una nueva Reserva</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/UserTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${reservaHeader}"></h1>
+    </div>
+
+    <div class="container">
+      <form
+        id="form1"
+        action="#"
+        th:action="@{/HacerReserva}"
+        th:object="${reservas}"
+        method="post"
+      >
+        <div class="form-group col">
+          <label for="ejem">Ejemplar a reservar</label>
+          <select
+            class="from-control form-control-sm col-md-6"
+            id="ejem"
+            th:field="*{ejem}"
+          >
+            <option
+              th:each="e:${listaEjemplares}"
+              th:value="${e.IdEjemplar}"
+              th:if="${e.reserva == null}"
+              th:text="${e.tit.getTitulo() + ' - ' + e.IdEjemplar}"
+            ></option>
+          </select>
+        </div>
+        <div class="form-group col">
+          <label for="user">Usuario que desea reservar el ejemplar</label>
+          <select
+            class="from-control form-control-sm col-md-6"
+            id="user"
+            th:field="*{user}"
+          >
+            <option
+              th:each="u:${listaUsuarios}"
+              th:value="${u.IdUsuario}"
+              th:text="${u.nombre + ' ' + u.apellidos}"
+            ></option>
+          </select>
+        </div>
+        <input class="btn btn-success btn-sm" type="submit" value="Guardar" />
+      </form>
+    </div>
+  </body>
+</html>

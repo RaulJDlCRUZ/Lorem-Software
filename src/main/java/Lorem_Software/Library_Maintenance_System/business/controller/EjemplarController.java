@@ -33,7 +33,7 @@ public class EjemplarController {
     @Autowired
     private TituloDAO tituloDAO;
 
-    Ejemplar ejemplar = new  Ejemplar();
+    Ejemplar ejemplar = new Ejemplar();
 
     @GetMapping("/ListarEjemplares/{idTitulo}")
     public String listarEjemplares(@PathVariable("idTitulo") long idTitulo, Model model){
