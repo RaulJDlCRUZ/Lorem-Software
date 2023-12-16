@@ -11,24 +11,6 @@
     </div>
 
     <div class="container">
-      <a
-        class="btn btn-primary btn-sm"
-        th:href="@{HacerPrestamo}"
-        th:text="'Formar un nuevo Préstamo'"
-        title="Formar un prétamo"
-      ></a>
-      <a
-        class="btn btn-primary btn-sm"
-        th:href="@{AltaUsuario}"
-        th:text="'Añadir un Nuevo Usuario'"
-        title="Añadir un nuevo usuario"
-      ></a>
-      <a
-        class="btn btn-primary btn-sm"
-        th:href="@{/}"
-        th:text="'Volver al Inicio'"
-        title="Volver a la selección inicial"
-      ></a>
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -57,7 +39,12 @@
                 <!-- <span th:if="${!ej.prestamo.isActivo()}">Disponible</span> -->
               </span>
             </td>
-            <td>No Implementado</td>
+            <td th:switch="${ej.reserva}">
+              <span th:case="${null}">No hay reserva</span>
+              <span th:case="*">
+              	<span th:if="${ej.reserva.fechaReserva!=null}" th:text="'Reservado hasta el '+${ej.reserva.fechaReserva}"></span>
+              </span>
+			</td>
           </tr>
         </tbody>
       </table>

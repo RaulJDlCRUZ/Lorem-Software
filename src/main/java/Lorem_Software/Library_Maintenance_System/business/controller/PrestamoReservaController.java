@@ -3,6 +3,7 @@ package Lorem_Software.Library_Maintenance_System.business.controller;
 import java.util.List;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.LinkedList;
 import java.util.Collections;
 
 import org.slf4j.Logger;
@@ -20,11 +21,14 @@ import Lorem_Software.Library_Maintenance_System.persistance.*;
 import Lorem_Software.Library_Maintenance_System.business.entity.*;
 
 @Controller
-public class PrestamoController {
-    private static final Logger log = LoggerFactory.getLogger(PrestamoController.class);
+public class PrestamoReservaController {
+    private static final Logger log = LoggerFactory.getLogger(PrestamoReservaController.class);
 
     @Autowired
     private PrestamoDAO prestamoDAO;
+    
+    @Autowired
+    private ReservaDAO reservaDAO;
 
     @Autowired
     private EjemplarDAO ejemplarDAO;
@@ -33,34 +37,28 @@ public class PrestamoController {
     private UsuarioDAO usuarioDAO;
 
     Prestamo prestamo = new Prestamo();
+    Reserva reserva = new Reserva();
 
     @GetMapping("/ListarEjemplares")
     public String listarPrestamos(Model model){
         List<Ejemplar> listadoEjemplares = ejemplarDAO.findAll();
         Collections.sort(listadoEjemplares, new EjemplarComparator());
-        
-
         model.addAttribute("titulo", "Listado de Ejemplares (Prestados o no)");
         model.addAttribute("ejemplares", listadoEjemplares);
-        return "prestamo/ListarPrestamos";
+        return "prestamoreserva/ListarPrestamosReservas";
     }
 
     @GetMapping("/HacerPrestamo")
     public String altaPrestamo(Model model){
         model.addAttribute("prestamoHeader", "Realizar un Préstamo");
-
         model.addAttribute("prestamos", new Prestamo());
-
         List<Ejemplar> listaEjemplares = ejemplarDAO.findAll();
         Collections.sort(listaEjemplares, new EjemplarComparator());
-
         model.addAttribute("listaEjemplares", listaEjemplares);
-        
         List<Usuario> listaUsuarios = usuarioDAO.findAll();
         Collections.sort(listaUsuarios, new UsuarioComparator());
-
         model.addAttribute("listaUsuarios", listaUsuarios);
-        return "prestamo/NuevoPrestamo";
+        return "prestamoreserva/NuevoPrestamo";
     }
 
     @PostMapping("/HacerPrestamo")
@@ -70,13 +68,51 @@ public class PrestamoController {
         this.prestamo.setFechaInicio(LocalDate.now());
         this.prestamo.setFechaFin(this.prestamo.getFechaInicio().plusMonths(1));
         this.prestamo.setActivo(true);
-        if(this.prestamo.getUser().getFechaFinPenalizacion().isAfter(this.prestamo.getFechaFin())){
+        if(this.prestamo.getUser().getFechaFinPenalizacion() != null && this.prestamo.getUser().getFechaFinPenalizacion().isAfter(this.prestamo.getFechaFin())){
             attribute.addFlashAttribute("error", this.prestamo.getUser().getNombre()+" "+ this.prestamo.getUser().getApellidos()+
             " no puede tomar prestado ejemplares hasta el "+this.prestamo.getUser().getFechaFinPenalizacion());
             return "redirect:/ListarEjemplares";
         }
         prestamoDAO.save(this.prestamo);
         attribute.addFlashAttribute("success", "El préstamo se ha realizado correctamente");
+        return "redirect:/ListarEjemplares";
+    }
+    
+    @GetMapping("/HacerReserva")
+    public String altaReserva(Model model){
+        model.addAttribute("reservaHeader", "Realizar una reserva");
+        model.addAttribute("reservas", new Prestamo());
+        
+        List<Ejemplar> listaEjemplares = new LinkedList<Ejemplar>();
+        for (Ejemplar e : ejemplarDAO.findAll()) {
+        	if (e.getPrestamo() == null)
+        		listaEjemplares.add(e);
+        }
+        
+        Collections.sort(listaEjemplares, new EjemplarComparator());
+        model.addAttribute("listaEjemplares", listaEjemplares);
+        List<Usuario> listaUsuarios = usuarioDAO.findAll();
+        Collections.sort(listaUsuarios, new UsuarioComparator());
+        model.addAttribute("listaUsuarios", listaUsuarios);
+        return "prestamoreserva/NuevaReserva";
+    }
+
+    @PostMapping("/HacerReserva")
+    public String reservaSubmit(@ModelAttribute Reserva reserva, Model model,RedirectAttributes attribute){
+        this.reserva = reserva;
+        
+        log.info("El id del ejemplar es "+this.reserva.getEjem().getIdEjemplar());
+        
+        this.reserva.setFechaReserva(LocalDate.now().plusMonths(1));
+
+        if(this.reserva.getUser().getFechaFinPenalizacion() != null && this.reserva.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now())){
+            attribute.addFlashAttribute("error", this.reserva.getUser().getNombre()+" "+ this.reserva.getUser().getApellidos()+
+            " no puede realizar reservas hasta el "+this.reserva.getUser().getFechaFinPenalizacion());
+            return "redirect:/ListarEjemplares";
+        }
+        
+        reservaDAO.save(this.reserva);
+        attribute.addFlashAttribute("success", "La reserva se ha realizado correctamente");
         return "redirect:/ListarEjemplares";
     }
 
