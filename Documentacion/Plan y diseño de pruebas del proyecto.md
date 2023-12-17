@@ -41,7 +41,8 @@ Para esta clase los parámetros serían los siguientes:
 
 -	*Clase Usuario:*
 
-<img width="859" alt="Usuario" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/105f0729-672f-44d8-9c04-135181a0712f">
+<img width="844" alt="usuario" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/93df1640-1229-4711-9662-e2ab39c6f14c">
+
 
 Para esta clase los parámetros serían los siguientes:
 -	**idUsuario:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
@@ -51,8 +52,8 @@ Para esta clase los parámetros serían los siguientes:
 -	**Préstamos:** Sería un Array, como clase de equivalencia serían todos los préstamos de ejemplares que estén asociados a ese usuario en concreto. No tendría ni valores límite ni tampoco valores de la clase de equivalencia ni conjetura de error porque el préstamo es un número junto con el título del ejemplar prestado.
 
 -	*Clase Reserva:*
-
- <img width="870" alt="Reserva" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/e5d1697f-5f2d-4e14-a17a-d4934355c3aa">
+  
+<img width="840" alt="reserva" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/6bb43bce-b1d0-4fe6-bf81-2064fd457cd7">
 
 Para esta clase los parámetros serían los siguientes:
 -	**id:** Sería un int (long), como clase de equivalencia seria de -∞ a 0, de 0 a 2147483647 (ya que el número más grande que puedes introducir en un long) y de 2147483647 a +∞. Sus valores de clase de equivalencia podrían ser por ejemplo los valores que podemos ver en la imagen, los valores límites serian el 0 y el 2147483647 y la conjetura de error podría ser meter un número mayor a 2147483647 que es el máximo del tipo long o un conjunto de letras.
@@ -93,7 +94,8 @@ Para esta clase los parámetros serían los siguientes:
 
 -	*PrestamoReservaController:*
 
-<img width="818" alt="prestamorescon" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/5e9213e1-47ae-423c-ba24-4c06570be09b">
+<img width="847" alt="prestamoreservacontroller" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/114583652/eef765e2-872c-45b3-944f-627a179a364c">
+
  
 Para esta clase los parámetros serían los siguientes:
 -	**ListarEjemplares:** sería un String o un Array (ya que son todos los ejemplares que tenemos guardados en nuestra base de datos), como clase de equivalencia serían todos los libros que tenemos dados de alta en nuestro software, no tendría ni valores de equivalencia ni valores límites y la conjetura de error sería que el título del cual se están listando los ejemplares no exista.
