@@ -41,9 +41,8 @@ Los requisitos no funcionales son aquellos que especifican restricciones o atrib
 * Se debe disponer de un menú inicial de navegación intuitivo que nos permita llegar a todas las funciones necesarias simplemente pulsando botones
 * Se debe controlar que un ejemplar no esté en préstamo para poder eliminarlo, en vez de eliminarlo directamente.
 * Controlar que no haya un ejemplar en préstamo de un título que vayamos a eliminar.
-* Para evitar errores en la frecuente introducción de nombres más "exóticos" de autores, se presenta la selección de autores de un libro en forma de lista una vez hayan sido previamente añadidos individualmente.
-* Debe existir un listado de autores que nos permita añadir, modificar o eliminar.
+* Para evitar errores en la frecuente introducción de nombres más "exóticos" de autores, se presenta la selección de autores de un libro en forma de lista una vez hayan sido previamente añadidos. Por ello, también debe existir una lista de autores en la que se nos permita añadir, modificar y borrar.
 * Al darse de alta un título debe darse de alta un ejemplar automáticamente.
 * Solo los usuarios previamente creados podrán hacer reservas, tomar un préstamo, hacer devoluciones, borrarlas...
 * La penalización por entrega tardía debe aplicarse automáticamente, de manera que se penalizarán 3 días por cada día de devolución tardía.
-
+* Si no se devuelve el ejemplar en 3 meses después del fin del préstamo, se considera el ejemplar como perdido o robado y se penaliza al usuario durante 5 años.
