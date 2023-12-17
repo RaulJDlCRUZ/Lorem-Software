@@ -1,1 +1,40 @@
+# Información relevante
+## Objetivos del negocio
+Crear un sistema de gestión de una biblioteca para facilitar el registro de préstamos, devoluciones, títulos... Implica más eficacia y más eficiencia a la hora de gestionar la biblioteca.
+
+## Información del dominio
+Se especificarán aquellos términos que pueden exceder el dominio de la ingeniería para clarificar la implementación del sistema.
+* ISBN: identificador único de un título.
+* Ejemplar: libro de un título específico.
+
+## Stakeholders
+Son los interesados en el sistema: 
+* Usuarios de la biblioteca
+* Bibliotecarios
+* Administradores.
+
+## Entorno operacional
+Biblioteca y sus diferentes terminales.
+
+## Entorno organizacional
+Se definen las siguientes figuras que harán uso del sistema y que forman parte de la organización:
+* Administrador: Encargado de gestionar la parte de dar de alta y de baja títulos y ejemplares.
+* Bibliotecario: Encargado de gestionar los préstamos, penalizaciones, devoluciones y reservas.
+
+# Requisitos
+## Requisitos funcionales
+Los requisitos funcionales implementados son aquellos que definen cómo debe comportarse el sistema para satisfacer las necesidades del usuario. De lo anterior, ya se puede deducir que estos requisitos están íntimamente ligados a las funciones a desarrollar previamente definidas (y también a las historias de usuario), siendo los requisitos los siguientes:
+* Crear títulos: El usuario ha definido la necesidad de crear títulos para posteriormente añadir ejemplares a estos.
+* Borrar/Modificar títulos: También se ha exigido, por parte del cliente, que estos títulos puedan ser borrados o modificados, por si se comete algún error en algún dato o ya no se va a prestar más ese título.
+* Dar de alta ejemplares: Son estos ejemplares, relacionados a títulos, los que posteriormente se prestarán definiendo la funcionalidad básica de una biblioteca (negocio del cliente).
+* Dar de baja ejemplar: El cliente ha definido esta necesidad porque es necesario poder eliminar un ejemplar del registro del sistema si se pierde, si se rompe, etc.
+* Hacer préstamo: Constituye la funcionalidad esencial de la biblioteca.
+* Hacer devolución: Es necesario para el bibliotecario poder devolver aquellos ejemplares prestados, ya que si no se perderían.
+* Aplicar penalización: Se ha definido la necesidad de penalizar a un usuario que devuelva un ejemplar más tarde de la fecha definida por defecto.
+* Hacer reserva: El cliente ha exigido que cuando un usuario quiera un ejemplar que está en préstamo, pueda reservarlo para ser el siguiente que tenga acceso a él.
+* Borrar reserva: Se ha exigido que el usuario pueda borrar aquella reserva que haya hecho y que ya no le sea necesaria.
+
+## Requisitos no funcionales
+
+
 
