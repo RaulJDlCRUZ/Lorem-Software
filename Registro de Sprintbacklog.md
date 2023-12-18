@@ -27,6 +27,11 @@ De nuevo, las tareas han ido eliminándose a medida que se han completado quedar
 <img width="850" alt="sprintbacklog5_2" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/146761829/190fe902-67ed-4fb9-979d-8fa3644fc155">
 <img width="871" alt="sprintbacklog5_3" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/146761829/9f63af1b-0d2a-4bb4-8725-176575b2a4f9">
 
+#### Finalización de Seguimiento de calidad y Registro de sprintbacklog, quedando solo pruebas y mantenimiento
+<img width="863" alt="sprintult" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/146761829/c1d62b14-13f4-4152-a25b-6108b3fd8ee8">
+<img width="914" alt="sprintult2" src="https://github.com/RaulJDlCRUZ/Lorem-Software/assets/146761829/87cc7656-3f29-4c88-959c-a3f5c9cbcfa7">
+
+   
    
 Cabe resaltar que, las últimas tareas que han quedado, son el **diseño de pruebas y mantenimiento** y la **realización de pruebas y mantenimiento** de las funciones f7, f8 y f9. A medida que vayan finalizando, serán borradas y no se hará más uso del sprintbacklog.
 
