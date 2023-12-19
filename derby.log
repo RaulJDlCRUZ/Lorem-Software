@@ -1,4 +1,12 @@
 ----------------------------------------------------------------
+Tue Dec 19 18:26:29 CET 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018c-831d-5b80-000001a0bdc8 
+on database directory C:\Users\raulj\git\Lorem-Software\database with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@5a07e868 
+Loaded from file:/C:/Users/raulj/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=21+35-LTS-2513
+user.dir=C:\Users\raulj\git\Lorem-Software
+os.name=Windows 11
 os.arch=amd64
 os.version=10.0
 derby.system.home=null

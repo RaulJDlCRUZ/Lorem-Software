@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Ejemplar.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.entity</a> &gt; <span class="el_source">Ejemplar.java</span></div><h1>Ejemplar.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.entity;
+
+// import java.util.List;
+// import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+
+@Entity
+public class Ejemplar {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long IdEjemplar;
+
+	@ManyToOne
+	@JoinColumn(name = &quot;titulo_id&quot;)
+	private Titulo tit;
+
+	@OneToOne(mappedBy = &quot;ejem&quot;)
+	private Prestamo prestamo;
+
+	@OneToOne(mappedBy = &quot;ejem&quot;)
+	private Reserva reserva;
+
+<span class="fc" id="L30">	public Ejemplar() {</span>
+
+<span class="fc" id="L32">	}</span>
+
+	public Long getIdEjemplar() {
+<span class="fc" id="L35">		return IdEjemplar;</span>
+	}
+
+	public void setIdEjemplar(Long IdEjemplar) {
+<span class="fc" id="L39">		this.IdEjemplar = IdEjemplar;</span>
+<span class="fc" id="L40">	}</span>
+
+	public Titulo getTit() {
+<span class="fc" id="L43">		return tit;</span>
+	}
+
+	public void setTit(Titulo tit) {
+<span class="fc" id="L47">		this.tit = tit;</span>
+<span class="fc" id="L48">	}</span>
+
+	public Prestamo getPrestamo() {
+<span class="fc" id="L51">		return prestamo;</span>
+	}
+
+	public void setPrestamo(Prestamo nPrestamo) {
+<span class="fc" id="L55">		this.prestamo = nPrestamo;</span>
+<span class="fc" id="L56">	}</span>
+
+	public Reserva getReserva() {
+<span class="fc" id="L59">		return reserva;</span>
+	}
+
+	public void setReserva(Reserva reserva) {
+<span class="fc" id="L63">		this.reserva = reserva;</span>
+<span class="fc" id="L64">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

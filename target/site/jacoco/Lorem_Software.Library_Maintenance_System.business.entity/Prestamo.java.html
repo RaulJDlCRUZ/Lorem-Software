@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Prestamo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.entity</a> &gt; <span class="el_source">Prestamo.java</span></div><h1>Prestamo.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.entity;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+// import java.util.List;
+// import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+//import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+
+@Entity
+public class Prestamo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long IdPrestamo;
+
+    @Column
+    private LocalDate fechaInicio;
+
+    @Column
+    private LocalDate fechaFin;
+
+    @Column
+    private boolean activo;
+
+    @OneToOne
+    @JoinColumn(name=&quot;ejemplar_id&quot;)
+    private Ejemplar ejem;
+
+    @ManyToOne
+    @JoinColumn(name=&quot;usuario_id&quot;)
+    private Usuario user;
+
+<span class="fc" id="L41">    public Prestamo() {</span>
+
+<span class="fc" id="L43">    }</span>
+
+    public long getIdPrestamo() {
+<span class="fc" id="L46">        return IdPrestamo;</span>
+    }
+
+    public void setIdPrestamo(long idPrestamo) {
+<span class="fc" id="L50">        IdPrestamo = idPrestamo;</span>
+<span class="fc" id="L51">    }</span>
+
+    public LocalDate getFechaInicio() {
+<span class="fc" id="L54">        return fechaInicio;</span>
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+<span class="fc" id="L58">        this.fechaInicio = fechaInicio;</span>
+<span class="fc" id="L59">    }</span>
+
+    public LocalDate getFechaFin() {
+<span class="fc" id="L62">        return fechaFin;</span>
+    }
+
+    public void setFechaFin(LocalDate fechaFin) {
+<span class="fc" id="L66">        this.fechaFin = fechaFin;</span>
+<span class="fc" id="L67">    }</span>
+
+    public boolean isActivo() {
+<span class="fc" id="L70">        return activo;</span>
+    }
+
+    public void setActivo(boolean activo) {
+<span class="fc" id="L74">        this.activo = activo;</span>
+<span class="fc" id="L75">    }</span>
+
+    public Ejemplar getEjem() {
+<span class="fc" id="L78">        return ejem;</span>
+    }
+
+    public void setEjem(Ejemplar ejemplar) {
+<span class="fc" id="L82">        this.ejem = ejemplar;</span>
+<span class="fc" id="L83">    }</span>
+
+    public Usuario getUser(){
+<span class="fc" id="L86">        return user;</span>
+    }
+
+    public void setUser(Usuario usuario){
+<span class="fc" id="L90">        this.user = usuario;</span>
+<span class="fc" id="L91">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

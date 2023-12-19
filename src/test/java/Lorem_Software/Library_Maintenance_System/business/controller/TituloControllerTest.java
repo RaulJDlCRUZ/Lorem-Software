@@ -66,6 +66,7 @@ public class TituloControllerTest {
 
 	@Test
 	public final void testListarTitulosSin() {
+		when(tituloDAO.findAll()).thenReturn(java.util.List.of());
 		List<Titulo> listatitulos = tituloDAO.findAll();
 		assertTrue(listatitulos.size() == 0);
 	}

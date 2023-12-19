@@ -205,7 +205,8 @@ public class PrestamoReservaControllerTest {
 	@Test
 	public final void testReservaSubmit() {
 		rr.setFechaReserva(LocalDate.now().plusDays(5));
-		assertFalse(rr.getUser().getFechaFinPenalizacion() != null && rr.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now()));
+//		System.out.println(rr.getUser().getFechaFinPenalizacion()+" v "+LocalDate.now());
+		assertFalse(rr.getUser().getFechaFinPenalizacion() == null && !rr.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now()));
 		Reserva guardada = reservaDAO.save(rr);
 		assertEquals(guardada,rr);
 	}
@@ -248,8 +249,10 @@ public class PrestamoReservaControllerTest {
 		LocalDate FechaDevuelto = LocalDate.now();
 		Prestamo devuelto = prestamo.get();
 		Usuario usuario = devuelto.getUser();
+		// para aplicar una acumulación de penalización, debe de existir antes:
+		usuario.setFechaFinPenalizacion(FechaDevuelto.plusDays(6));
 		assertTrue(FechaDevuelto.isAfter(devuelto.getFechaFin()));
-		assertFalse(usuario.getFechaFinPenalizacion()==null || usuario.getFechaFinPenalizacion().isBefore(LocalDate.now()));
+		assertFalse(usuario.getFechaFinPenalizacion()==null || usuario.getFechaFinPenalizacion().isBefore(LocalDate.now()));	
 		assertTrue(usuario.getFechaFinPenalizacion().isAfter(LocalDate.now()));
 		usuario.setFechaFinPenalizacion(usuario.getFechaFinPenalizacion().plusDays(3*ChronoUnit.DAYS.between(devuelto.getFechaFin(), FechaDevuelto)));
 		Usuario modificado = usuarioDAO.save(usuario);
