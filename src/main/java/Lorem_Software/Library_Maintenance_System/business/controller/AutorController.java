@@ -29,7 +29,13 @@ public class AutorController {
     @Autowired
 	private AutorDAO autorDAO;
 
-    Autor autor=new Autor(); //TODO hacer la inicialización en constructor
+    Autor autor;
+    
+    public AutorController() {
+    	super();
+    	this.autor=new Autor();
+    }
+    
 	// CONSTANTE PARA ORDENAR POR NOMBRE O NO
 	final int __NAME__SORT = 1;
 
@@ -97,6 +103,22 @@ public class AutorController {
 		public int compare(Autor a, Autor b) {
 			return a.getNombre().compareTo(b.getNombre());
 		}
+	}
+
+	public AutorDAO getAutorDAO() {
+		return autorDAO;
+	}
+
+	public void setAutorDAO(AutorDAO autorDAO) {
+		this.autorDAO = autorDAO;
+	}
+
+	public Autor getAutor() {
+		return autor;
+	}
+
+	public void setAutor(Autor autor) {
+		this.autor = autor;
 	}
 
 }

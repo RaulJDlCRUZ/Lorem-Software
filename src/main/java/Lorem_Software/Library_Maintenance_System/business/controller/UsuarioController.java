@@ -36,7 +36,12 @@ public class UsuarioController {
     @Autowired
     private ReservaDAO reservaDAO;
 
-    Usuario usuario = new Usuario();
+    Usuario usuario;
+    
+    public UsuarioController() {
+    	super();
+    	this.usuario = new Usuario(); 
+    }
 
     @GetMapping("/AltaUsuario")
     public String altaUsuario(Model model){
@@ -105,5 +110,37 @@ public class UsuarioController {
 			return a.getNombre().compareTo(b.getNombre());
 		}
 	}
-    
+
+
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
+	}
+
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
+	}
+
+	public PrestamoDAO getPrestamoDAO() {
+		return prestamoDAO;
+	}
+
+	public void setPrestamoDAO(PrestamoDAO prestamoDAO) {
+		this.prestamoDAO = prestamoDAO;
+	}
+
+	public ReservaDAO getReservaDAO() {
+		return reservaDAO;
+	}
+
+	public void setReservaDAO(ReservaDAO reservaDAO) {
+		this.reservaDAO = reservaDAO;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }

@@ -35,15 +35,57 @@ public class PrestamoReservaController {
 
     @Autowired
     private UsuarioDAO usuarioDAO;
+    
+    Prestamo prestamo;
+    Reserva reserva;
+    
+    public PrestamoReservaController() {
+    	super();
+    	this.prestamo= new Prestamo();
+    	this.reserva= new Reserva();
+    }
 
-    Prestamo prestamo = new Prestamo();
-    Reserva reserva = new Reserva();
 
     @GetMapping("/ListarEjemplares")
-    public String listarPrestamos(Model model){
+    public String listarPrestamos(Model model, RedirectAttributes attribute){
+        model.addAttribute("titulo", "Catálogo de Ejemplares");
+        
+        for(Ejemplar e:ejemplarDAO.findAll()){ //Recorremos todos los ejemplares
+
+            if(e.getPrestamo()!=null){ //*** Si el ejemplar tiene un préstamo asociado
+                if(LocalDate.now().isAfter(e.getPrestamo().getFechaFin().plusMonths(3))){ //Si el día de ahora es más tarde de 3 meses
+
+                    //Se notifica que el usuario lleva más de 3 meses de retraso y que se le va a penalizar por 3 años
+                    log.error(e.getPrestamo().getUser().getNombre()+" "+e.getPrestamo().getUser().getApellidos()+
+                    " lleva más de 3 meses de retraso en la devolucón del préstamo de "+e.getTit().getTitulo() + " - " + e.getIdEjemplar() + 
+                    ", por lo que se le penalizará con 3 años sin poder tomar prestado ni reservar ");
+
+                    //Recogemos el usuario del que queremos hacer la penalización
+                    Usuario usuarioPenalizar = e.getPrestamo().getUser();
+
+                    /*
+                     * Si no tiene penalizaciones o la fecha de fin es anterior a la fecha actual --> aplicamos una penalización partiendo desde la fecha actual
+                     * 
+                     * Si la fecha de fin de penalizacion es posterior a la fecha actual se añaden los 3 años sobre la fecha de fin de penalización
+                     */
+                    if(e.getPrestamo().getUser().getFechaFinPenalizacion()==null || e.getPrestamo().getUser().getFechaFinPenalizacion().isBefore(LocalDate.now())){
+                        usuarioPenalizar.setFechaFinPenalizacion(LocalDate.now().plusYears(3));
+                    }else{
+                        usuarioPenalizar.setFechaFinPenalizacion(usuarioPenalizar.getFechaFinPenalizacion().plusYears(3));
+                    }
+                    //Se notifica que se va a eliminar el ejemplar al considerarlo perdido
+                    log.error("El ejemplar "+e.getTit().getTitulo() + " - " + e.getIdEjemplar()+
+                    " será eliminado del sistema dado que si el usuario se ha retrasado tanto tiempo se considerará como ejemplar perdido");
+                    prestamoDAO.deleteById(e.getPrestamo().getIdPrestamo());
+                    if(e.getReserva()!=null){reservaDAO.deleteById(e.getReserva().getIdReserva());}
+                    ejemplarDAO.delete(e);
+                }
+
+            }
+        }
+
         List<Ejemplar> listadoEjemplares = ejemplarDAO.findAll();
         Collections.sort(listadoEjemplares, new EjemplarComparator());
-        model.addAttribute("titulo", "Catálogo de Ejemplares");
         model.addAttribute("ejemplares", listadoEjemplares);
         return "prestamoreserva/ListarPrestamosReservas";
     }
@@ -68,33 +110,35 @@ public class PrestamoReservaController {
         this.prestamo.setFechaInicio(LocalDate.now());
         this.prestamo.setFechaFin(this.prestamo.getFechaInicio().plusMonths(1));
         this.prestamo.setActivo(true);
-        if(this.prestamo.getUser().getFechaFinPenalizacion() != null && this.prestamo.getUser().getFechaFinPenalizacion().isAfter(this.prestamo.getFechaFin())){
+        if(this.prestamo.getUser().getFechaFinPenalizacion() != null && this.prestamo.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now())){
             attribute.addFlashAttribute("error", this.prestamo.getUser().getNombre()+" "+ this.prestamo.getUser().getApellidos()+
             " no puede tomar prestado ejemplares hasta el "+this.prestamo.getUser().getFechaFinPenalizacion());
             return "redirect:/ListarEjemplares";
         }
-        if(this.prestamo.getEjem().getReserva().getUser().getNombre()!=this.prestamo.getUser().getNombre()&&this.prestamo.getEjem().getReserva().getUser().getApellidos()!=this.prestamo.getUser().getApellidos()){
-            if(this.prestamo.getEjem().getReserva().getFechaReserva()!=null && this.prestamo.getEjem().getReserva().getFechaReserva().isAfter(LocalDate.now())){
-                attribute.addFlashAttribute("error", this.prestamo.getUser().getNombre()+" "+this.prestamo.getUser().getApellidos()+" no puede coger prestado este ejemplar porque está reservado por "+
-                this.prestamo.getEjem().getReserva().getUser().getNombre()+" "+this.prestamo.getEjem().getReserva().getUser().getApellidos());
-                return "redirect:/ListarEjemplares";
-            }else{
-                attribute.addFlashAttribute("warning", "La reserva asociada al ejemplar ha caducado. El usuario de la reserva ha recibido una penalización de 1 semana");
-                Usuario usuarioPenalizado = this.prestamo.getEjem().getReserva().getUser();
-                if(usuarioPenalizado.getFechaFinPenalizacion()==null || usuarioPenalizado.getFechaFinPenalizacion().isBefore(LocalDate.now())){
-                    usuarioPenalizado.setFechaFinPenalizacion(LocalDate.now().plusWeeks(1));
-                }else if(usuarioPenalizado.getFechaFinPenalizacion().isAfter(LocalDate.now())){
-                    usuarioPenalizado.setFechaFinPenalizacion(usuarioPenalizado.getFechaFinPenalizacion().plusWeeks(1));
+        if(this.prestamo.getEjem().getReserva()!=null){
+            if(this.prestamo.getEjem().getReserva().getUser().getNombre()!=this.prestamo.getUser().getNombre()&&this.prestamo.getEjem().getReserva().getUser().getApellidos()!=this.prestamo.getUser().getApellidos()){
+                if(this.prestamo.getEjem().getReserva().getFechaReserva()!=null && this.prestamo.getEjem().getReserva().getFechaReserva().isAfter(LocalDate.now())){
+                    attribute.addFlashAttribute("error", this.prestamo.getUser().getNombre()+" "+this.prestamo.getUser().getApellidos()+" no puede coger prestado este ejemplar porque está reservado por "+
+                    this.prestamo.getEjem().getReserva().getUser().getNombre()+" "+this.prestamo.getEjem().getReserva().getUser().getApellidos());
+                    return "redirect:/ListarEjemplares";
+                }else{
+                    attribute.addFlashAttribute("warning", "La reserva asociada al ejemplar ha caducado. El usuario de la reserva ha recibido una penalización de 1 semana");
+                    Usuario usuarioPenalizado = this.prestamo.getEjem().getReserva().getUser();
+                    if(usuarioPenalizado.getFechaFinPenalizacion()==null || usuarioPenalizado.getFechaFinPenalizacion().isBefore(LocalDate.now())){
+                        usuarioPenalizado.setFechaFinPenalizacion(LocalDate.now().plusWeeks(1));
+                    }else if(usuarioPenalizado.getFechaFinPenalizacion().isAfter(LocalDate.now())){
+                        usuarioPenalizado.setFechaFinPenalizacion(usuarioPenalizado.getFechaFinPenalizacion().plusWeeks(1));
+                    }
+                    usuarioDAO.save(usuarioPenalizado);
                 }
-                usuarioDAO.save(usuarioPenalizado);
             }
+            reservaDAO.delete(this.prestamo.getEjem().getReserva());
+            attribute.addFlashAttribute("info", "La reserva asociada al ejemplar "+this.prestamo.getEjem().getTit().getTitulo() + " - " +
+            this.prestamo.getEjem().getIdEjemplar() + " se ha eliminado puesto que " + this.prestamo.getUser().getNombre() + " " +
+            this.prestamo.getUser().getApellidos()+" ha tomado prestado el ejemplar");
         }
         prestamoDAO.save(this.prestamo);
-        reservaDAO.delete(this.prestamo.getEjem().getReserva());
         attribute.addFlashAttribute("success", "El préstamo se ha realizado correctamente");
-        attribute.addFlashAttribute("info", "La reserva asociada al ejemplar "+this.prestamo.getEjem().getTit().getTitulo() + " - " +
-        this.prestamo.getEjem().getIdEjemplar() + " se ha eliminado puesto que " + this.prestamo.getUser().getNombre() + " " +
-        this.prestamo.getUser().getApellidos()+" ha tomado prestado el ejemplar");
         return "redirect:/ListarEjemplares";
     }
     
@@ -123,7 +167,7 @@ public class PrestamoReservaController {
         
         log.info("El id del ejemplar es "+this.reserva.getEjem().getIdEjemplar());
         
-        this.reserva.setFechaReserva(LocalDate.now().plusMonths(1));
+        this.reserva.setFechaReserva(LocalDate.now().plusDays(5));
 
         if(this.reserva.getUser().getFechaFinPenalizacion() != null && this.reserva.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now())){
             attribute.addFlashAttribute("error", this.reserva.getUser().getNombre()+" "+ this.reserva.getUser().getApellidos()+
@@ -192,4 +236,63 @@ public class PrestamoReservaController {
         }
 
     }
+
+	public PrestamoDAO getPrestamoDAO() {
+		return prestamoDAO;
+	}
+
+
+	public void setPrestamoDAO(PrestamoDAO prestamoDAO) {
+		this.prestamoDAO = prestamoDAO;
+	}
+
+
+	public ReservaDAO getReservaDAO() {
+		return reservaDAO;
+	}
+
+
+	public void setReservaDAO(ReservaDAO reservaDAO) {
+		this.reservaDAO = reservaDAO;
+	}
+
+
+	public EjemplarDAO getEjemplarDAO() {
+		return ejemplarDAO;
+	}
+
+
+	public void setEjemplarDAO(EjemplarDAO ejemplarDAO) {
+		this.ejemplarDAO = ejemplarDAO;
+	}
+
+
+	public UsuarioDAO getUsuarioDAO() {
+		return usuarioDAO;
+	}
+
+
+	public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+		this.usuarioDAO = usuarioDAO;
+	}
+
+
+	public Prestamo getPrestamo() {
+		return prestamo;
+	}
+
+
+	public void setPrestamo(Prestamo prestamo) {
+		this.prestamo = prestamo;
+	}
+
+
+	public Reserva getReserva() {
+		return reserva;
+	}
+
+
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
+	}
 }

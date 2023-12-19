@@ -21,17 +21,14 @@ public class AutorTest {
 
 	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
-		System.out.println("@BeforeAll");
 	}
 
 	@AfterAll
 	public static void tearDownAfterClass() throws Exception {
-		System.out.println("@AfterAll");
 	}
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		System.out.println("@BeforeEach");
 		autor = new Autor("Leandro", "Paredes");
 		autor.setId((long) 4000); //lo agregamos a mano, ya que el ID toma su valor por la BD
 		titulos.add(new Titulo("Primer Libro", "978001"));
@@ -43,7 +40,6 @@ public class AutorTest {
 
 	@AfterEach
 	public void tearDown() throws Exception {
-		System.out.println("@AfterEach");
 	}
 
 	@Test

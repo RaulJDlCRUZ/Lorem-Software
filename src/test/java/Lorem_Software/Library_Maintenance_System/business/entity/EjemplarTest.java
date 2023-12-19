@@ -11,60 +11,101 @@ import org.junit.jupiter.api.Test;
 
 public class EjemplarTest {
 	
+	private static Prestamo prestamo;
 	private static Titulo tituloDeEjemplo;
 	private static Ejemplar ejemplar;
+	private static Reserva reserva;
 
 	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
-		System.out.println("@BeforeAll");
 	}
 
 	@AfterAll
 	public static void tearDownAfterClass() throws Exception {
-		System.out.println("@AfterAll");
 	}
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		ejemplar = new Ejemplar();
 		tituloDeEjemplo = new Titulo("Libro de prueba 2", "978013B13");
+		
+		ejemplar = new Ejemplar();
 		ejemplar.setTit(tituloDeEjemplo);
+		ejemplar.setIdEjemplar((long) 12001012);
+		
+		prestamo = new Prestamo();
+		prestamo.setIdPrestamo((long) 100);
+		prestamo.setActivo(true);
+		prestamo.setEjem(ejemplar);
+		
+		reserva = new Reserva();
+		reserva.setEjem(ejemplar);
+		reserva.setIdReserva((long) 7777);
+		
+		prestamo.setEjem(ejemplar);
+		ejemplar.setPrestamo(prestamo);
+		ejemplar.setReserva(reserva);
 	}
 
 	@AfterEach
 	public void tearDown() throws Exception {
-		System.out.println("@AfterEach");
 	}
 	
 	@Test
 	public final void testEjemplar() {
 		Ejemplar e = new Ejemplar();
-		e.setTit(tituloDeEjemplo); //sin esto, fallará al no tener un titulo vinculado
+		e.setTit(tituloDeEjemplo);
 		assertTrue(e.getTit().equals(ejemplar.getTit()));
 	}
-
+	
 	@Test
-	public final void testGetIdPrestamo() {
-		// TODO
-		throw new RuntimeException("not yet implemented");
+	public void testgetIdEjemplar() {
+		assertEquals((long) 12001012, ejemplar.getIdEjemplar());
 	}
-
+	
 	@Test
-	public final void testSetIdPrestamo() {
-		// TODO
-		throw new RuntimeException("not yet implemented");
+	public void testsetIdEjemplar() {
+		ejemplar.setIdEjemplar((long) 85544);
+		assertEquals((long) 85544, ejemplar.getIdEjemplar());
 	}
 
 	@Test
 	public final void testGetTit() {
 		assertEquals(tituloDeEjemplo,ejemplar.getTit());
 	}
-
+	
 	@Test
 	public final void testSetTit() {
 		Titulo tt = new Titulo("Otro título para un ejemplar", "978.00.1A");
 		ejemplar.setTit(tt);
 		assertEquals(tt, ejemplar.getTit());
+	}
+	
+	@Test
+	public final void testGetPrestamo() {
+		assertEquals(prestamo,ejemplar.getPrestamo());
+	}
+
+	@Test
+	public final void testSetPrestamo() {
+		Prestamo prestamo2 = new Prestamo();
+		prestamo2.setIdPrestamo((long) 200);
+		prestamo2.setActivo(false);
+		ejemplar.setPrestamo(prestamo2);
+		assertEquals(prestamo2,ejemplar.getPrestamo());
+	}
+	
+	@Test
+	public void testgetReserva() {
+		assertEquals(reserva,ejemplar.getReserva());
+	}
+
+	@Test
+	public void testsetReserva() {
+		Reserva reserva2 = new Reserva();
+		reserva2.setEjem(ejemplar);
+		reserva2.setIdReserva((long) 6677);
+		ejemplar.setReserva(reserva2);
+		assertEquals(reserva2,ejemplar.getReserva());
 	}
 
 }

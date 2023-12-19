@@ -32,7 +32,12 @@ public class TituloController {
 	@Autowired
 	private EjemplarDAO ejemplarDAO;
 
-	Titulo titulo=new Titulo(); //TODO hacer la inicialización en constructor
+    Titulo titulo;
+    
+    public TituloController() {
+    	super();
+    	this.titulo=new Titulo();
+    }
 
 	/* Constante para permitir ordenamiento de titulos. 0=no, 1=si */
 	final int __NAME__SORT = 1;
@@ -138,5 +143,35 @@ public class TituloController {
 		}
 	}
 
-	
+	public Titulo getTitulo() {
+		return titulo;
+	}
+
+	public void setTitulo(Titulo titulo) {
+		this.titulo = titulo;
+	}
+
+	public TituloDAO getTituloDAO() {
+		return tituloDAO;
+	}
+
+	public void setTituloDAO(TituloDAO tituloDAO) {
+		this.tituloDAO = tituloDAO;
+	}
+
+	public AutorDAO getAutorDAO() {
+		return autorDAO;
+	}
+
+	public void setAutorDAO(AutorDAO autorDAO) {
+		this.autorDAO = autorDAO;
+	}
+
+	public EjemplarDAO getEjemplarDAO() {
+		return ejemplarDAO;
+	}
+
+	public void setEjemplarDAO(EjemplarDAO ejemplarDAO) {
+		this.ejemplarDAO = ejemplarDAO;
+	}
 }

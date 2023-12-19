@@ -22,17 +22,14 @@ class TituloTest {
 	
 	@BeforeAll
 	public static void setUpBeforeClass() throws Exception {
-		System.out.println("@BeforeAll");
 	}
 
 	@AfterAll
 	public static void tearDownAfterClass() throws Exception {
-		System.out.println("@AfterAll");
 	}
 	
 	@BeforeEach
 	public void setUp() throws Exception {
-		System.out.println("@BeforeEach");
 		titulo = new Titulo("Libro de prueba", "978013A15");
 		titulo.setId((long) 700); //lo agregamos a mano, ya que el ID toma su valor por la BD
 		misEjs.add(new Ejemplar());
@@ -42,11 +39,11 @@ class TituloTest {
 		// los autores tampoco pertenecen al constructor; parámetro opcional
 		titulo.setAutores(misAutores);
 		titulo.setEjemplares(misEjs);
+		titulo.setNumReserva("1234567890");
 	}
 
 	@AfterEach
 	public void tearDown() throws Exception {
-		System.out.println("@AfterEach");
 	}
 
 	@Test
@@ -94,12 +91,14 @@ class TituloTest {
 
 	@Test
 	void testGetNumReserva() {
-		fail("Not yet implemented");
+		assertEquals(titulo.getNumReserva(),"1234567890");
 	}
 
 	@Test
 	void testSetNumReserva() {
-		fail("Not yet implemented");
+		String numeroreserva = titulo.getNumReserva();
+		titulo.setNumReserva("9876543210");
+		assertNotEquals(titulo.getNumReserva(),numeroreserva);
 	}
 
 	@Test
@@ -122,7 +121,12 @@ class TituloTest {
 
 	@Test
 	void testSetEjemplares() {
-		fail("Not yet implemented");
+		Ejemplar e = new Ejemplar();
+		e.setTit(titulo);
+		e.setIdEjemplar((long) 46863);
+		masEjs.add(e);
+		titulo.setEjemplares(masEjs);
+		assertEquals(masEjs, titulo.getEjemplares());
 	}
 
 }

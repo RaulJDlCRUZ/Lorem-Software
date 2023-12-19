@@ -33,7 +33,12 @@ public class EjemplarController {
     @Autowired
     private TituloDAO tituloDAO;
 
-    Ejemplar ejemplar = new Ejemplar();
+    Ejemplar ejemplar;
+    
+    public EjemplarController() {
+    	super();
+    	this.ejemplar=new Ejemplar();
+    }
 
     @GetMapping("/ListarEjemplares/{idTitulo}")
     public String listarEjemplares(@PathVariable("idTitulo") long idTitulo, Model model){
@@ -69,11 +74,6 @@ public class EjemplarController {
         Collections.sort(listadoTitulos, new TitleComparator());
         model.addAttribute("listatitulos", listadoTitulos);
 
-        // List<Integer> numeros = new ArrayList<Integer>();
-        // for (int i=1;i<=20;i++)
-        //     numeros.add(i);
-        // model.addAttribute("numeros", numeros);
-
         return "ejemplar/NuevoEjemplar";
     }
 
@@ -103,6 +103,30 @@ public class EjemplarController {
 		public int compare(Titulo a, Titulo b) {
 			return a.getTitulo().compareTo(b.getTitulo());
 		}
+	}
+
+	public EjemplarDAO getEjemplarDAO() {
+		return ejemplarDAO;
+	}
+
+	public void setEjemplarDAO(EjemplarDAO ejemplarDAO) {
+		this.ejemplarDAO = ejemplarDAO;
+	}
+
+	public TituloDAO getTituloDAO() {
+		return tituloDAO;
+	}
+
+	public void setTituloDAO(TituloDAO tituloDAO) {
+		this.tituloDAO = tituloDAO;
+	}
+
+	public Ejemplar getEjemplar() {
+		return ejemplar;
+	}
+
+	public void setEjemplar(Ejemplar ejemplar) {
+		this.ejemplar = ejemplar;
 	}
 
 }
