@@ -16,7 +16,7 @@ Cuando el software estaba terminado realizamos las pruebas de certificación per
 Aun así, tendríamos contacto con el cliente durante un periodo de tiempo para ver si tuviese algún tipo de error durante el principio del uso del software que nosotros no nos hubiésemos dado cuenta de ello, o por si fuese necesario algún cambio o actualización.
 
    
-### Análisis de coste y beneficio
+### Análisis de impacto y coste-beneficio
 Para poder realizar el análisis de impacto y de costes/beneficio vamos a ver las aplicaciones utilizadas para el desarrollo de nuestro proyecto y cuáles podrían ser otras alternativas que podrían haber sido utilizadas en vez de haber usado estas:
 Las aplicaciones elegidas a utilizar para la realización, testing y mantenimiento de nuestro software son las siguientes:
 -	GitHub Projects: Por medio de esta plataforma nuestra empresa ha compartido el código para que sus integrantes encargados de la codificación pudiesen trabajar con un mismo código y a la vez poder, todos y cada uno de ellos, subir sus partes de código para que el resto pueda trabajar con ello. Además, es de ayuda para la organización del proyecto ya que, todos los Sprints han sido organizados y marcados en esta plataforma y toda la documentación necesaria para nuestro proyecto software también se encuentra recogida en esta plataforma.
@@ -61,5 +61,15 @@ Ahora vamos a explicar las horas que han sido utilizadas para cada una de las pa
 •	Mantenimiento final del software: 200.000€.
 •	Testing final: 200.000€.
 -	Por lo tanto en esta segunda y última entrega tenemos un total de: 960.000€, en solo esta 2º entrega.
+
+  ### Revisión de la documentación
+  Debe adaptarse la diferente documentación producida para el proyecto a la situación actual del sistema. Los documentos que se deben ir actualizando en todo momento son:
+* Registro de Sprintbacklog: como es lógico pensar, debe irse registrando cualquier cambio y novedad en el sprintbacklog.
+* Diseño de pruebas: Pues existe una posible necesidad de modificar las pruebas y el código con la finalidad de mejorar nuestro sistema.
+* Seguimiento de calidad de software: Si se implementan nuevos requisitos, ya sean funcionales o no funcionales a lo largo del mantenimiento del sistema por la aparición de una nueva necesidad, debe reflejarse también en la documentación que registra estas funciones.
+* CMP: La adición de nuevas herramientas a lo largo del mantenimiento nos obliga a señalizarlo en el CMP del proyecto.
+* Planificación del proyecto: Se debe modificar los períodos y la compensación económica asociada al desarrollo de cada función (o iteración). A pesar de esto, se pretende utilizar este documento a modo de registro de la situación inicial en cuanto a planificación del proyecto para compararla a la situación actual, reflejándose una obvia variación en los períodos establecidos y en el esfuerzo estimado.
+* Requisitos, análisis y diseño de cada función: Si alguna de las funciones ha sido implementada de manera totalmente distinta a la especificada inicialmente, debe reflejarse también.
+* Documentación del usuario: Es necesario actualizar la documentación proporcionada por el usuario, pues se ha realizado una implementación más asequible y óptima a la requerida inicialmente por el cliente (cabiendo resaltar también que este no tiene la obligación de conocer el ámbito de la ingeniería y que es común que se produzcan este tipo de problemas).
 -	Al realizar la suma de la 1º y la 2º entrega se haría el total de 1.400.000€.
 
