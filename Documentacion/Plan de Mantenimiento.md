@@ -74,4 +74,5 @@ Ahora vamos a explicar las horas que han sido utilizadas para cada una de las pa
 * Requisitos, análisis y diseño de cada función: Si alguna de las funciones ha sido implementada de manera totalmente distinta a la especificada inicialmente, debe reflejarse también.
 * Documentación del usuario: Es necesario actualizar la documentación proporcionada por el usuario, pues se ha realizado una implementación más asequible y óptima a la requerida inicialmente por el cliente (cabiendo resaltar también que este no tiene la obligación de conocer el ámbito de la ingeniería y que es común que se produzcan este tipo de problemas).
 
-
+### Pruebas de aceptación
+El cliente se encargará de comprobar si los cambios realizdos en el software a lo largo de la etapa de mantenimiento se adecúan a sus necesidades, junto al equipo desarrollador de Lorem Software. 
