@@ -108,7 +108,7 @@ Para todo empleado de Lorem Software se le aplicarán una serie de políticas y 
 ##	Actividades planificadas, agenda y recursos
 ###	Agendas de la GC
 Dentro de los hitos que tiene Lorem Software, el más destacable es el establecimiento de la línea base de arquitectura, para poder lanzar un producto mínimo viable, lo cual tendrá lugar el día 15 de noviembre.
-No obstante, la agenda completa del proyecto se puede encontrar en la propia planificación del proyecto, donde se especifica qué días se asignará cada requisito funcional.
+No obstante, la agenda completa del proyecto se puede encontrar en la propia planificación del proyecto, donde se especifica qué días se asignará cada requisito funcional. Esta planificación podrá ser encontrada en la herramienta Github Projects, directamente asociada a la plataforma utilizada para colaborar en la implementación del sistema.
 ###	Recursos de la GC
 El objetivo de esta sección será exponer en un plano general los recursos con los que cuenta Lorem Software para poder desarrollar el producto software:
 -	**Personal:**
@@ -119,12 +119,22 @@ El objetivo de esta sección será exponer en un plano general los recursos con 
 -	**Entorno:**
 Nuestro entorno predefinido de desarrollo será Eclipse IDE for Java Developers. En él, se cuenta con integración con el lenguaje de programación Java, elaboración de documentación con JavaDoc y extensiones para DBeaver y Apache Maven.
 -	**Herramientas de desarrollo:**
-Eclipse IDE for Java Developers para la realización del código de nuestro proyecto.
-DBeaver como gestor de nuestra base de datos.
-Visual Paradigm como herramienta de bosquejos para diagramas de casos de uso y diseño.
+Eclipse IDE for Java Developers para la realización del código de nuestro proyecto.   
+DBeaver como gestor de nuestra base de datos.   
+Visual Paradigm como herramienta de bosquejos para diagramas de casos de uso y diseño.   
+Github Projects como herramienta de gestión y planificación del proyecto.   
+Github como plataforma de colaboración en la elaboración de documentación, código, etc.   
+Spring JPA como API que nos ayuda a los desarrolladores en operaciones de persistencia de datos en una base de datos relacional.
+Maven como herramienta gestora de dependencias.
+Sonar como herramienta para realizar pruebas y medir el funcionamiento del sistema.
+Junit + JaCoCo como herramienta para implementar el entorno de pruebas. JaCoCo es un plugin para la evaluación de cobertura de sentencia.
+
+
 -	**Capacitación:**
 El equipo deberá de saber: 
 *	Programación, preferiblemente en lenguaje Java.
+*	Protocolos de mantenimiento del sistema.
+*	Uso de herramientas diseñados para la elaboración de pruebas del sistema.
 *	Desarrollo de aplicaciones web y/o multiplataforma
 *	Gestión de bases de datos.
 *	Realización de documentación.
