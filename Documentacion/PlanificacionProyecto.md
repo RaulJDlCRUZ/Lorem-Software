@@ -64,11 +64,11 @@ Ahora realizamos la estimación temporal y el coste del proyecto en relación co
 |Fase            |  INICIO   |ELABORACION|           |           |           |CONSTRUCCIÓN|           |           |           |           |TRANSICIÓN|
 |----------------|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
 |**Iteración**   |  It0      |  It1      |  It2      |  It3      |  It4      |  It5      |  It6      |  It7      |  It8      |  It9      |  It10     |
-|**Coste (€)**   |   30.000  |85.000     |75.000     |70.000     |80.000     |100.000    |50.000     |30.000     |60.000     |60.000     |160.000    |
+|**Coste (€)**   |   30.000  |85.000     |75.000     |70.000     |80.000     |100.000    |110.000     |100.000     |90.000     |90.000     |170.000    |
 |**Duración (d)**|  4        |  5        | 3         |  1        | 1         |  4        |   4       |  3        |  6        |   6       |   5       |
 |**Agenda**      |Semana 1   |Semana 1/2   |Semana 2/3 |semana 3   |Semana 3   |Semana 3 |Semana 4 |Semana 4/5   |semana 5/6        |Semana 7   | semana 7/8        |
 
-
+*Además hay que añadir a los costes: 200.000€ de mantenimiento final del software y el testing final, que son otros 200.000€.
 
 **Agenda**
 |    SEMANA    |    MES    |    L    |    M    |    X    |    J    |    V    |    S    |
