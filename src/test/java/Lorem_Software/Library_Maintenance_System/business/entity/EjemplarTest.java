@@ -1,7 +1,7 @@
 package Lorem_Software.Library_Maintenance_System.business.entity;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class EjemplarTest {
+class EjemplarTest {
 	
 	private static Prestamo prestamo;
 	private static Titulo tituloDeEjemplo;
@@ -17,15 +17,15 @@ public class EjemplarTest {
 	private static Reserva reserva;
 
 	@BeforeAll
-	public static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 	}
 
 	@AfterAll
-	public static void tearDownAfterClass() throws Exception {
+	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		tituloDeEjemplo = new Titulo("Libro de prueba 2", "978013B13");
 		
 		ejemplar = new Ejemplar();
@@ -47,46 +47,46 @@ public class EjemplarTest {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 	
 	@Test
-	public final void testEjemplar() {
+	final void testEjemplar() {
 		Ejemplar e = new Ejemplar();
 		e.setTit(tituloDeEjemplo);
-		assertTrue(e.getTit().equals(ejemplar.getTit()));
+		assertEquals(e.getTit(), ejemplar.getTit());
 	}
 	
 	@Test
-	public void testgetIdEjemplar() {
+	void testgetIdEjemplar() {
 		assertEquals((long) 12001012, ejemplar.getIdEjemplar());
 	}
 	
 	@Test
-	public void testsetIdEjemplar() {
+	void testsetIdEjemplar() {
 		ejemplar.setIdEjemplar((long) 85544);
 		assertEquals((long) 85544, ejemplar.getIdEjemplar());
 	}
 
 	@Test
-	public final void testGetTit() {
+	final void testGetTit() {
 		assertEquals(tituloDeEjemplo,ejemplar.getTit());
 	}
 	
 	@Test
-	public final void testSetTit() {
+	final void testSetTit() {
 		Titulo tt = new Titulo("Otro título para un ejemplar", "978.00.1A");
 		ejemplar.setTit(tt);
 		assertEquals(tt, ejemplar.getTit());
 	}
 	
 	@Test
-	public final void testGetPrestamo() {
+	final void testGetPrestamo() {
 		assertEquals(prestamo,ejemplar.getPrestamo());
 	}
 
 	@Test
-	public final void testSetPrestamo() {
+	final void testSetPrestamo() {
 		Prestamo prestamo2 = new Prestamo();
 		prestamo2.setIdPrestamo((long) 200);
 		prestamo2.setActivo(false);
@@ -95,12 +95,12 @@ public class EjemplarTest {
 	}
 	
 	@Test
-	public void testgetReserva() {
+	void testgetReserva() {
 		assertEquals(reserva,ejemplar.getReserva());
 	}
 
 	@Test
-	public void testsetReserva() {
+	void testsetReserva() {
 		Reserva reserva2 = new Reserva();
 		reserva2.setEjem(ejemplar);
 		reserva2.setIdReserva((long) 6677);

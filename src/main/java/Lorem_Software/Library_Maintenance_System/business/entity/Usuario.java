@@ -8,16 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-//import jakarta.persistence.JoinColumn;
-//import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-//import jakarta.persistence.OneToOne;
 
 @Entity
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long IdUsuario;
+    private long idUsuario;
 
     @Column
     private String nombre;
@@ -34,55 +31,59 @@ public class Usuario {
     @OneToMany(mappedBy = "user")
     private Set<Reserva> reservas;
 
-    public Usuario(){
-
+    public Usuario() {
     }
 
-    public long getIdUsuario(){
-        return IdUsuario;
-    }
-
-    public void setIdUsuario(long id){
-        this.IdUsuario = id;
-    }
-
-    public String getNombre(){
-        return nombre;
-    }
-
-    public void setNombre(String nombre){
+    public Usuario(String nombre, String apellidos){
         this.nombre = nombre;
-    }
-
-    public String getApellidos(){
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos){
         this.apellidos = apellidos;
     }
 
-    public LocalDate getFechaFinPenalizacion(){
+    public long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(long id) {
+        this.idUsuario = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public LocalDate getFechaFinPenalizacion() {
         return fechaFinPenalizacion;
     }
 
-    public void setFechaFinPenalizacion(LocalDate nFecha){
+    public void setFechaFinPenalizacion(LocalDate nFecha) {
         this.fechaFinPenalizacion = nFecha;
     }
 
-    public Set<Prestamo> getPrestamos(){
+    public Set<Prestamo> getPrestamos() {
         return prestamos;
     }
 
-    public void setPrestamos(Set<Prestamo> nPrestamos){
+    public void setPrestamos(Set<Prestamo> nPrestamos) {
         this.prestamos = nPrestamos;
     }
 
-    public Set<Reserva> getReservas(){
+    public Set<Reserva> getReservas() {
         return reservas;
     }
 
-    public void setReservas(Set<Reserva> nReservas){
+    public void setReservas(Set<Reserva> nReservas) {
         this.reservas = nReservas;
     }
 

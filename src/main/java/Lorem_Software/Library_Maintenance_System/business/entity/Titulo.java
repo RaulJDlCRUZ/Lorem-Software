@@ -2,12 +2,8 @@ package Lorem_Software.Library_Maintenance_System.business.entity;
 
 import java.util.Set;
 
-// import org.hibernate.annotations.OnDelete;
-// import org.hibernate.annotations.OnDeleteAction;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-// import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,30 +20,26 @@ public class Titulo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column
-	private String ISBN;
+	private String isbn;
 	@Column
-	private String Titulo;
+	private String titulo;
 	@Column
 	private String numReserva;
-	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinTable(
-		name = "AUTOR_TITULOS",
-		joinColumns = @JoinColumn(name = "titulo_id"), 
-		inverseJoinColumns = @JoinColumn(name = "autor_id"))
-		// @OnDelete(action = OnDeleteAction.CASCADE)
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "AUTOR_TITULOS", joinColumns = @JoinColumn(name = "titulo_id"), inverseJoinColumns = @JoinColumn(name = "autor_id"))
 	Set<Autor> autores;
 
-	@OneToMany(mappedBy="tit", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "tit", cascade = CascadeType.ALL)
 	private Set<Ejemplar> ejemplares;
 
 	public Titulo() {
 	}
 
-	public Titulo(String Titulo, String ISBN) {
+	public Titulo(String titulo, String isbn) {
 		super();
-		this.ISBN = ISBN;
-		this.Titulo = Titulo;
+		this.isbn = isbn;
+		this.titulo = titulo;
 	}
 
 	public Long getId() {
@@ -59,19 +51,19 @@ public class Titulo {
 	}
 
 	public String getISBN() {
-		return ISBN;
+		return isbn;
 	}
 
-	public void setISBN(String iSBN) {
-		ISBN = iSBN;
+	public void setISBN(String isbn) {
+		this.isbn = isbn;
 	}
 
 	public String getTitulo() {
-		return Titulo;
+		return titulo;
 	}
 
 	public void setTitulo(String titulo) {
-		Titulo = titulo;
+		this.titulo = titulo;
 	}
 
 	public String getNumReserva() {
@@ -96,6 +88,6 @@ public class Titulo {
 
 	public void setEjemplares(Set<Ejemplar> ejemplares) {
 		this.ejemplares = ejemplares;
-	}	
+	}
 
 }

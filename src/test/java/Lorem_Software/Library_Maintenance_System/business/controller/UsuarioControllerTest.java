@@ -22,7 +22,7 @@ import org.springframework.ui.Model;
 import Lorem_Software.Library_Maintenance_System.business.entity.Usuario;
 import Lorem_Software.Library_Maintenance_System.persistance.UsuarioDAO;
 
-public class UsuarioControllerTest {
+class UsuarioControllerTest {
 	
 	@Autowired
 	private static UsuarioController usuarioController;
@@ -57,14 +57,14 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public final void testAltaUsuario() {
+	final void testAltaUsuario() {
 		String result = usuarioController.altaUsuario(model);
 		assertNotNull(result);
-		assertEquals(result, "usuario/AltaUsuario");
+		assertEquals("usuario/AltaUsuario", result);
 	}
 
 	@Test
-	public final void testUsuarioSubmit() {
+	final void testUsuarioSubmit() {
 		Usuario guardado = usuarioDAO.save(ss);
 		assertNotNull(guardado);
 		assertTrue(guardado.getIdUsuario() > 0);
@@ -72,7 +72,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public final void testFormularioEditarUsuario() {
+	final void testFormularioEditarUsuario() {
 		when(usuarioDAO.findById(ss.getIdUsuario())).thenReturn(java.util.Optional.ofNullable(ss));
 		
 		Usuario guardado = usuarioDAO.save(ss);
@@ -84,11 +84,11 @@ public class UsuarioControllerTest {
 		assertEquals(ss, usuario.get());
 		
 		String result = usuarioController.formularioEditarUsuario((long) ss.getIdUsuario(), model);
-		assertEquals(result, "usuario/AltaUsuario");
+		assertEquals("usuario/AltaUsuario", result);
 	}
 
 	@Test
-	public final void testActualizarUsuario() {
+	final void testActualizarUsuario() {
 		when(usuarioDAO.findById(ss.getIdUsuario())).thenReturn(java.util.Optional.ofNullable(ss));
 		
 		Usuario guardado = usuarioDAO.save(ss);
@@ -110,7 +110,7 @@ public class UsuarioControllerTest {
 	}
 
 	@Test
-	public final void testDeleteUsuario() {
+	final void testDeleteUsuario() {
 		when(usuarioDAO.findById(ss.getIdUsuario())).thenReturn(java.util.Optional.ofNullable(ss));
 		Usuario guardado = usuarioDAO.save(ss);
 		assertNotNull(guardado);

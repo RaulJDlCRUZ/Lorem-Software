@@ -1,7 +1,8 @@
 package Lorem_Software.Library_Maintenance_System.business.entity;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +56,7 @@ class TituloTest {
 
 	@Test
 	public final void testGetId() {
-		assertTrue(titulo.getId()==700);
+		assertEquals(700, titulo.getId());
 	}
 	
 	@Test
@@ -91,7 +92,7 @@ class TituloTest {
 
 	@Test
 	void testGetNumReserva() {
-		assertEquals(titulo.getNumReserva(),"1234567890");
+		assertEquals("1234567890", titulo.getNumReserva());
 	}
 
 	@Test

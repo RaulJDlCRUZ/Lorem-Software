@@ -92,7 +92,7 @@ public class AutorTest {
 	}
 
 	@Test
-	public final void testSetTitulos() {
+	final void testSetTitulos() {
 		masTitulos.add(new Titulo("El Otro I","977001"));
 		masTitulos.add(new Titulo("El Otro II","977002"));
 		autor.setTitulos(masTitulos);

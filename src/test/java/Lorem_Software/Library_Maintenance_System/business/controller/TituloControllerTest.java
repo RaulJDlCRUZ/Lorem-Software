@@ -1,5 +1,6 @@
 package Lorem_Software.Library_Maintenance_System.business.controller;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,7 +30,7 @@ import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
 import Lorem_Software.Library_Maintenance_System.persistance.EjemplarDAO;
 import Lorem_Software.Library_Maintenance_System.persistance.TituloDAO;
 
-public class TituloControllerTest {
+class TituloControllerTest {
 
 	@Autowired
 	private static TituloController tituloController;
@@ -41,16 +42,16 @@ public class TituloControllerTest {
 	private static Titulo tt;
 
 	@BeforeAll
-	public static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 		tituloController = new TituloController();
 	}
 
 	@AfterAll
-	public static void tearDownAfterClass() throws Exception {
+	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		tt = new Titulo("Libro de prueba", "978013C35");
 		tt.setId((long) 102220);
 		model = mock(Model.class);
@@ -61,40 +62,40 @@ public class TituloControllerTest {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 
 	@Test
-	public final void testListarTitulosSin() {
+	final void testListarTitulosSin() {
 		when(tituloDAO.findAll()).thenReturn(java.util.List.of());
 		List<Titulo> listatitulos = tituloDAO.findAll();
-		assertTrue(listatitulos.size() == 0);
+		assertEquals(0, listatitulos.size());
 	}
 	
 	@Test
-	public final void testListarTitulosCon() {
+	final void testListarTitulosCon() {
 		when(tituloDAO.findAll()).thenReturn(java.util.List.of(tt));
 		Titulo t = tituloDAO.save(tt);
 		assertEquals(tt,t);
 		List<Titulo> listatitulos2 = tituloDAO.findAll();
-		assertFalse(listatitulos2.size() == 0);
+		assertNotEquals(0, listatitulos2.size());
 	}
 
 	@Test
-	public final void testAltaTitulo() {
+	final void testAltaTitulo() {
 		String result = tituloController.altaTitulo(model);
 		assertNotNull(result);
-		assertEquals(result, "titulo/NuevoTitulo");
+		assertEquals("titulo/NuevoTitulo", result);
 	}
 
 	@Test
-	public final void testLibroSubmit() {		
+	final void testLibroSubmit() {		
 		Titulo guardado = tituloDAO.save(tt);
 		assertNotNull(guardado);
 	}
 	
 	@Test
-	public final void testLibroSubmitConAutores() {
+	final void testLibroSubmitConAutores() {
 		Set<Autor> autores = new HashSet<>();
 		autores.add(new Autor("Autor I", "Apellido I"));
 		autores.add(new Autor("Autor II", "Apellido II"));
@@ -104,7 +105,7 @@ public class TituloControllerTest {
 	}
 	
 	@Test
-	public final void testLibroSubmitConEjemplares() {
+	final void testLibroSubmitConEjemplares() {
 		Set<Ejemplar> ejemplares = new HashSet<>();
 		Ejemplar e = new Ejemplar();
 		e.setTit(tt);
@@ -120,23 +121,22 @@ public class TituloControllerTest {
 	}
 
 	@Test
-	public final void testFormularioEditarTitulo() {
+	final void testFormularioEditarTitulo() {
 		when(tituloDAO.findById(tt.getId())).thenReturn(java.util.Optional.ofNullable(tt));
 		
 		Titulo guardado = tituloDAO.save(tt);
 		assertNotNull(guardado);
-//		System.out.println("["+guardado.getId()+"] "+guardado.getNombre()+" "+guardado.getApellido());
 		
 		Optional <Titulo> titulo = tituloDAO.findById(guardado.getId());
 		assertFalse(titulo.isEmpty());
 		assertEquals(tt, titulo.get());
 		
 		String result = tituloController.formularioEditarTitulo((long) tt.getId(), model);
-		assertEquals(result, "titulo/NuevoTitulo");
+		assertEquals("titulo/NuevoTitulo", result);
 	}
 
 	@Test
-	public final void testActualizarTitulo() {
+	final void testActualizarTitulo() {
 		when(tituloDAO.findById(tt.getId())).thenReturn(java.util.Optional.ofNullable(tt));
 		
 		Titulo guardado = tituloDAO.save(tt);
@@ -156,7 +156,7 @@ public class TituloControllerTest {
 	}
 
 	@Test
-	public final void testEliminarTitulo() {
+	final void testEliminarTitulo() {
 		when(tituloDAO.findById(tt.getId())).thenReturn(java.util.Optional.ofNullable(tt));
 		
 		Titulo guardado = tituloDAO.save(tt);

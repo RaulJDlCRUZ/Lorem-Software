@@ -10,22 +10,22 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class PrestamoTest {
+class PrestamoTest {
 	
 	private static Prestamo prestamo;
 	private static Usuario usuario;
 	private static Ejemplar ejemplar;
 
 	@BeforeAll
-	public static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 	}
 
 	@AfterAll
-	public static void tearDownAfterClass() throws Exception {
+	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		usuario = new Usuario();
 		usuario.setNombre("Nombre");
 		usuario.setApellidos("Apellido de ejemplo");
@@ -45,11 +45,11 @@ public class PrestamoTest {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 
 	@Test
-	public void testPrestamo() {
+	void testPrestamo() {
 		Prestamo p = new Prestamo();
 		p.setActivo(true);
 		p.setFechaInicio(LocalDate.parse("2023-12-20"));
@@ -65,56 +65,56 @@ public class PrestamoTest {
 	}
 
 	@Test
-	public void testGetIdPrestamo() {
+	void testGetIdPrestamo() {
 		assertEquals(prestamo.getIdPrestamo(), (long) 50000);
 	}
 
 	@Test
-	public void testSetIdPrestamo() {
+	void testSetIdPrestamo() {
 		prestamo.setIdPrestamo((long) 60000);
 		assertEquals(prestamo.getIdPrestamo(), (long) 60000);
 	}
 
 	@Test
-	public void testGetFechaInicio() {
+	void testGetFechaInicio() {
 		assertEquals(prestamo.getFechaInicio(),LocalDate.parse("2023-12-20"));
 	}
 
 	@Test
-	public void testSetFechaInicio() {
+	void testSetFechaInicio() {
 		prestamo.setFechaInicio(LocalDate.parse("2023-11-21"));
 		assertEquals(prestamo.getFechaInicio(),LocalDate.parse("2023-11-21"));
 	}
 
 	@Test
-	public void testGetFechaFin() {
+	void testGetFechaFin() {
 		assertEquals(prestamo.getFechaFin(),LocalDate.parse("2024-01-20"));
 	}
 
 	@Test
-	public void testSetFechaFin() {
+	void testSetFechaFin() {
 		prestamo.setFechaFin(LocalDate.parse("2023-12-21"));
 		assertEquals(prestamo.getFechaFin(),LocalDate.parse("2023-12-21"));
 	}
 
 	@Test
-	public void testIsActivo() {
-		assertEquals(prestamo.isActivo(),true);
+	void testIsActivo() {
+		assertEquals(true,prestamo.isActivo());
 	}
 
 	@Test
-	public void testSetActivo() {
+	void testSetActivo() {
 		prestamo.setActivo(false);
-		assertEquals(prestamo.isActivo(),false);
+		assertEquals(false, prestamo.isActivo());
 	}
 
 	@Test
-	public void testGetEjem() {
+	void testGetEjem() {
 		assertEquals(prestamo.getEjem(),ejemplar);
 	}
 
 	@Test
-	public void testSetEjem() {
+	void testSetEjem() {
 		Ejemplar e2 = new Ejemplar();
 		e2.setTit(new Titulo("Titulo II", "9786256"));
 		prestamo.setEjem(e2);
@@ -122,12 +122,12 @@ public class PrestamoTest {
 	}
 
 	@Test
-	public void testGetUser() {
+	void testGetUser() {
 		assertEquals(usuario,prestamo.getUser());
 	}
 
 	@Test
-	public void testSetUser() {
+	void testSetUser() {
 		Usuario u2 = new Usuario();
 		u2.setNombre("Nombre 2");
 		u2.setIdUsuario((long) 4556);

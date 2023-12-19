@@ -24,7 +24,7 @@ import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
 import Lorem_Software.Library_Maintenance_System.persistance.EjemplarDAO;
 import Lorem_Software.Library_Maintenance_System.persistance.TituloDAO;
 
-public class EjemplarControllerTest {
+class EjemplarControllerTest {
 
 	@Autowired
 	private static EjemplarController ejemplarController;
@@ -36,16 +36,16 @@ public class EjemplarControllerTest {
 	private static Titulo tt;
 
 	@BeforeAll
-	public static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 		ejemplarController = new EjemplarController();
 	}
 
 	@AfterAll
-	public static void tearDownAfterClass() throws Exception {
+	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		tt = new Titulo("Título de prueba","978000001");
 		tt.setId((long) 100001);
 		ee = new Ejemplar();
@@ -58,11 +58,11 @@ public class EjemplarControllerTest {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 	
 	@Test
-	public final void testListarEjemplaresParaUnTitulo() {
+	final void testListarEjemplaresParaUnTitulo() {
 		Ejemplar guardado = ejemplarDAO.save(ee);
 		when(ejemplarDAO.findAll()).thenReturn(java.util.List.of(ee));
         List<Ejemplar> ejemplaresProv = ejemplarDAO.findAll();
@@ -83,20 +83,20 @@ public class EjemplarControllerTest {
 	}
 
 	@Test
-	public final void testAltaEjemplar() {
+	final void testAltaEjemplar() {
 		String result = ejemplarController.altaEjemplar(model);
 		assertNotNull(result);
-		assertEquals(result, "ejemplar/NuevoEjemplar");
+		assertEquals("ejemplar/NuevoEjemplar", result);
 	}
 
 	@Test
-	public final void testEjemplarSubmit() {
+	final void testEjemplarSubmit() {
 		Ejemplar guardado = ejemplarDAO.save(ee);
 		assertNotNull(guardado);
 	}
 
 	@Test
-	public final void testEliminarTitulo() {
+	final void testEliminarTitulo() {
 		when(ejemplarDAO.findById(ee.getIdEjemplar())).thenReturn(java.util.Optional.ofNullable(ee));
 		
 		Ejemplar guardado = ejemplarDAO.save(ee);

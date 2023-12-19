@@ -1,10 +1,10 @@
 package Lorem_Software.Library_Maintenance_System.business.controller;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Optional;
 
-// import org.hibernate.mapping.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
 import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
 import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
 import Lorem_Software.Library_Maintenance_System.persistance.EjemplarDAO;
@@ -25,7 +24,6 @@ import Lorem_Software.Library_Maintenance_System.persistance.TituloDAO;
 @Controller
 public class EjemplarController {
     private static final Logger log = LoggerFactory.getLogger(EjemplarController.class);
-    final int MAX_ELEMENTS = 20;
 
     @Autowired
     private EjemplarDAO ejemplarDAO;
@@ -34,26 +32,26 @@ public class EjemplarController {
     private TituloDAO tituloDAO;
 
     Ejemplar ejemplar;
-    
+
     public EjemplarController() {
-    	super();
-    	this.ejemplar=new Ejemplar();
+        super();
+        this.ejemplar = new Ejemplar();
     }
 
     @GetMapping("/ListarEjemplares/{idTitulo}")
-    public String listarEjemplares(@PathVariable("idTitulo") long idTitulo, Model model){
+    public String listarEjemplares(@PathVariable("idTitulo") long idTitulo, Model model) {
         List<Ejemplar> ejemplaresProv = ejemplarDAO.findAll();
-        List<Ejemplar> ejemplares =new ArrayList<Ejemplar>();
-        String TituloName="";
+        List<Ejemplar> ejemplares = new ArrayList<>();
+        String tituloName = "";
 
-        for(Ejemplar e:ejemplaresProv){
-            if(e.getTit().getId().equals(idTitulo)){
-                TituloName=e.getTit().getTitulo();
+        for (Ejemplar e : ejemplaresProv) {
+            if (e.getTit().getId().equals(idTitulo)) {
+                tituloName = e.getTit().getTitulo();
                 ejemplares.add(e);
             }
         }
 
-        model.addAttribute("ListEjemplarHeader", "Lista de Ejemplares de "+ TituloName);
+        model.addAttribute("ListEjemplarHeader", "Lista de Ejemplares de " + tituloName);
         model.addAttribute("ejemplares", ejemplares);
 
         return "ejemplar/ListarEjemplares";
@@ -61,25 +59,17 @@ public class EjemplarController {
 
     @GetMapping("/AltaEjemplar")
     public String altaEjemplar(Model model) {
-        //Atributo para título de la página
         model.addAttribute("ejemplarheader", "Añadir un Ejemplar");
-
-        //Atributo de Ejemplar vacío para el formulario
         model.addAttribute("ejemplares", new Ejemplar());
-
-        //Atributo lista de Títulos, para mostrar en el selector
         List<Titulo> listadoTitulos = tituloDAO.findAll();
-
-        //Ordenamos la lista por el nombre del Título
         Collections.sort(listadoTitulos, new TitleComparator());
         model.addAttribute("listatitulos", listadoTitulos);
-
         return "ejemplar/NuevoEjemplar";
     }
 
     @PostMapping("/AltaEjemplar")
     public String ejemplarSubmit(@ModelAttribute Ejemplar ejemplar, Model model, RedirectAttributes attribute) {
-        log.info("El id del ejemplar es"+ejemplar.getIdEjemplar());
+        log.info("El id del ejemplar es {}", ejemplar.getIdEjemplar());
         this.ejemplar = ejemplar;
         model.addAttribute("ejemplar", ejemplar);
         ejemplarDAO.save(ejemplar);
@@ -88,45 +78,50 @@ public class EjemplarController {
     }
 
     @GetMapping("/AltaEjemplar/delete/{IdPrestamo}")
-	public String eliminarTitulo(@PathVariable("IdPrestamo") long IdPrestamo, RedirectAttributes attribute){
-        if(ejemplarDAO.findById(IdPrestamo).get().getPrestamo()!=null || ejemplarDAO.findById(IdPrestamo).get().getReserva() != null){
-            attribute.addFlashAttribute("error", "No se puede eliminar el ejemplar porque está prestado o tiene una reserva");
-            return "redirect:/ListarEjemplares/"+ejemplarDAO.findById(IdPrestamo).get().getTit().getId();
+    public String eliminarTitulo(@PathVariable("IdPrestamo") long idPrestamo, RedirectAttributes attribute) {
+        Optional<Ejemplar> ejemplarOpt = ejemplarDAO.findById(idPrestamo);
+        if (ejemplarOpt.isPresent()) {
+            Ejemplar e = ejemplarOpt.get();
+            if (e.getPrestamo() != null || e.getReserva() != null) {
+                attribute.addFlashAttribute("error",
+                        "No se puede eliminar el ejemplar porque está prestado o tiene una reserva");
+                return "redirect:/ListarEjemplares/" + e.getTit().getId();
+            }
+            ejemplarDAO.deleteById(idPrestamo);
+            attribute.addFlashAttribute("warning", "El ejemplar ha sido eliminado");
         }
-		ejemplarDAO.deleteById(IdPrestamo);
-        attribute.addFlashAttribute("warning", "El ejemplar ha sido eliminado");
-		return "redirect:/ListarTitulos";
-	}
+        return "redirect:/ListarTitulos";
+    }
 
     class TitleComparator implements java.util.Comparator<Titulo> {
-		@Override
-		public int compare(Titulo a, Titulo b) {
-			return a.getTitulo().compareTo(b.getTitulo());
-		}
-	}
+        @Override
+        public int compare(Titulo a, Titulo b) {
+            return a.getTitulo().compareTo(b.getTitulo());
+        }
+    }
 
-	public EjemplarDAO getEjemplarDAO() {
-		return ejemplarDAO;
-	}
+    public EjemplarDAO getEjemplarDAO() {
+        return ejemplarDAO;
+    }
 
-	public void setEjemplarDAO(EjemplarDAO ejemplarDAO) {
-		this.ejemplarDAO = ejemplarDAO;
-	}
+    public void setEjemplarDAO(EjemplarDAO ejemplarDAO) {
+        this.ejemplarDAO = ejemplarDAO;
+    }
 
-	public TituloDAO getTituloDAO() {
-		return tituloDAO;
-	}
+    public TituloDAO getTituloDAO() {
+        return tituloDAO;
+    }
 
-	public void setTituloDAO(TituloDAO tituloDAO) {
-		this.tituloDAO = tituloDAO;
-	}
+    public void setTituloDAO(TituloDAO tituloDAO) {
+        this.tituloDAO = tituloDAO;
+    }
 
-	public Ejemplar getEjemplar() {
-		return ejemplar;
-	}
+    public Ejemplar getEjemplar() {
+        return ejemplar;
+    }
 
-	public void setEjemplar(Ejemplar ejemplar) {
-		this.ejemplar = ejemplar;
-	}
+    public void setEjemplar(Ejemplar ejemplar) {
+        this.ejemplar = ejemplar;
+    }
 
 }

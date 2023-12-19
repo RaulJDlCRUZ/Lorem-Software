@@ -13,22 +13,22 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class UsuarioTest {
+class UsuarioTest {
 	
 	private static Usuario usuario;
 	private static Set<Reserva> reservas = new HashSet<>();
 	private static Set<Prestamo> prestamos = new HashSet<>();
 
 	@BeforeAll
-	public static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 	}
 
 	@AfterAll
-	public static void tearDownAfterClass() throws Exception {
+	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		usuario = new Usuario();
 		Prestamo prestamo = new Prestamo();
 		Prestamo prestamo1 = new Prestamo();
@@ -56,11 +56,11 @@ public class UsuarioTest {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 
 	@Test
-	public void testUsuario() {
+	void testUsuario() {
 		Usuario newusr = new Usuario();
 		newusr.setIdUsuario((long) 43855);
 		newusr.setNombre("Luis");
@@ -78,60 +78,60 @@ public class UsuarioTest {
 	}
 
 	@Test
-	public void testGetIdUsuario() {
+	void testGetIdUsuario() {
 		assertEquals(usuario.getIdUsuario(),(long) 43855);
 	}
 
 	@Test
-	public void testSetIdUsuario() {
+	void testSetIdUsuario() {
 		usuario.setIdUsuario((long) 341);
 		assertNotEquals(usuario.getIdUsuario(),(long) 43855);
 		assertEquals(usuario.getIdUsuario(),(long) 341);
 	}
 
 	@Test
-	public void testGetNombre() {
-		assertEquals(usuario.getNombre(),"Luis");
+	void testGetNombre() {
+		assertEquals("Luis", usuario.getNombre());
 	}
 
 	@Test
-	public void testSetNombre() {
+	void testSetNombre() {
 		usuario.setNombre("Luisillo");
 		assertNotEquals(usuario.getNombre(),"Luis");
-		assertEquals(usuario.getNombre(),"Luisillo");
+		assertEquals("Luisillo",usuario.getNombre());
 	}
 
 	@Test
-	public void testGetApellidos() {
-		assertEquals(usuario.getApellidos(),"Jiménez");
+	void testGetApellidos() {
+		assertEquals("Jiménez",usuario.getApellidos());
 	}
 
 	@Test
-	public void testSetApellidos() {
+	void testSetApellidos() {
 		usuario.setApellidos("Ximenez");
 		assertNotEquals(usuario.getApellidos(),"Jiménez");
-		assertEquals(usuario.getApellidos(),"Ximenez");
+		assertEquals("Ximenez",usuario.getApellidos());
 	}
 
 	@Test
-	public void testGetFechaFinPenalizacion() {
+	void testGetFechaFinPenalizacion() {
 		assertEquals(usuario.getFechaFinPenalizacion(),LocalDate.parse("2023-12-17"));
 	}
 
 	@Test
-	public void testSetFechaFinPenalizacion() {
+	void testSetFechaFinPenalizacion() {
 		usuario.setFechaFinPenalizacion(LocalDate.parse("2024-12-17"));
 		assertNotEquals(usuario.getFechaFinPenalizacion(),LocalDate.parse("2023-12-17"));
 		assertEquals(usuario.getFechaFinPenalizacion(),LocalDate.parse("2024-12-17"));
 	}
 
 	@Test
-	public void testGetPrestamos() {
+	void testGetPrestamos() {
 		assertEquals(usuario.getPrestamos(),prestamos);
 	}
 
 	@Test
-	public void testSetPrestamos() {
+	void testSetPrestamos() {
 		Set<Prestamo> prestamos2 = new HashSet<>();
 		usuario.setPrestamos(prestamos2);
 		assertNotEquals(usuario.getPrestamos(),prestamos);
@@ -140,12 +140,12 @@ public class UsuarioTest {
 	}
 
 	@Test
-	public void testGetReservas() {
+	void testGetReservas() {
 		assertEquals(usuario.getReservas(),reservas);
 	}
 
 	@Test
-	public void testSetReservas() {
+	void testSetReservas() {
 		Set<Reserva> reservas2 = new HashSet<>();
 		Reserva reserva2 = new Reserva();
 		reserva2.setIdReserva((long) 43855);

@@ -17,18 +17,21 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.ui.Model;
 
 import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
 import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
 
-public class AutorControllerTest {
+
+class AutorControllerTest {
 
 	@Autowired
 	private static AutorController autorController;
 	@Autowired
 	private static AutorDAO autorDAO = mock(AutorDAO.class);
 	private static Model model;
+	private static RedirectAttributes attribute;
 	private static Autor aa;
 	
 	@BeforeAll
@@ -47,6 +50,7 @@ public class AutorControllerTest {
 		aa.setId(id);
 		
 		model = mock(Model.class);
+		attribute = mock(RedirectAttributes.class);
 		autorController.setAutorDAO(autorDAO);
 		when(autorDAO.save(aa)).thenAnswer(i -> i.getArguments()[0]);
 	}
@@ -56,43 +60,43 @@ public class AutorControllerTest {
 	}
 	
 	@Test
-	public void altaAutorTest() {
+	void altaAutorTest() {
 		String result = autorController.altaAutor(model);
 		assertNotNull(result);
-		assertEquals(result, "autor/AltaAutor");
+		assertEquals("autor/AltaAutor", result);
 	}
 	
 	@Test
-	public final void testAutorSubmit() {
+	final void testAutorSubmit() {
 		Autor guardado = autorDAO.save(aa);
 		assertNotNull(guardado);
 		assertTrue(guardado.getId() > 0);
 		assertEquals(aa, guardado);
+		String result = autorController.autorSubmit(aa, model, attribute);
+		assertEquals("redirect:/AltaAutor",result);
 	}
 	
 	@Test
-	public final void testFormularioEditarAutor() {
+	final void testFormularioEditarAutor() {
 		when(autorDAO.findById(aa.getId())).thenReturn(java.util.Optional.ofNullable(aa));
 		
 		Autor guardado = autorDAO.save(aa);
 		assertNotNull(guardado);
-//		System.out.println("["+guardado.getId()+"] "+guardado.getNombre()+" "+guardado.getApellido());
 		
 		Optional <Autor> autor = autorDAO.findById(guardado.getId());
 		assertFalse(autor.isEmpty());
 		assertEquals(aa, autor.get());
 		
 		String result = autorController.formularioEditarAutor((long) aa.getId(), model);
-		assertEquals(result, "autor/AltaAutor");
+		assertEquals("autor/AltaAutor", result);
 	}
 	
 	@Test
-	public final void testActualizarAutor() {
+	final void testActualizarAutor() {
 		when(autorDAO.findById(aa.getId())).thenReturn(java.util.Optional.ofNullable(aa));
 		
 		Autor guardado = autorDAO.save(aa);
 		assertNotNull(guardado);
-//		System.out.println("["+guardado.getId()+"] "+guardado.getNombre()+" "+guardado.getApellido());
 		
 		Optional <Autor> autor = autorDAO.findById(guardado.getId());
 		assertFalse(autor.isEmpty());
@@ -103,11 +107,10 @@ public class AutorControllerTest {
 		Autor guardado2 = autorDAO.save(ab);
 		assertEquals(aa.getId(),guardado2.getId());
 		assertEquals(ab, guardado2);
-//		System.out.println("["+guardado2.getId()+"] "+guardado2.getNombre()+" "+guardado2.getApellido());
 	}
 	
 	@Test
-	public final void testDeleteAutor() {
+	final void testDeleteAutor() {
 		when(autorDAO.findById(aa.getId())).thenReturn(java.util.Optional.ofNullable(aa));
 		Autor guardado = autorDAO.save(aa);
 		assertNotNull(guardado);

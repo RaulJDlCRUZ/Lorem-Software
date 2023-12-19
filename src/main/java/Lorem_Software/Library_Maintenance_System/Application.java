@@ -1,7 +1,6 @@
 package Lorem_Software.Library_Maintenance_System;
 
 import org.springframework.boot.SpringApplication;
-//Hola
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication

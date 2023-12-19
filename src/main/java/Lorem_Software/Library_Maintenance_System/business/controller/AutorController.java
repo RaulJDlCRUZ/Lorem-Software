@@ -1,9 +1,9 @@
 package Lorem_Software.Library_Maintenance_System.business.controller;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-// import org.hibernate.mapping.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,61 +15,51 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.persistence.PreRemove;
-
-// import Lorem_Software.Library_Maintenance_System.business.controller.TituloController.TitleComparator;
 import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
 import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
 import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
+import jakarta.persistence.PreRemove;
 
 @Controller
 public class AutorController {
 
 	private static final Logger log = LoggerFactory.getLogger(AutorController.class);
-    @Autowired
+	@Autowired
 	private AutorDAO autorDAO;
 
-    Autor autor;
-    
-    public AutorController() {
-    	super();
-    	this.autor=new Autor();
-    }
-    
-	// CONSTANTE PARA ORDENAR POR NOMBRE O NO
-	final int __NAME__SORT = 1;
+	Autor autor;
+
+	public AutorController() {
+		super();
+		this.autor = new Autor();
+	}
 
 	@GetMapping("/AltaAutor")
 	public String altaAutor(Model model) {
-        List<Autor> listadoAutores = autorDAO.findAll();
-		// Ordenamos la lista por nombre
-		if (__NAME__SORT == 1) {
-			Collections.sort(listadoAutores, new TitleComparator());
-		}
+		List<Autor> listadoAutores = autorDAO.findAll();
+		Collections.sort(listadoAutores, new TitleComparator());
 
-        model.addAttribute("titulo", "Lista de Autores");
-        model.addAttribute("autor", new Autor());
-        model.addAttribute("listautores", listadoAutores);
+		model.addAttribute("titulo", "Lista de Autores");
+		model.addAttribute("autor", new Autor());
+		model.addAttribute("listautores", listadoAutores);
 
-		log.info(autorDAO.findAll().toString());
 		return "autor/AltaAutor";
 	}
-    
+
 	@PostMapping("/AltaAutor")
 	public String autorSubmit(@ModelAttribute Autor autor, Model model, RedirectAttributes attribute) {
-        this.autor = autor;
+		this.autor = autor;
 		model.addAttribute("autor", autor);
 		Autor savedAutor = autorDAO.save(autor);
-		log.info("Saved autor: " + savedAutor);
-		// titulo.addAutor(autor);
+		log.info("Saved autor: {} ", savedAutor);
 		attribute.addFlashAttribute("success", "El autor se ha creado con éxito");
 		return "redirect:/AltaAutor";
 	}
 
 	@GetMapping("/AltaAutor/edit/{id}")
 	public String formularioEditarAutor(@PathVariable("id") long id, Model model) {
-		Optional<Autor> autor = autorDAO.findById(id);
-		model.addAttribute("autor", autor);
+		Optional<Autor> autorEditar = autorDAO.findById(id);
+		model.addAttribute("autor", autorEditar);
 		return "autor/AltaAutor";
 	}
 
@@ -90,11 +80,11 @@ public class AutorController {
 
 	@PreRemove
 	private void suprimirAsociacionesAutorLibro(Optional<Autor> au) {
-		// Método anterior a eliminación de autor por DAO (=PreRemove)
-		// Revisa cada título asociado con autor y se elimina el vínculo, manteniendo el título
-		Autor a = au.get();
-		for (Titulo t : a.getTitulos()){
-			t.getAutores().remove(a);
+		if (!au.isEmpty()) {
+			Autor a = au.get();
+			for (Titulo t : a.getTitulos()) {
+				t.getAutores().remove(a);
+			}
 		}
 	}
 

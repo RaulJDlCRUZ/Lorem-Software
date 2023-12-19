@@ -10,22 +10,22 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class ReservaTest {
+class ReservaTest {
 	
 	private static Reserva reserva;
 	private static Usuario usuario;
 	private static Ejemplar ejemplar;
 
 	@BeforeAll
-	public static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 	}
 
 	@AfterAll
-	public static void tearDownAfterClass() throws Exception {
+	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		usuario = new Usuario();
 		usuario.setNombre("Nombre");
 		usuario.setApellidos("Apellido de prueba");
@@ -44,11 +44,11 @@ public class ReservaTest {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 
 	@Test
-	public void testReserva() {
+	void testReserva() {
 		Reserva r = new Reserva();
 		r.setIdReserva((long) 10000);
 		r.setFechaReserva(LocalDate.parse("2024-01-20"));
@@ -62,34 +62,34 @@ public class ReservaTest {
 	}
 
 	@Test
-	public void testGetIdReserva() {
+	void testGetIdReserva() {
 		assertEquals(reserva.getIdReserva(),(long) 10000);
 	}
 
 	@Test
-	public void testSetIdReserva() {
+	void testSetIdReserva() {
 		reserva.setIdReserva((long) 20000);
 		assertEquals(reserva.getIdReserva(),(long) 20000);
 	}
 
 	@Test
-	public void testGetFechaReserva() {
+	void testGetFechaReserva() {
 		assertEquals(reserva.getFechaReserva(),LocalDate.parse("2024-01-20"));
 	}
 
 	@Test
-	public void testSetFechaReserva() {
+	void testSetFechaReserva() {
 		reserva.setFechaReserva(LocalDate.parse("2025-05-20"));
 		assertEquals(reserva.getFechaReserva(),LocalDate.parse("2025-05-20"));
 	}
 
 	@Test
-	public void testGetEjem() {
+	void testGetEjem() {
 		assertEquals(reserva.getEjem(),ejemplar);
 	}
 
 	@Test
-	public void testSetEjem() {
+	void testSetEjem() {
 		Ejemplar ee = new Ejemplar();
 		ee.setTit(new Titulo("Otro", "521352431"));
 		ee.setIdEjemplar((long) 488);
@@ -98,12 +98,12 @@ public class ReservaTest {
 	}
 
 	@Test
-	public void testGetUser() {
+	void testGetUser() {
 		assertEquals(reserva.getUser(),usuario);
 	}
 
 	@Test
-	public void testSetUser() {
+	void testSetUser() {
 		Usuario uuu = new Usuario();
 		uuu.setIdUsuario((long) 2168643);
 		uuu.setFechaFinPenalizacion(LocalDate.parse("2026-01-01"));

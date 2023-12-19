@@ -1,7 +1,5 @@
 package Lorem_Software.Library_Maintenance_System.business.entity;
 
-// import java.util.List;
-// import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +13,7 @@ public class Ejemplar {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long IdEjemplar;
+	private long idEjemplar;
 
 	@ManyToOne
 	@JoinColumn(name = "titulo_id")
@@ -28,15 +26,20 @@ public class Ejemplar {
 	private Reserva reserva;
 
 	public Ejemplar() {
+	}
 
+	public Ejemplar(Titulo tit, Prestamo prest, Reserva res){
+		this.tit = tit;
+		this.prestamo = prest;
+		this.reserva = res;
 	}
 
 	public Long getIdEjemplar() {
-		return IdEjemplar;
+		return idEjemplar;
 	}
 
-	public void setIdEjemplar(Long IdEjemplar) {
-		this.IdEjemplar = IdEjemplar;
+	public void setIdEjemplar(Long idEjemplar) {
+		this.idEjemplar = idEjemplar;
 	}
 
 	public Titulo getTit() {

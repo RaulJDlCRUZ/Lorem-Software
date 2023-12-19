@@ -1,5 +1,7 @@
 package Lorem_Software.Library_Maintenance_System.business.entity;
+
 import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,12 +11,11 @@ import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Autor {
-	
-	//TODO arreglar claves para evitar clones
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column
 	private String nombre;
 
@@ -23,9 +24,9 @@ public class Autor {
 
 	@ManyToMany(mappedBy = "autores")
 	Set<Titulo> titulos;
-	
 
-	public Autor() {}
+	public Autor() {
+	}
 
 	public Autor(String nombre, String apellido) {
 		super();

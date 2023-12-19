@@ -6,13 +6,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -27,20 +24,17 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
+import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
+import Lorem_Software.Library_Maintenance_System.business.entity.Prestamo;
 import Lorem_Software.Library_Maintenance_System.business.entity.Reserva;
 import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
-import Lorem_Software.Library_Maintenance_System.business.entity.Prestamo;
 import Lorem_Software.Library_Maintenance_System.business.entity.Usuario;
-import Lorem_Software.Library_Maintenance_System.business.controller.PrestamoReservaController.EjemplarComparator;
-import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
-import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
-
-import Lorem_Software.Library_Maintenance_System.persistance.ReservaDAO;
-import Lorem_Software.Library_Maintenance_System.persistance.PrestamoDAO;
-import Lorem_Software.Library_Maintenance_System.persistance.UsuarioDAO;
 import Lorem_Software.Library_Maintenance_System.persistance.EjemplarDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.PrestamoDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.ReservaDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.UsuarioDAO;
 
-public class PrestamoReservaControllerTest {
+class PrestamoReservaControllerTest {
 	
 	@Autowired
 	private static PrestamoReservaController prController;
@@ -58,16 +52,16 @@ public class PrestamoReservaControllerTest {
 	private static Reserva rr;
 
 	@BeforeAll
-	public static void setUpBeforeClass() throws Exception {
+	static void setUpBeforeClass() throws Exception {
 		prController = new PrestamoReservaController();
 	}
 
 	@AfterAll
-	public static void tearDownAfterClass() throws Exception {
+	static void tearDownAfterClass() throws Exception {
 	}
 
 	@BeforeEach
-	public void setUp() throws Exception {
+	void setUp() throws Exception {
 		Set<Prestamo> sp = new HashSet<Prestamo>();
 		Usuario uu = new Usuario();
 		
@@ -103,38 +97,35 @@ public class PrestamoReservaControllerTest {
 	}
 
 	@AfterEach
-	public void tearDown() throws Exception {
+	void tearDown() throws Exception {
 	}
 
 	@Test
-	public final void testListarEjemplaresdePrestamos() {
+	final void testListarEjemplaresdePrestamos() {
 		List<Ejemplar> listaejemplares = ejemplarDAO.findAll();
-//		System.out.println(listaejemplares.getFirst().getIdEjemplar());
-		assertTrue(listaejemplares.size() == 0);
+		assertEquals(0,listaejemplares.size());
 		Ejemplar guardado = ejemplarDAO.save(ee);
 		when(ejemplarDAO.findAll()).thenReturn(java.util.List.of(ee));
 		listaejemplares = ejemplarDAO.findAll();
-		assertFalse(listaejemplares.size() == 0);
+		assertNotEquals(0,listaejemplares.size());
 	}
 	
 	@Test
-	public final void testComprobarPenalizacionesEjemplaresDesdeActual() {
+	final void testComprobarPenalizacionesEjemplaresDesdeActual() {
 		assertNotNull(ee.getPrestamo());
 		assertTrue(LocalDate.now().isAfter(ee.getPrestamo().getFechaFin().plusMonths(3)));
 		Usuario usr = ee.getPrestamo().getUser();
-//		System.out.println("->"+usr.getNombre()+" "+usr.getApellidos());
 		assertTrue(usr.getFechaFinPenalizacion()==null || usr.getFechaFinPenalizacion().isBefore(LocalDate.now()));
 		usr.setFechaFinPenalizacion(LocalDate.now().plusYears(3));
 		assertEquals(LocalDate.now().plusYears(3),usr.getFechaFinPenalizacion());
 	}
 	
 	@Test
-	public final void testComprobarPenalizacionesEjemplaresAcumular() {
+	final void testComprobarPenalizacionesEjemplaresAcumular() {
 		assertNotNull(ee.getPrestamo());
 		assertTrue(LocalDate.now().isAfter(ee.getPrestamo().getFechaFin().plusMonths(3)));
-		Usuario usr = ee.getPrestamo().getUser(); //!
+		Usuario usr = ee.getPrestamo().getUser();
 		usr.setFechaFinPenalizacion(LocalDate.parse("2024-01-07"));
-//		System.out.println("->"+usr.getNombre()+" "+usr.getApellidos());
 		assertFalse(usr.getFechaFinPenalizacion()==null || usr.getFechaFinPenalizacion().isBefore(LocalDate.now()));
 		LocalDate orig = usr.getFechaFinPenalizacion();
 		usr.setFechaFinPenalizacion(orig.plusYears(3));
@@ -142,7 +133,7 @@ public class PrestamoReservaControllerTest {
 	}
 
 	@Test
-	public final void testAltaPrestamo() {
+	final void testAltaPrestamo() {
 		assertNotNull(ejemplarDAO.findAll());
 		assertNotNull(usuarioDAO.findAll());
         String result = prController.altaPrestamo(model);
@@ -150,13 +141,13 @@ public class PrestamoReservaControllerTest {
 	}
 
 	@Test
-	public final void testPrestamoSubmitUsuarioPenalizado() {
+	final void testPrestamoSubmitUsuarioPenalizado() {
 		pp.getUser().setFechaFinPenalizacion(LocalDate.parse("2024-01-07"));
 		assertTrue(pp.getUser().getFechaFinPenalizacion() != null && pp.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now()));
 	}
 	
 	@Test
-	public final void testPrestamoSubmitSinReserva() {
+	final void testPrestamoSubmitSinReserva() {
 		assertFalse(pp.getUser().getFechaFinPenalizacion() != null && pp.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now()));
 		Prestamo guardado = prestamoDAO.save(pp);
 		assertNotNull(guardado);
@@ -164,7 +155,7 @@ public class PrestamoReservaControllerTest {
 	}
 	
 	@Test
-	public final void testPrestamoSubmitConReservaMismoUsrNoPenalty() {
+	final void testPrestamoSubmitConReservaMismoUsrNoPenalty() {
 		rr = new Reserva();
 		rr.setUser(pp.getUser());
 		rr.setFechaReserva(null);
@@ -180,7 +171,7 @@ public class PrestamoReservaControllerTest {
 	}
 	
 	@Test
-	public final void testPrestamoSubmitConReservaDistintoUsr() {
+	final void testPrestamoSubmitConReservaDistintoUsr() {
 		Usuario nu = new Usuario();
 		nu.setNombre("Dimitri");
 		nu.setApellidos("Vegas");
@@ -196,30 +187,28 @@ public class PrestamoReservaControllerTest {
 	}
 
 	@Test
-	public final void testAltaReserva() {
+	final void testAltaReserva() {
 		assertNotNull(ejemplarDAO.findAll());
 		String result = prController.altaReserva(model);
 		assertEquals("prestamoreserva/NuevaReserva",result);
 	}
 
 	@Test
-	public final void testReservaSubmit() {
+	final void testReservaSubmit() {
 		rr.setFechaReserva(LocalDate.now().plusDays(5));
-//		System.out.println(rr.getUser().getFechaFinPenalizacion()+" v "+LocalDate.now());
 		assertFalse(rr.getUser().getFechaFinPenalizacion() == null && !rr.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now()));
 		Reserva guardada = reservaDAO.save(rr);
 		assertEquals(guardada,rr);
 	}
 
 	@Test
-	public final void testDevolverPrestamoSinPenalty() {
+	final void testDevolverPrestamoSinPenalty() {
 		when(prestamoDAO.findById(pp.getIdPrestamo())).thenReturn(java.util.Optional.ofNullable(pp));
 		Optional<Prestamo> prestamo = prestamoDAO.findById(pp.getIdPrestamo());
 		assertFalse(prestamo.isEmpty());
 		LocalDate FechaDevuelto = LocalDate.now();
 		Prestamo devuelto = prestamo.get();
 		devuelto.setFechaFin(FechaDevuelto.plusDays(1)); //!!
-//		System.out.println(devuelto.getFechaFin());
 		Usuario usuario = devuelto.getUser();
 		assertFalse(FechaDevuelto.isAfter(devuelto.getFechaFin()));
 		prestamoDAO.deleteById(pp.getIdPrestamo());
@@ -227,7 +216,7 @@ public class PrestamoReservaControllerTest {
 	}
 	
 	@Test
-	public final void testDevolverPrestamoPenalty() {
+	final void testDevolverPrestamoPenalty() {
 		when(prestamoDAO.findById(pp.getIdPrestamo())).thenReturn(java.util.Optional.ofNullable(pp));
 		Optional<Prestamo> prestamo = prestamoDAO.findById(pp.getIdPrestamo());
 		assertFalse(prestamo.isEmpty());
@@ -242,7 +231,7 @@ public class PrestamoReservaControllerTest {
 	}
 	
 	@Test
-	public final void testDevolverPrestamoPenaltyAcumulativo() {
+	final void testDevolverPrestamoPenaltyAcumulativo() {
 		when(prestamoDAO.findById(pp.getIdPrestamo())).thenReturn(java.util.Optional.ofNullable(pp));
 		Optional<Prestamo> prestamo = prestamoDAO.findById(pp.getIdPrestamo());
 		assertFalse(prestamo.isEmpty());
@@ -259,7 +248,7 @@ public class PrestamoReservaControllerTest {
 		prestamoDAO.deleteById(pp.getIdPrestamo());
 	}
 	@Test
-	public final void testCancelarReserva() {
+	final void testCancelarReserva() {
 		when(reservaDAO.findById(rr.getIdReserva())).thenReturn(java.util.Optional.ofNullable(rr));
 		Optional<Reserva> reservaopcional = reservaDAO.findById(rr.getIdReserva());
 		assertFalse(reservaopcional.isEmpty());
@@ -272,7 +261,7 @@ public class PrestamoReservaControllerTest {
 	}
 	
 	@Test
-	public final void testCancelarReservaAcumulado() {
+	final void testCancelarReservaAcumulado() {
 		when(reservaDAO.findById(rr.getIdReserva())).thenReturn(java.util.Optional.ofNullable(rr));
 		Optional<Reserva> reservaopcional = reservaDAO.findById(rr.getIdReserva());
 		assertFalse(reservaopcional.isEmpty());
