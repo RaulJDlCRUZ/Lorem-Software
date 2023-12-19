@@ -62,6 +62,8 @@ Ahora vamos a explicar las horas que han sido utilizadas para cada una de las pa
 •	Testing final: 200.000€.
 -	Por lo tanto en esta segunda y última entrega tenemos un total de: 960.000€, en solo esta 2º entrega.
 
+-	Al realizar la suma de la 1º y la 2º entrega se haría el total de 1.400.000€.
+
   ### Revisión de la documentación
   Debe adaptarse la diferente documentación producida para el proyecto a la situación actual del sistema. Los documentos que se deben ir actualizando en todo momento son:
 * Registro de Sprintbacklog: como es lógico pensar, debe irse registrando cualquier cambio y novedad en el sprintbacklog.
@@ -71,5 +73,5 @@ Ahora vamos a explicar las horas que han sido utilizadas para cada una de las pa
 * Planificación del proyecto: Se debe modificar los períodos y la compensación económica asociada al desarrollo de cada función (o iteración). A pesar de esto, se pretende utilizar este documento a modo de registro de la situación inicial en cuanto a planificación del proyecto para compararla a la situación actual, reflejándose una obvia variación en los períodos establecidos y en el esfuerzo estimado.
 * Requisitos, análisis y diseño de cada función: Si alguna de las funciones ha sido implementada de manera totalmente distinta a la especificada inicialmente, debe reflejarse también.
 * Documentación del usuario: Es necesario actualizar la documentación proporcionada por el usuario, pues se ha realizado una implementación más asequible y óptima a la requerida inicialmente por el cliente (cabiendo resaltar también que este no tiene la obligación de conocer el ámbito de la ingeniería y que es común que se produzcan este tipo de problemas).
--	Al realizar la suma de la 1º y la 2º entrega se haría el total de 1.400.000€.
+
 
