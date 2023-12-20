@@ -36,13 +36,13 @@ public class Prestamo {
     private Usuario user;
 
     public Prestamo() {
+    	/*
+		 * No presenta constructor con atributos dado que
+		 * existen atributos de prestamo son dependientes de
+		 * Otros objetos
+		 * */
     }
 
-    public Prestamo(LocalDate fechaInicio, LocalDate fechaFin, boolean activo){
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
-        this.activo = activo;
-    }
 
     public long getIdPrestamo() {
         return idPrestamo;
