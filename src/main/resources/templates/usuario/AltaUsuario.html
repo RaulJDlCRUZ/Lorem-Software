@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/UserTempl :: head">
+    <title>Dar de Alta un Autor de Titulo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/UserTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${usuarioHeader}"></h1>
+    </div>
+    <div class="container">
+      <form
+        action="#"
+        th:action="@{/AltaUsuario}"
+        th:object="${usuario}"
+        method="post">
+        <!--Sin esto primero, al modificar se crea uno nuevo, queremos mantener el ID y cambiar el resto-->
+        <p> <input type="hidden" th:field="*{IdUsuario}"/> </p>
+        <p>Nombre: <input type="text" maxlength="255" required th:field="*{nombre}" /></p>
+        <p>Apellidos: <input type="text" maxlength="255" required th:field="*{apellidos}" /></p>
+        <p><input type="hidden" th:field="*{fechaFinPenalizacion}"/></p>
+        <p>
+          <input type="submit" value="Guardar" />
+          <input type="reset" value="Limpiar" />
+        </p>
+      </form>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="ID">ID</th>
+            <th scope="Nombre">Nombre</th>
+            <th scope="Apellidos">Apellidos</th>
+            <th scope="Penalizaciones">¿Penalizaciones?</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="us:${listaUsuarios}">
+            <th scope="row" th:text="${us.IdUsuario}"></th>
+            <th scope="row" th:text="${us.nombre}"></th>
+            <th scope="row" th:text="${us.apellidos}"></th>
+            <th scope="row" th:switch="${us.fechaFinPenalizacion}">
+                <span th:case="${null}">No hay penalizaciones</span>
+                <span th:case="*" th:text="${us.fechaFinPenalizacion}"></span>
+            </th>
+            <td>
+              <a
+                class="btn btn-success btn-sm"
+                th:href="@{/AltaUsuario/edit/} + ${us.IdUsuario}"
+                th:text="Editar"
+                title="Editar el Usuario"
+              >
+              </a>
+            </td>
+            <td>
+              <a
+                class="btn btn-danger btn-sm"
+                th:href="@{/AltaUsuario/delete/} + ${us.IdUsuario}"
+                th:text="Eliminar"
+                title="Eliminar el Usuario"
+                onclick="return confirm('Estás seguro de eliminar el Usuario?');"
+              >
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

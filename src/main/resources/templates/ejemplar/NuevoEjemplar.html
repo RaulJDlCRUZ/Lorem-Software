@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/AdminTempl :: head">
+    <title>Añadir Ejemplares</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+
+  <body>
+    <header th:replace="plantilla_bs/AdminTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${ejemplarheader}"></h1>
+    </div>
+
+    <!--Formulario para Añadir Ejemplares-->
+    <div class="container">
+      <form
+        id="form1"
+        action="#"
+        th:action="@{/AltaEjemplar}"
+        th:object="${ejemplares}"
+        method="post"
+      >
+        <div class="form-group row">
+          <label for="title">Titulo</label>
+          <select
+            class="from-control form-control-sm col-md-6"
+            id="title"
+            th:field="*{tit}"
+          >
+            <option
+              th:each="t:${listatitulos}"
+              th:value="${t.id}"
+              th:text="${t.Titulo}"
+            ></option>
+          </select>
+        </div>
+        </div>
+        <input type="submit" value="Guardar" />
+        <input type="reset" value="Limpiar" />
+      </form>
+    </div>
+  </body>
+</html>

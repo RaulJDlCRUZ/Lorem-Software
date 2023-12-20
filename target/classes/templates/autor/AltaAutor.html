@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/AdminTempl :: head">
+    <title>Dar de Alta un Autor de Titulo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/AdminTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${titulo}"></h1>
+    </div>
+    <div class="container">
+      <form
+        action="#"
+        th:action="@{/AltaAutor}"
+        th:object="${autor}"
+        method="post">
+        <!--Sin esto primero, al modificar se crea uno nuevo, queremos mantener el ID y cambiar el resto-->
+        <p> <input type="hidden" th:field="*{id}"/> </p>
+        <p>Nombre: <input type="text" maxlength="255" required th:field="*{nombre}" /></p>
+        <p>Apellidos: <input type="text" maxlength="255" required th:field="*{apellido}" /></p>
+        <p>
+          <input type="submit" value="Guardar" />
+          <input type="reset" value="Limpiar" />
+        </p>
+      </form>
+    </div>
+    <div class="container">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="ID">ID</th>
+            <th scope="Nombre">Nombre</th>
+            <th scope="Apellidos">Apellidos</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="cl:${listautores}">
+            <th scope="row" th:text="${cl.id}"></th>
+            <th scope="row" th:text="${cl.nombre}"></th>
+            <th scope="row" th:text="${cl.apellido}"></th>
+            <td>
+              <a
+                class="btn btn-success btn-sm"
+                th:href="@{/AltaAutor/edit/} + ${cl.id}"
+                th:text="Editar"
+                title="Editar el Autor"
+              >
+              </a>
+            </td>
+            <td>
+              <a
+                class="btn btn-danger btn-sm"
+                th:href="@{/AltaAutor/delete/} + ${cl.id}"
+                th:text="Eliminar"
+                title="Eliminar el Autor"
+                onclick="return confirm('Estás seguro de eliminar el Autor?');"
+              >
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
