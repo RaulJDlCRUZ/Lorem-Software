@@ -32,11 +32,11 @@ public class Usuario {
     private Set<Reserva> reservas;
 
     public Usuario() {
-    }
-
-    public Usuario(String nombre, String apellidos){
-        this.nombre = nombre;
-        this.apellidos = apellidos;
+    	/*
+    	 * No presenta constructor con atributos dado que
+		 * existen atributos de usuario son dependientes de
+		 * Otros objetos
+    	 * */
     }
 
     public long getIdUsuario() {

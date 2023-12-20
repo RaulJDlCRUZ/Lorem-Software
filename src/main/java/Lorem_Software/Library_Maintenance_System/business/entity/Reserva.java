@@ -28,11 +28,13 @@ public class Reserva {
 	private Usuario user;
 
 	public Reserva() {
+		/*
+		 * No presenta constructor con atributos dado que
+		 * existen atributos de reserva son dependientes de
+		 * Otros objetos
+		 * */
 	}
 
-	public Reserva(LocalDate fechaReserva){
-		this.fechaReserva = fechaReserva;
-	}
 
 	public Long getIdReserva() {
 		return id;

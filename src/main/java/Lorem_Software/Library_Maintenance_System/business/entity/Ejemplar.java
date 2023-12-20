@@ -26,12 +26,11 @@ public class Ejemplar {
 	private Reserva reserva;
 
 	public Ejemplar() {
-	}
-
-	public Ejemplar(Titulo tit, Prestamo prest, Reserva res){
-		this.tit = tit;
-		this.prestamo = prest;
-		this.reserva = res;
+		/*
+		 * No presenta constructor con atributos dado que
+		 * todos los atributos de ejemplar son dependientes de
+		 * Otros objetos
+		 * */
 	}
 
 	public Long getIdEjemplar() {

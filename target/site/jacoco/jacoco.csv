@@ -1,9 +1,9 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Usuario,9,45,0,0,4,20,1,13,1,13
-Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Ejemplar,12,33,0,0,5,14,1,9,1,9
+Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Usuario,0,45,0,0,0,20,0,13,0,13
+Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Ejemplar,0,33,0,0,0,14,0,9,0,9
 Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Titulo,0,54,0,0,0,24,0,14,0,14
-Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Prestamo,12,45,0,0,5,20,1,13,1,13
-Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Reserva,6,31,0,0,3,14,1,9,1,9
+Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Prestamo,0,45,0,0,0,20,0,13,0,13
+Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Reserva,0,31,0,0,0,14,0,9,0,9
 Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.entity,Autor,0,40,0,0,0,18,0,10,0,10
 Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.controller,PrestamoReservaController,616,129,61,1,127,32,44,8,13,8
 Lorem_Software.LMS,Lorem_Software.Library_Maintenance_System.business.controller,TituloController.TitleComparator,9,0,0,0,2,0,2,0,2,0
