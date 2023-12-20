@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Reserva.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.entity</a> &gt; <span class="el_source">Reserva.java</span></div><h1>Reserva.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.entity;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+
+@Entity
+public class Reserva {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private LocalDate fechaReserva;
+
+	@OneToOne
+	@JoinColumn(name = &quot;ejemplar_id&quot;)
+	private Ejemplar ejem;
+
+	@ManyToOne
+	@JoinColumn(name = &quot;usuario_id&quot;)
+	private Usuario user;
+
+<span class="fc" id="L30">	public Reserva() {</span>
+		/*
+		 * No presenta constructor con atributos dado que
+		 * existen atributos de reserva son dependientes de
+		 * Otros objetos
+		 * */
+<span class="fc" id="L36">	}</span>
+
+
+	public Long getIdReserva() {
+<span class="fc" id="L40">		return id;</span>
+	}
+
+	public void setIdReserva(Long id) {
+<span class="fc" id="L44">		this.id = id;</span>
+<span class="fc" id="L45">	}</span>
+
+	public LocalDate getFechaReserva() {
+<span class="fc" id="L48">		return fechaReserva;</span>
+	}
+
+	public void setFechaReserva(LocalDate fecha) {
+<span class="fc" id="L52">		this.fechaReserva = fecha;</span>
+<span class="fc" id="L53">	}</span>
+
+	public Ejemplar getEjem() {
+<span class="fc" id="L56">		return ejem;</span>
+	}
+
+	public void setEjem(Ejemplar ejem) {
+<span class="fc" id="L60">		this.ejem = ejem;</span>
+<span class="fc" id="L61">	}</span>
+
+	public Usuario getUser() {
+<span class="fc" id="L64">		return user;</span>
+	}
+
+	public void setUser(Usuario user) {
+<span class="fc" id="L68">		this.user = user;</span>
+<span class="fc" id="L69">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

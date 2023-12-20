@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AutorController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.controller</a> &gt; <span class="el_source">AutorController.java</span></div><h1>AutorController.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.controller;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
+import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
+import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
+import jakarta.persistence.PreRemove;
+
+@Controller
+public class AutorController {
+
+<span class="fc" id="L26">	private static final Logger log = LoggerFactory.getLogger(AutorController.class);</span>
+	@Autowired
+	private AutorDAO autorDAO;
+
+	Autor autor;
+
+	public AutorController() {
+<span class="fc" id="L33">		super();</span>
+<span class="fc" id="L34">		this.autor = new Autor();</span>
+<span class="fc" id="L35">	}</span>
+
+	@GetMapping(&quot;/AltaAutor&quot;)
+	public String altaAutor(Model model) {
+<span class="fc" id="L39">		List&lt;Autor&gt; listadoAutores = autorDAO.findAll();</span>
+<span class="fc" id="L40">		Collections.sort(listadoAutores, new TitleComparator());</span>
+
+<span class="fc" id="L42">		model.addAttribute(&quot;titulo&quot;, &quot;Lista de Autores&quot;);</span>
+<span class="fc" id="L43">		model.addAttribute(&quot;autor&quot;, new Autor());</span>
+<span class="fc" id="L44">		model.addAttribute(&quot;listautores&quot;, listadoAutores);</span>
+
+<span class="fc" id="L46">		return &quot;autor/AltaAutor&quot;;</span>
+	}
+
+	@PostMapping(&quot;/AltaAutor&quot;)
+	public String autorSubmit(@ModelAttribute Autor autor, Model model, RedirectAttributes attribute) {
+<span class="fc" id="L51">		this.autor = autor;</span>
+<span class="fc" id="L52">		model.addAttribute(&quot;autor&quot;, autor);</span>
+<span class="fc" id="L53">		Autor savedAutor = autorDAO.save(autor);</span>
+<span class="fc" id="L54">		log.info(&quot;Saved autor: {} &quot;, savedAutor);</span>
+<span class="fc" id="L55">		attribute.addFlashAttribute(&quot;success&quot;, &quot;El autor se ha creado con éxito&quot;);</span>
+<span class="fc" id="L56">		return &quot;redirect:/AltaAutor&quot;;</span>
+	}
+
+	@GetMapping(&quot;/AltaAutor/edit/{id}&quot;)
+	public String formularioEditarAutor(@PathVariable(&quot;id&quot;) long id, Model model) {
+<span class="fc" id="L61">		Optional&lt;Autor&gt; autorEditar = autorDAO.findById(id);</span>
+<span class="fc" id="L62">		model.addAttribute(&quot;autor&quot;, autorEditar);</span>
+<span class="fc" id="L63">		return &quot;autor/AltaAutor&quot;;</span>
+	}
+
+	@PostMapping(&quot;/AltaAutor/update/{id}&quot;)
+	public String actualizarAutor(@PathVariable(&quot;id&quot;) long id, Autor autor, RedirectAttributes attribute) {
+<span class="nc" id="L68">		autorDAO.save(autor);</span>
+<span class="nc" id="L69">		attribute.addFlashAttribute(&quot;info&quot;, &quot;El autor ha sido modificado&quot;);</span>
+<span class="nc" id="L70">		return &quot;redirect:/AltaAutor&quot;;</span>
+	}
+
+	@GetMapping(&quot;/AltaAutor/delete/{id}&quot;)
+	public String deleteAutor(@PathVariable(&quot;id&quot;) long id, RedirectAttributes attribute) {
+<span class="nc" id="L75">		suprimirAsociacionesAutorLibro(autorDAO.findById(id));</span>
+<span class="nc" id="L76">		autorDAO.deleteById(id);</span>
+<span class="nc" id="L77">		attribute.addFlashAttribute(&quot;warning&quot;, &quot;El autor se ha eliminado&quot;);</span>
+<span class="nc" id="L78">		return &quot;redirect:/AltaAutor&quot;;</span>
+	}
+
+	@PreRemove
+	private void suprimirAsociacionesAutorLibro(Optional&lt;Autor&gt; au) {
+<span class="nc bnc" id="L83" title="All 2 branches missed.">		if (!au.isEmpty()) {</span>
+<span class="nc" id="L84">			Autor a = au.get();</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">			for (Titulo t : a.getTitulos()) {</span>
+<span class="nc" id="L86">				t.getAutores().remove(a);</span>
+<span class="nc" id="L87">			}</span>
+		}
+<span class="nc" id="L89">	}</span>
+
+<span class="fc" id="L91">	class TitleComparator implements java.util.Comparator&lt;Autor&gt; {</span>
+		@Override
+		public int compare(Autor a, Autor b) {
+<span class="nc" id="L94">			return a.getNombre().compareTo(b.getNombre());</span>
+		}
+	}
+
+	public AutorDAO getAutorDAO() {
+<span class="nc" id="L99">		return autorDAO;</span>
+	}
+
+	public void setAutorDAO(AutorDAO autorDAO) {
+<span class="fc" id="L103">		this.autorDAO = autorDAO;</span>
+<span class="fc" id="L104">	}</span>
+
+	public Autor getAutor() {
+<span class="nc" id="L107">		return autor;</span>
+	}
+
+	public void setAutor(Autor autor) {
+<span class="nc" id="L111">		this.autor = autor;</span>
+<span class="nc" id="L112">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

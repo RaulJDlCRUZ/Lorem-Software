@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/AdminTempl :: head">
+    <title>Lista de Ejemplares</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/AdminTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${ListEjemplarHeader}"></h1>
+    </div>
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+                <th scope="col">ID del Ejemplar</th>
+                <th scope="col">Título</th>
+                <th scope="col">Eliminar Ejemplar</th>
+            </thead>
+            <tbody>
+                <tr th:each="ej:${ejemplares}">
+                    <th scope="row" th:text="${ej.IdEjemplar}"></th>
+                    <td th:text="${ej.tit.getTitulo()}"></td>
+                    <td>
+                        <a
+                          class="btn btn-danger btn-sm"
+                          th:href="@{/AltaEjemplar/delete/} + ${ej.IdEjemplar}"
+                          th:text="Eliminar"
+                          title="Eliminar el Ejemplar"
+                          onclick="return confirm('Estás seguro de eliminar el Ejemplar?');"
+                        >
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </body>
+</html>

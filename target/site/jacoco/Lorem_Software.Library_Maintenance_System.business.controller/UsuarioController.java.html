@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsuarioController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.controller</a> &gt; <span class="el_source">UsuarioController.java</span></div><h1>UsuarioController.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.controller;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import Lorem_Software.Library_Maintenance_System.business.entity.Prestamo;
+import Lorem_Software.Library_Maintenance_System.business.entity.Reserva;
+import Lorem_Software.Library_Maintenance_System.business.entity.Usuario;
+import Lorem_Software.Library_Maintenance_System.persistance.PrestamoDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.ReservaDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.UsuarioDAO;
+import jakarta.persistence.PreRemove;
+
+@Controller
+public class UsuarioController {
+<span class="fc" id="L27">    private static final Logger log = LoggerFactory.getLogger(UsuarioController.class);</span>
+
+    @Autowired
+    private UsuarioDAO usuarioDAO;
+
+    @Autowired
+    private PrestamoDAO prestamoDAO;
+
+    @Autowired
+    private ReservaDAO reservaDAO;
+
+    Usuario usuario;
+
+    public UsuarioController() {
+<span class="fc" id="L41">        super();</span>
+<span class="fc" id="L42">        this.usuario = new Usuario();</span>
+<span class="fc" id="L43">    }</span>
+
+    @GetMapping(&quot;/AltaUsuario&quot;)
+    public String altaUsuario(Model model) {
+<span class="fc" id="L47">        List&lt;Usuario&gt; listadoUsuarios = usuarioDAO.findAll();</span>
+<span class="fc" id="L48">        Collections.sort(listadoUsuarios, new UsuarioComparator());</span>
+
+<span class="fc" id="L50">        model.addAttribute(&quot;usuarioHeader&quot;, &quot;Listado de Usuarios&quot;);</span>
+<span class="fc" id="L51">        model.addAttribute(&quot;usuario&quot;, new Usuario());</span>
+<span class="fc" id="L52">        model.addAttribute(&quot;listaUsuarios&quot;, listadoUsuarios);</span>
+
+<span class="fc" id="L54">        log.info(usuarioDAO.findAll().toString());</span>
+<span class="fc" id="L55">        return &quot;usuario/AltaUsuario&quot;;</span>
+    }
+
+    @PostMapping(&quot;/AltaUsuario&quot;)
+    public String usuarioSubmit(@ModelAttribute Usuario usuario, Model model) {
+<span class="nc" id="L60">        this.usuario = usuario;</span>
+<span class="nc" id="L61">        model.addAttribute(&quot;usuario&quot;, usuario);</span>
+<span class="nc" id="L62">        usuarioDAO.save(this.usuario);</span>
+<span class="nc" id="L63">        return &quot;redirect:/AltaUsuario&quot;;</span>
+    }
+
+    @GetMapping(&quot;/AltaUsuario/edit/{IdUsuario}&quot;)
+    public String formularioEditarUsuario(@PathVariable(&quot;IdUsuario&quot;) long idUsuario, Model model) {
+<span class="fc" id="L68">        Optional&lt;Usuario&gt; usuarioEditar = usuarioDAO.findById(idUsuario);</span>
+<span class="fc" id="L69">        model.addAttribute(&quot;usuario&quot;, usuarioEditar);</span>
+<span class="fc" id="L70">        return &quot;usuario/AltaUsuario&quot;;</span>
+    }
+
+    @PostMapping(&quot;/AltaUsuario/update/{IdUsuario}&quot;)
+    public String actualizarUsuario(@PathVariable(&quot;IdUsuario&quot;) long idUsuario, Usuario usuario) {
+<span class="nc" id="L75">        usuarioDAO.save(usuario);</span>
+<span class="nc" id="L76">        return &quot;redirect:/AltaUsuario&quot;;</span>
+    }
+
+    @GetMapping(&quot;/AltaUsuario/delete/{IdUsuario}&quot;)
+    public String deleteUsuario(@PathVariable(&quot;IdUsuario&quot;) long id) {
+
+<span class="nc" id="L82">        suprimirAsociacionesPrestamo(usuarioDAO.findById(id));</span>
+<span class="nc" id="L83">        suprimirAsociacionesReserva(usuarioDAO.findById(id));</span>
+<span class="nc" id="L84">        usuarioDAO.deleteById(id);</span>
+<span class="nc" id="L85">        return &quot;redirect:/AltaUsuario&quot;;</span>
+    }
+
+    @PreRemove
+    private void suprimirAsociacionesPrestamo(Optional&lt;Usuario&gt; us) {
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if(!us.isEmpty()){</span>
+<span class="nc" id="L91">            Usuario u = us.get();</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">            for (Prestamo p : u.getPrestamos()) {</span>
+<span class="nc" id="L93">                prestamoDAO.deleteById(p.getIdPrestamo());</span>
+<span class="nc" id="L94">            }</span>
+        }
+<span class="nc" id="L96">    }</span>
+
+    @PreRemove
+    private void suprimirAsociacionesReserva(Optional&lt;Usuario&gt; us) {
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if(!us.isEmpty()){</span>
+<span class="nc" id="L101">            Usuario u = us.get();</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">            for (Reserva r : u.getReservas()) {</span>
+<span class="nc" id="L103">                reservaDAO.deleteById(r.getIdReserva());</span>
+<span class="nc" id="L104">            }</span>
+        }
+<span class="nc" id="L106">    }</span>
+
+<span class="fc" id="L108">    class UsuarioComparator implements java.util.Comparator&lt;Usuario&gt; {</span>
+        @Override
+        public int compare(Usuario a, Usuario b) {
+<span class="nc" id="L111">            return a.getNombre().compareTo(b.getNombre());</span>
+        }
+    }
+
+    public UsuarioDAO getUsuarioDAO() {
+<span class="nc" id="L116">        return usuarioDAO;</span>
+    }
+
+    public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+<span class="fc" id="L120">        this.usuarioDAO = usuarioDAO;</span>
+<span class="fc" id="L121">    }</span>
+
+    public PrestamoDAO getPrestamoDAO() {
+<span class="nc" id="L124">        return prestamoDAO;</span>
+    }
+
+    public void setPrestamoDAO(PrestamoDAO prestamoDAO) {
+<span class="nc" id="L128">        this.prestamoDAO = prestamoDAO;</span>
+<span class="nc" id="L129">    }</span>
+
+    public ReservaDAO getReservaDAO() {
+<span class="nc" id="L132">        return reservaDAO;</span>
+    }
+
+    public void setReservaDAO(ReservaDAO reservaDAO) {
+<span class="nc" id="L136">        this.reservaDAO = reservaDAO;</span>
+<span class="nc" id="L137">    }</span>
+
+    public Usuario getUsuario() {
+<span class="nc" id="L140">        return usuario;</span>
+    }
+
+    public void setUsuario(Usuario usuario) {
+<span class="nc" id="L144">        this.usuario = usuario;</span>
+<span class="nc" id="L145">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

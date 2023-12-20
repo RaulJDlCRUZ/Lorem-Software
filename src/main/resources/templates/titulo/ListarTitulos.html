@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/AdminTempl :: head">
+    <title>Títulos inscritos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/AdminTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${titulo}"></h1>
+    </div>
+
+    <div class="container">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ISBN</th>
+            <th scope="col">Nombre del título</th>
+            <th scope="col">Número de ejemplares</th>
+            <th scope="col">Gestionar Ejemplares</th>
+            <th scope="col">Editar Título</th>
+            <th scope="col">Eliminar Título</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="tl:${titulos}">
+            <th scope="row" th:text="${tl.id}"></th>
+            <td th:text="${tl.ISBN}"></td>
+            <td th:text="${tl.Titulo}"></td>
+            <td th:text="${tl.ejemplares.size()}"></td>
+            <td>
+              <a
+                class="btn btn-primary btn-sm"
+                th:href="@{/ListarEjemplares/} + ${tl.id}"
+                th:text="Gestionar"
+                title="Gestionar los Ejemplares"
+              >
+              </a>
+            </td>
+            <td>
+              <a
+                class="btn btn-success btn-sm"
+                th:href="@{/guardarTitulo/edit/} + ${tl.id}"
+                th:text="Editar"
+                title="Editar el Título"
+              >
+              </a>
+            </td>
+            <td>
+              <a
+                class="btn btn-danger btn-sm"
+                th:href="@{/delete/} + ${tl.id}"
+                th:text="Eliminar"
+                title="Eliminar el Título"
+                onclick="return confirm('Estás seguro de eliminar el Título?');"
+              >
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

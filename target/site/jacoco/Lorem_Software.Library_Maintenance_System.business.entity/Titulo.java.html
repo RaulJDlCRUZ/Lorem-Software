@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Titulo.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.entity</a> &gt; <span class="el_source">Titulo.java</span></div><h1>Titulo.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.entity;
+
+import java.util.Set;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
+
+@Entity
+public class Titulo {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@Column
+	private String isbn;
+	@Column
+	private String titulo;
+	@Column
+	private String numReserva;
+
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = &quot;AUTOR_TITULOS&quot;, joinColumns = @JoinColumn(name = &quot;titulo_id&quot;), inverseJoinColumns = @JoinColumn(name = &quot;autor_id&quot;))
+	Set&lt;Autor&gt; autores;
+
+	@OneToMany(mappedBy = &quot;tit&quot;, cascade = CascadeType.ALL)
+	private Set&lt;Ejemplar&gt; ejemplares;
+
+<span class="fc" id="L36">	public Titulo() {</span>
+<span class="fc" id="L37">	}</span>
+
+	public Titulo(String titulo, String isbn) {
+<span class="fc" id="L40">		super();</span>
+<span class="fc" id="L41">		this.isbn = isbn;</span>
+<span class="fc" id="L42">		this.titulo = titulo;</span>
+<span class="fc" id="L43">	}</span>
+
+	public Long getId() {
+<span class="fc" id="L46">		return id;</span>
+	}
+
+	public void setId(Long id) {
+<span class="fc" id="L50">		this.id = id;</span>
+<span class="fc" id="L51">	}</span>
+
+	public String getISBN() {
+<span class="fc" id="L54">		return isbn;</span>
+	}
+
+	public void setISBN(String isbn) {
+<span class="fc" id="L58">		this.isbn = isbn;</span>
+<span class="fc" id="L59">	}</span>
+
+	public String getTitulo() {
+<span class="fc" id="L62">		return titulo;</span>
+	}
+
+	public void setTitulo(String titulo) {
+<span class="fc" id="L66">		this.titulo = titulo;</span>
+<span class="fc" id="L67">	}</span>
+
+	public String getNumReserva() {
+<span class="fc" id="L70">		return numReserva;</span>
+	}
+
+	public void setNumReserva(String numReserva) {
+<span class="fc" id="L74">		this.numReserva = numReserva;</span>
+<span class="fc" id="L75">	}</span>
+
+	public Set&lt;Autor&gt; getAutores() {
+<span class="fc" id="L78">		return autores;</span>
+	}
+
+	public void setAutores(Set&lt;Autor&gt; autores) {
+<span class="fc" id="L82">		this.autores = autores;</span>
+<span class="fc" id="L83">	}</span>
+
+	public Set&lt;Ejemplar&gt; getEjemplares() {
+<span class="fc" id="L86">		return ejemplares;</span>
+	}
+
+	public void setEjemplares(Set&lt;Ejemplar&gt; ejemplares) {
+<span class="fc" id="L90">		this.ejemplares = ejemplares;</span>
+<span class="fc" id="L91">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

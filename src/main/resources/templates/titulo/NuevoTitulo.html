@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/AdminTempl :: head">
+    <title>Dar de alta Titulo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/AdminTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${tituloheader}"></h1>
+    </div>
+    <!--Formulario para nuevo titulo-->
+    <div class="container">
+      <form
+        id="form1"
+        action="#"
+        th:action="@{/guardarTitulo}"
+        th:object="${titulo}"
+        method="post">
+        <!--Sin esto primero, al modificar se crea uno nuevo, queremos mantener el ID y cambiar el resto-->
+        <p> <input type="hidden" th:field="*{id}"/> </p>
+        <p>Título: <input type="text" maxlength="255" required th:field="*{Titulo}" /></p>
+        <p>ISBN: <input type="text" maxlength="255" required th:field="*{ISBN}" /></p>
+        <p>
+          Autor(es):
+          <select th:field="*{autores}" multiple>
+            <option
+              th:each="a:${listautores}"
+              th:value="${a.id}"
+              th:text="${a.nombre} + ' ' + ${a.apellido}"
+            />
+          </select>
+        </p>
+        <em>Si se desea seleccionar múltiples:
+          <ul>
+            <li>Windows: Mantener tecla "Ctrl"</li>
+            <li>Mac: Mantener tecla "Command"</li>
+          </ul>
+        </em>
+        <p>
+          <input type="submit" value="Guardar" />
+          <input type="reset" value="Limpiar" />
+        </p>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrestamoReservaController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.controller</a> &gt; <span class="el_source">PrestamoReservaController.java</span></div><h1>PrestamoReservaController.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.controller;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
+import Lorem_Software.Library_Maintenance_System.business.entity.Prestamo;
+import Lorem_Software.Library_Maintenance_System.business.entity.Reserva;
+import Lorem_Software.Library_Maintenance_System.business.entity.Usuario;
+import Lorem_Software.Library_Maintenance_System.persistance.EjemplarDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.PrestamoDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.ReservaDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.UsuarioDAO;
+
+@Controller
+public class PrestamoReservaController {
+<span class="fc" id="L32">    private static final Logger log = LoggerFactory.getLogger(PrestamoReservaController.class);</span>
+
+    @Autowired
+    private PrestamoDAO prestamoDAO;
+
+    @Autowired
+    private ReservaDAO reservaDAO;
+
+    @Autowired
+    private EjemplarDAO ejemplarDAO;
+
+    @Autowired
+    private UsuarioDAO usuarioDAO;
+
+    Prestamo prestamo;
+    Reserva reserva;
+
+    public PrestamoReservaController() {
+<span class="fc" id="L50">        super();</span>
+<span class="fc" id="L51">        this.prestamo = new Prestamo();</span>
+<span class="fc" id="L52">        this.reserva = new Reserva();</span>
+<span class="fc" id="L53">    }</span>
+
+    @GetMapping(&quot;/ListarEjemplares&quot;)
+    public String listarPrestamos(Model model, RedirectAttributes attribute) {
+<span class="nc" id="L57">        model.addAttribute(&quot;titulo&quot;, &quot;Catálogo de Ejemplares&quot;);</span>
+
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        for (Ejemplar e : ejemplarDAO.findAll()) {</span>
+
+<span class="nc bnc" id="L61" title="All 4 branches missed.">            if (e.getPrestamo() != null &amp;&amp; LocalDate.now().isAfter(e.getPrestamo().getFechaFin().plusMonths(3))) {</span>
+<span class="nc" id="L62">                log.error(</span>
+                        &quot;{} {} lleva más de 3 meses de retraso en la devolucón del préstamo de {} - {} , por lo que se le penalizará con 3 años sin poder tomar prestado ni reservar&quot;,
+<span class="nc" id="L64">                        e.getPrestamo().getUser().getNombre(), e.getPrestamo().getUser().getApellidos(),</span>
+<span class="nc" id="L65">                        e.getTit().getTitulo(), e.getIdEjemplar());</span>
+
+<span class="nc" id="L67">                Usuario usuarioPenalizar = e.getPrestamo().getUser();</span>
+
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                if (e.getPrestamo().getUser().getFechaFinPenalizacion() == null</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                        || e.getPrestamo().getUser().getFechaFinPenalizacion().isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L71">                    usuarioPenalizar.setFechaFinPenalizacion(LocalDate.now().plusYears(3));</span>
+                } else {
+<span class="nc" id="L73">                    usuarioPenalizar</span>
+<span class="nc" id="L74">                            .setFechaFinPenalizacion(usuarioPenalizar.getFechaFinPenalizacion().plusYears(3));</span>
+                }
+<span class="nc" id="L76">                log.error(</span>
+                        &quot;El ejemplar {} - {} será eliminado del sistema dado que si el usuario se ha retrasado tanto tiempo se considerará como ejemplar perdido&quot;,
+<span class="nc" id="L78">                        e.getTit().getTitulo(), e.getIdEjemplar());</span>
+<span class="nc" id="L79">                prestamoDAO.deleteById(e.getPrestamo().getIdPrestamo());</span>
+<span class="nc bnc" id="L80" title="All 2 branches missed.">                if (e.getReserva() != null) {</span>
+<span class="nc" id="L81">                    reservaDAO.deleteById(e.getReserva().getIdReserva());</span>
+                }
+<span class="nc" id="L83">                ejemplarDAO.delete(e);</span>
+            }
+<span class="nc" id="L85">        }</span>
+
+<span class="nc" id="L87">        List&lt;Ejemplar&gt; listadoEjemplares = ejemplarDAO.findAll();</span>
+<span class="nc" id="L88">        Collections.sort(listadoEjemplares, new EjemplarComparator());</span>
+<span class="nc" id="L89">        model.addAttribute(&quot;ejemplares&quot;, listadoEjemplares);</span>
+<span class="nc" id="L90">        return &quot;prestamoreserva/ListarPrestamosReservas&quot;;</span>
+    }
+
+    @GetMapping(&quot;/HacerPrestamo&quot;)
+    public String altaPrestamo(Model model) {
+<span class="fc" id="L95">        model.addAttribute(&quot;prestamoHeader&quot;, &quot;Realizar un Préstamo&quot;);</span>
+<span class="fc" id="L96">        model.addAttribute(&quot;prestamos&quot;, new Prestamo());</span>
+<span class="fc" id="L97">        List&lt;Ejemplar&gt; listaEjemplares = ejemplarDAO.findAll();</span>
+<span class="fc" id="L98">        Collections.sort(listaEjemplares, new EjemplarComparator());</span>
+<span class="fc" id="L99">        model.addAttribute(&quot;listaEjemplares&quot;, listaEjemplares);</span>
+<span class="fc" id="L100">        List&lt;Usuario&gt; listaUsuarios = usuarioDAO.findAll();</span>
+<span class="fc" id="L101">        Collections.sort(listaUsuarios, new UsuarioComparator());</span>
+<span class="fc" id="L102">        model.addAttribute(&quot;listaUsuarios&quot;, listaUsuarios);</span>
+<span class="fc" id="L103">        return &quot;prestamoreserva/NuevoPrestamo&quot;;</span>
+    }
+
+    @PostMapping(&quot;/HacerPrestamo&quot;)
+    public String prestamoSubmit(@ModelAttribute Prestamo prestamo, Model model, RedirectAttributes attribute) {
+<span class="nc" id="L108">        this.prestamo = prestamo;</span>
+<span class="nc" id="L109">        this.prestamo.setFechaInicio(LocalDate.now());</span>
+<span class="nc" id="L110">        this.prestamo.setFechaFin(this.prestamo.getFechaInicio().plusMonths(1));</span>
+<span class="nc" id="L111">        this.prestamo.setActivo(true);</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (this.prestamo.getUser().getFechaFinPenalizacion() != null</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">                &amp;&amp; this.prestamo.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now())) {</span>
+<span class="nc" id="L114">            attribute.addFlashAttribute(&quot;error&quot;,</span>
+<span class="nc" id="L115">                    this.prestamo.getUser().getNombre() + &quot; &quot; + this.prestamo.getUser().getApellidos() +</span>
+                            &quot; no puede tomar prestado ejemplares hasta el &quot;
+<span class="nc" id="L117">                            + this.prestamo.getUser().getFechaFinPenalizacion());</span>
+<span class="nc" id="L118">            return &quot;redirect:/ListarEjemplares&quot;;</span>
+        }
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (this.prestamo.getEjem().getReserva() != null) {</span>
+<span class="nc bnc" id="L121" title="All 2 branches missed.">            if (!this.prestamo.getEjem().getReserva().getUser().getNombre().equals(this.prestamo.getUser().getNombre())</span>
+<span class="nc bnc" id="L122" title="All 2 branches missed.">                    &amp;&amp; !this.prestamo.getEjem().getReserva().getUser().getApellidos().equals(this.prestamo.getUser()</span>
+<span class="nc" id="L123">                            .getApellidos())) {</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">                if (this.prestamo.getEjem().getReserva().getFechaReserva() != null</span>
+<span class="nc bnc" id="L125" title="All 2 branches missed.">                        &amp;&amp; this.prestamo.getEjem().getReserva().getFechaReserva().isAfter(LocalDate.now())) {</span>
+<span class="nc" id="L126">                    attribute.addFlashAttribute(&quot;error&quot;,</span>
+<span class="nc" id="L127">                            this.prestamo.getUser().getNombre() + &quot; &quot; + this.prestamo.getUser().getApellidos()</span>
+                                    + &quot; no puede coger prestado este ejemplar porque está reservado por &quot; +
+<span class="nc" id="L129">                                    this.prestamo.getEjem().getReserva().getUser().getNombre() + &quot; &quot;</span>
+<span class="nc" id="L130">                                    + this.prestamo.getEjem().getReserva().getUser().getApellidos());</span>
+<span class="nc" id="L131">                    return &quot;redirect:/ListarEjemplares&quot;;</span>
+                } else {
+<span class="nc" id="L133">                    attribute.addFlashAttribute(&quot;warning&quot;,</span>
+                            &quot;La reserva asociada al ejemplar ha caducado. El usuario de la reserva ha recibido una penalización de 1 semana&quot;);
+<span class="nc" id="L135">                    Usuario usuarioPenalizado = this.prestamo.getEjem().getReserva().getUser();</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">                    if (usuarioPenalizado.getFechaFinPenalizacion() == null</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">                            || usuarioPenalizado.getFechaFinPenalizacion().isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L138">                        usuarioPenalizado.setFechaFinPenalizacion(LocalDate.now().plusWeeks(1));</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">                    } else if (usuarioPenalizado.getFechaFinPenalizacion().isAfter(LocalDate.now())) {</span>
+<span class="nc" id="L140">                        usuarioPenalizado</span>
+<span class="nc" id="L141">                                .setFechaFinPenalizacion(usuarioPenalizado.getFechaFinPenalizacion().plusWeeks(1));</span>
+                    }
+<span class="nc" id="L143">                    usuarioDAO.save(usuarioPenalizado);</span>
+                }
+            }
+<span class="nc" id="L146">            reservaDAO.delete(this.prestamo.getEjem().getReserva());</span>
+<span class="nc" id="L147">            attribute.addFlashAttribute(&quot;info&quot;,</span>
+<span class="nc" id="L148">                    &quot;La reserva asociada al ejemplar &quot; + this.prestamo.getEjem().getTit().getTitulo() + &quot; - &quot; +</span>
+<span class="nc" id="L149">                            this.prestamo.getEjem().getIdEjemplar() + &quot; se ha eliminado puesto que &quot;</span>
+<span class="nc" id="L150">                            + this.prestamo.getUser().getNombre() + &quot; &quot; +</span>
+<span class="nc" id="L151">                            this.prestamo.getUser().getApellidos() + &quot; ha tomado prestado el ejemplar&quot;);</span>
+        }
+<span class="nc" id="L153">        prestamoDAO.save(this.prestamo);</span>
+<span class="nc" id="L154">        attribute.addFlashAttribute(&quot;success&quot;, &quot;El préstamo se ha realizado correctamente&quot;);</span>
+<span class="nc" id="L155">        return &quot;redirect:/ListarEjemplares&quot;;</span>
+    }
+
+    @GetMapping(&quot;/HacerReserva&quot;)
+    public String altaReserva(Model model) {
+<span class="fc" id="L160">        model.addAttribute(&quot;reservaHeader&quot;, &quot;Realizar una reserva&quot;);</span>
+<span class="fc" id="L161">        model.addAttribute(&quot;reservas&quot;, new Prestamo());</span>
+
+<span class="fc" id="L163">        List&lt;Ejemplar&gt; listaEjemplares = new LinkedList&lt;&gt;();</span>
+<span class="pc bpc" id="L164" title="1 of 2 branches missed.">        for (Ejemplar e : ejemplarDAO.findAll()) {</span>
+<span class="nc bnc" id="L165" title="All 2 branches missed.">            if (e.getPrestamo() == null)</span>
+<span class="nc" id="L166">                listaEjemplares.add(e);</span>
+<span class="nc" id="L167">        }</span>
+
+<span class="fc" id="L169">        Collections.sort(listaEjemplares, new EjemplarComparator());</span>
+<span class="fc" id="L170">        model.addAttribute(&quot;listaEjemplares&quot;, listaEjemplares);</span>
+<span class="fc" id="L171">        List&lt;Usuario&gt; listaUsuarios = usuarioDAO.findAll();</span>
+<span class="fc" id="L172">        Collections.sort(listaUsuarios, new UsuarioComparator());</span>
+<span class="fc" id="L173">        model.addAttribute(&quot;listaUsuarios&quot;, listaUsuarios);</span>
+<span class="fc" id="L174">        return &quot;prestamoreserva/NuevaReserva&quot;;</span>
+    }
+
+    @PostMapping(&quot;/HacerReserva&quot;)
+    public String reservaSubmit(@ModelAttribute Reserva reserva, Model model, RedirectAttributes attribute) {
+<span class="nc" id="L179">        this.reserva = reserva;</span>
+<span class="nc" id="L180">        this.reserva.setFechaReserva(LocalDate.now().plusDays(5));</span>
+
+<span class="nc bnc" id="L182" title="All 2 branches missed.">        if (this.reserva.getUser().getFechaFinPenalizacion() != null</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">                &amp;&amp; this.reserva.getUser().getFechaFinPenalizacion().isAfter(LocalDate.now())) {</span>
+<span class="nc" id="L184">            attribute.addFlashAttribute(&quot;error&quot;,</span>
+<span class="nc" id="L185">                    this.reserva.getUser().getNombre() + &quot; &quot; + this.reserva.getUser().getApellidos() +</span>
+<span class="nc" id="L186">                            &quot; no puede realizar reservas hasta el &quot; + this.reserva.getUser().getFechaFinPenalizacion());</span>
+<span class="nc" id="L187">            return &quot;redirect:/ListarEjemplares&quot;;</span>
+        }
+
+<span class="nc" id="L190">        reservaDAO.save(this.reserva);</span>
+<span class="nc" id="L191">        attribute.addFlashAttribute(&quot;success&quot;,</span>
+<span class="nc" id="L192">                &quot;La reserva se ha realizado correctamente a nombre de &quot; + this.reserva.getUser().getNombre() +</span>
+<span class="nc" id="L193">                        &quot; &quot; + this.reserva.getUser().getApellidos());</span>
+<span class="nc" id="L194">        return &quot;redirect:/ListarEjemplares&quot;;</span>
+    }
+
+    @GetMapping(&quot;/ListarEjemplares/devolverPrestamo/{IdPrestamo}&quot;)
+    public String devolverPrestamo(@PathVariable(&quot;IdPrestamo&quot;) long idPrestamo, RedirectAttributes attribute) {
+<span class="nc" id="L199">        LocalDate fechaDevuelto = LocalDate.now();</span>
+
+<span class="nc" id="L201">        Optional&lt;Prestamo&gt; prestamoOpc = prestamoDAO.findById(idPrestamo);</span>
+
+<span class="nc bnc" id="L203" title="All 2 branches missed.">        if (prestamoOpc.isPresent()){</span>
+<span class="nc" id="L204">            Prestamo prestamoDevolver = prestamoOpc.get();</span>
+<span class="nc" id="L205">            Optional&lt;Usuario&gt; usuarioOpc = usuarioDAO.findById(prestamoDevolver.getUser().getIdUsuario());</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">            if(usuarioOpc.isPresent()){</span>
+<span class="nc" id="L207">                Usuario usuarioPrestamo = usuarioOpc.get();</span>
+<span class="nc bnc" id="L208" title="All 2 branches missed.">                if (fechaDevuelto.isAfter(prestamoDevolver.getFechaFin())) {</span>
+<span class="nc bnc" id="L209" title="All 2 branches missed.">                    if (usuarioPrestamo.getFechaFinPenalizacion() == null</span>
+<span class="nc bnc" id="L210" title="All 2 branches missed.">                            || usuarioPrestamo.getFechaFinPenalizacion().isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L211">                        usuarioPrestamo.setFechaFinPenalizacion(fechaDevuelto</span>
+<span class="nc" id="L212">                                .plusDays(3 * ChronoUnit.DAYS.between(prestamoDevolver.getFechaFin(), fechaDevuelto)));</span>
+<span class="nc bnc" id="L213" title="All 2 branches missed.">                    } else if (usuarioPrestamo.getFechaFinPenalizacion().isAfter(LocalDate.now())) {</span>
+<span class="nc" id="L214">                        usuarioPrestamo.setFechaFinPenalizacion(usuarioPrestamo.getFechaFinPenalizacion()</span>
+<span class="nc" id="L215">                                .plusDays(3 * ChronoUnit.DAYS.between(prestamoDevolver.getFechaFin(), fechaDevuelto)));</span>
+                    }
+<span class="nc" id="L217">                    usuarioDAO.save(usuarioPrestamo);</span>
+<span class="nc" id="L218">                    attribute.addFlashAttribute(&quot;error&quot;,</span>
+<span class="nc" id="L219">                            &quot;El usuario &quot; + usuarioPrestamo.getNombre() + &quot; &quot; + usuarioPrestamo.getApellidos() +</span>
+                                    &quot; ha recibido una penalización por devolución tardía de &quot;
+<span class="nc" id="L221">                                    + ChronoUnit.DAYS.between(prestamoDevolver.getFechaFin(), fechaDevuelto) +</span>
+<span class="nc" id="L222">                                    &quot; días hasta el &quot; + usuarioPrestamo.getFechaFinPenalizacion());</span>
+                }
+            }
+<span class="nc" id="L225">            prestamoDAO.deleteById(idPrestamo);</span>
+<span class="nc" id="L226">            attribute.addFlashAttribute(&quot;info&quot;, &quot;El préstamo ha sido devuelto satisfactoriamente&quot;);</span>
+        }
+<span class="nc" id="L228">        return &quot;redirect:/ListarEjemplares&quot;;</span>
+    }
+
+    @GetMapping(&quot;/ListarEjemplares/cancelarReserva/{IdReserva}&quot;)
+    public String cancelarReserva(@PathVariable(&quot;IdReserva&quot;) long idReserva, RedirectAttributes attribute) {
+
+<span class="nc" id="L234">        Optional&lt;Reserva&gt; reservaOpt = reservaDAO.findById(idReserva);</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">        if(reservaOpt.isPresent()){</span>
+<span class="nc" id="L236">            Reserva reservaCancelar = reservaOpt.get();</span>
+<span class="nc" id="L237">            Optional&lt;Usuario&gt; usuarioOpt = usuarioDAO.findById(reservaCancelar.getUser().getIdUsuario());</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">            if(usuarioOpt.isPresent()){</span>
+<span class="nc" id="L239">                Usuario usuarioReserva = usuarioOpt.get();</span>
+<span class="nc" id="L240">                attribute.addFlashAttribute(&quot;warning&quot;, &quot;Por cancelar una reserva se te aplica una penalización de 1 semanas&quot;);</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">                if (usuarioReserva.getFechaFinPenalizacion() == null</span>
+<span class="nc bnc" id="L242" title="All 2 branches missed.">                        || usuarioReserva.getFechaFinPenalizacion().isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L243">                    usuarioReserva.setFechaFinPenalizacion(LocalDate.now().plusWeeks(1));</span>
+<span class="nc bnc" id="L244" title="All 2 branches missed.">                } else if (usuarioReserva.getFechaFinPenalizacion().isAfter(LocalDate.now())) {</span>
+<span class="nc" id="L245">                    usuarioReserva.setFechaFinPenalizacion(usuarioReserva.getFechaFinPenalizacion().plusWeeks(1));</span>
+                }
+<span class="nc" id="L247">                usuarioDAO.save(usuarioReserva);</span>
+            }
+<span class="nc" id="L249">            reservaDAO.delete(reservaCancelar);</span>
+<span class="nc" id="L250">            attribute.addFlashAttribute(&quot;info&quot;, &quot;Reserva cancelada correctamente&quot;);</span>
+        }
+<span class="nc" id="L252">        return &quot;redirect:/ListarEjemplares&quot;;</span>
+    }
+
+<span class="fc" id="L255">    class EjemplarComparator implements java.util.Comparator&lt;Ejemplar&gt; {</span>
+        @Override
+        public int compare(Ejemplar a, Ejemplar b) {
+<span class="nc" id="L258">            return a.getTit().getTitulo().compareTo(b.getTit().getTitulo());</span>
+        }
+    }
+
+<span class="fc" id="L262">    class UsuarioComparator implements java.util.Comparator&lt;Usuario&gt; {</span>
+        @Override
+        public int compare(Usuario a, Usuario b) {
+<span class="nc" id="L265">            return a.getNombre().compareTo(b.getNombre());</span>
+        }
+
+    }
+
+    public PrestamoDAO getPrestamoDAO() {
+<span class="nc" id="L271">        return prestamoDAO;</span>
+    }
+
+    public void setPrestamoDAO(PrestamoDAO prestamoDAO) {
+<span class="fc" id="L275">        this.prestamoDAO = prestamoDAO;</span>
+<span class="fc" id="L276">    }</span>
+
+    public ReservaDAO getReservaDAO() {
+<span class="nc" id="L279">        return reservaDAO;</span>
+    }
+
+    public void setReservaDAO(ReservaDAO reservaDAO) {
+<span class="fc" id="L283">        this.reservaDAO = reservaDAO;</span>
+<span class="fc" id="L284">    }</span>
+
+    public EjemplarDAO getEjemplarDAO() {
+<span class="nc" id="L287">        return ejemplarDAO;</span>
+    }
+
+    public void setEjemplarDAO(EjemplarDAO ejemplarDAO) {
+<span class="fc" id="L291">        this.ejemplarDAO = ejemplarDAO;</span>
+<span class="fc" id="L292">    }</span>
+
+    public UsuarioDAO getUsuarioDAO() {
+<span class="nc" id="L295">        return usuarioDAO;</span>
+    }
+
+    public void setUsuarioDAO(UsuarioDAO usuarioDAO) {
+<span class="fc" id="L299">        this.usuarioDAO = usuarioDAO;</span>
+<span class="fc" id="L300">    }</span>
+
+    public Prestamo getPrestamo() {
+<span class="nc" id="L303">        return prestamo;</span>
+    }
+
+    public void setPrestamo(Prestamo prestamo) {
+<span class="nc" id="L307">        this.prestamo = prestamo;</span>
+<span class="nc" id="L308">    }</span>
+
+    public Reserva getReserva() {
+<span class="nc" id="L311">        return reserva;</span>
+    }
+
+    public void setReserva(Reserva reserva) {
+<span class="nc" id="L315">        this.reserva = reserva;</span>
+<span class="nc" id="L316">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

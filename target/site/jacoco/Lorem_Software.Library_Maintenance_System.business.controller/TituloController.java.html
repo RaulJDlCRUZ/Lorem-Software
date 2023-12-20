@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TituloController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.controller</a> &gt; <span class="el_source">TituloController.java</span></div><h1>TituloController.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.controller;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import Lorem_Software.Library_Maintenance_System.business.entity.Autor;
+import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
+import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
+import Lorem_Software.Library_Maintenance_System.persistance.AutorDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.EjemplarDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.TituloDAO;
+
+@Controller
+public class TituloController {
+<span class="fc" id="L27">	private static final Logger log = LoggerFactory.getLogger(TituloController.class);</span>
+	@Autowired
+	private TituloDAO tituloDAO;
+	@Autowired
+	private AutorDAO autorDAO;
+	@Autowired
+	private EjemplarDAO ejemplarDAO;
+
+	Titulo titulo;
+
+	public TituloController() {
+<span class="fc" id="L38">		super();</span>
+<span class="fc" id="L39">		this.titulo = new Titulo();</span>
+<span class="fc" id="L40">	}</span>
+
+	@GetMapping(&quot;/ListarTitulos&quot;)
+	public String listarTitulos(Model model) {
+<span class="nc" id="L44">		List&lt;Titulo&gt; listadoTitulos = tituloDAO.findAll();</span>
+<span class="nc" id="L45">		Collections.sort(listadoTitulos, new TitleComparator());</span>
+
+<span class="nc" id="L47">		model.addAttribute(&quot;titulo&quot;, &quot;Listado de Títulos&quot;);</span>
+<span class="nc" id="L48">		model.addAttribute(&quot;titulos&quot;, listadoTitulos);</span>
+<span class="nc" id="L49">		return &quot;titulo/ListarTitulos&quot;;</span>
+	}
+
+	@GetMapping(&quot;/guardarTitulo&quot;)
+	public String altaTitulo(Model model) {
+<span class="fc" id="L54">		model.addAttribute(&quot;tituloheader&quot;, &quot;Dar de alta un Título&quot;);</span>
+<span class="fc" id="L55">		model.addAttribute(&quot;titulo&quot;, new Titulo());</span>
+<span class="fc" id="L56">		List&lt;Autor&gt; listadoAutores = autorDAO.findAll();</span>
+<span class="fc" id="L57">		Collections.sort(listadoAutores, new AutorComparator());</span>
+
+<span class="fc" id="L59">		model.addAttribute(&quot;listautores&quot;, listadoAutores);</span>
+<span class="fc" id="L60">		return &quot;titulo/NuevoTitulo&quot;;</span>
+	}
+
+	@PostMapping(&quot;/guardarTitulo&quot;)
+	public String libroSubmit(@ModelAttribute Titulo titulo, Model model, RedirectAttributes attribute) {
+<span class="nc" id="L65">		this.titulo = titulo;</span>
+<span class="nc" id="L66">		model.addAttribute(&quot;titulo&quot;, titulo);</span>
+<span class="nc" id="L67">		Titulo savedTitulo = tituloDAO.save(titulo);</span>
+<span class="nc" id="L68">		log.info(&quot;Saved title: {}&quot;, savedTitulo);</span>
+<span class="nc" id="L69">		Ejemplar ejemplar = new Ejemplar();</span>
+<span class="nc" id="L70">		ejemplar.setTit(savedTitulo);</span>
+<span class="nc" id="L71">		ejemplarDAO.save(ejemplar);</span>
+<span class="nc" id="L72">		attribute.addFlashAttribute(&quot;success&quot;, &quot;Título creado correctamente&quot;);</span>
+<span class="nc" id="L73">		return &quot;redirect:/ListarTitulos&quot;;</span>
+	}
+
+	@GetMapping(&quot;/guardarTitulo/edit/{id}&quot;)
+	public String formularioEditarTitulo(@PathVariable(&quot;id&quot;) long id, Model model) {
+<span class="fc" id="L78">		Optional&lt;Titulo&gt; tituloEditar = tituloDAO.findById(id);</span>
+<span class="fc" id="L79">		List&lt;Autor&gt; listadoAutores = autorDAO.findAll();</span>
+<span class="fc" id="L80">		Collections.sort(listadoAutores, new AutorComparator());</span>
+<span class="fc" id="L81">		model.addAttribute(&quot;titulo&quot;, tituloEditar);</span>
+<span class="fc" id="L82">		model.addAttribute(&quot;listautores&quot;, listadoAutores);</span>
+<span class="fc" id="L83">		return &quot;titulo/NuevoTitulo&quot;;</span>
+	}
+
+	@PostMapping(&quot;/guardarTitulo/update/{id}&quot;)
+	public String actualizarTitulo(@PathVariable(&quot;id&quot;) long id, Titulo tituloEditar, RedirectAttributes attribute) {
+<span class="nc" id="L88">		tituloDAO.save(tituloEditar);</span>
+<span class="nc" id="L89">		attribute.addFlashAttribute(&quot;success&quot;, &quot;Título modificado correctamente&quot;);</span>
+<span class="nc" id="L90">		return &quot;ListarTitulos&quot;;</span>
+	}
+
+	@GetMapping(&quot;delete/{id}&quot;)
+	public String eliminarTitulo(@PathVariable(&quot;id&quot;) long idTitulo, RedirectAttributes attribute) {
+<span class="nc" id="L95">		Optional&lt;Titulo&gt; tituloOpt = tituloDAO.findById(idTitulo);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">		if(tituloOpt.isPresent()){</span>
+<span class="nc" id="L97">			Titulo t = tituloOpt.get();</span>
+<span class="nc bnc" id="L98" title="All 2 branches missed.">			for (Ejemplar ej : t.getEjemplares()) {</span>
+<span class="nc bnc" id="L99" title="All 4 branches missed.">				if (ej.getPrestamo() != null || ej.getReserva() != null) {</span>
+<span class="nc" id="L100">					attribute.addFlashAttribute(&quot;error&quot;,</span>
+							&quot;No se puede eliminar el título porque tiene un ejemplar prestado o una reserva asociada&quot;);
+<span class="nc" id="L102">					return &quot;redirect:/ListarTitulos&quot;;</span>
+				}
+<span class="nc" id="L104">			}</span>
+<span class="nc" id="L105">			List&lt;Long&gt; ids = List.of(Long.valueOf(idTitulo));</span>
+<span class="nc" id="L106">			List&lt;Ejemplar&gt; ejemplareslibro = ejemplarDAO.findAllById(ids);</span>
+<span class="nc bnc" id="L107" title="All 2 branches missed.">			for (Ejemplar e : ejemplareslibro)</span>
+<span class="nc" id="L108">				ejemplarDAO.delete(e);</span>
+	
+<span class="nc" id="L110">			tituloDAO.delete(t);</span>
+<span class="nc" id="L111">			attribute.addFlashAttribute(&quot;warning&quot;, &quot;Título eliminado correctamente&quot;);</span>
+		}
+<span class="nc" id="L113">		return &quot;redirect:/ListarTitulos&quot;;</span>
+	}
+
+<span class="fc" id="L116">	class AutorComparator implements java.util.Comparator&lt;Autor&gt; {</span>
+		@Override
+		public int compare(Autor a, Autor b) {
+<span class="nc" id="L119">			return a.getNombre().compareTo(b.getNombre());</span>
+		}
+	}
+
+<span class="nc" id="L123">	class TitleComparator implements java.util.Comparator&lt;Titulo&gt; {</span>
+		@Override
+		public int compare(Titulo a, Titulo b) {
+<span class="nc" id="L126">			return a.getTitulo().compareTo(b.getTitulo());</span>
+		}
+	}
+
+	public Titulo getTitulo() {
+<span class="nc" id="L131">		return titulo;</span>
+	}
+
+	public void setTitulo(Titulo titulo) {
+<span class="nc" id="L135">		this.titulo = titulo;</span>
+<span class="nc" id="L136">	}</span>
+
+	public TituloDAO getTituloDAO() {
+<span class="nc" id="L139">		return tituloDAO;</span>
+	}
+
+	public void setTituloDAO(TituloDAO tituloDAO) {
+<span class="fc" id="L143">		this.tituloDAO = tituloDAO;</span>
+<span class="fc" id="L144">	}</span>
+
+	public AutorDAO getAutorDAO() {
+<span class="nc" id="L147">		return autorDAO;</span>
+	}
+
+	public void setAutorDAO(AutorDAO autorDAO) {
+<span class="fc" id="L151">		this.autorDAO = autorDAO;</span>
+<span class="fc" id="L152">	}</span>
+
+	public EjemplarDAO getEjemplarDAO() {
+<span class="nc" id="L155">		return ejemplarDAO;</span>
+	}
+
+	public void setEjemplarDAO(EjemplarDAO ejemplarDAO) {
+<span class="fc" id="L159">		this.ejemplarDAO = ejemplarDAO;</span>
+<span class="fc" id="L160">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

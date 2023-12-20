@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+  <head th:replace="plantilla_bs/UserTempl :: head">
+    <title>Préstamos activos</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  </head>
+  <body>
+    <header th:replace="plantilla_bs/UserTempl :: header"></header>
+    <div class="container">
+      <h1 th:text="${titulo}"></h1>
+    </div>
+
+    <div class="container">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Título del Libro</th>
+            <th scope="col">Número de Ejemplar</th>
+            <th scope="col">¿Disponible?</th>
+            <th scope="col">Reservado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="ej:${ejemplares}">
+            <th scope="row" th:text="${ej.tit.getTitulo()}"></th>
+            <td th:text="${ej.IdEjemplar}"></td>
+            <td th:switch="${ej.prestamo}">
+              <span th:case="${null}">No hay préstamo</span>
+              <span th:case="*">
+                <span th:if="${ej.prestamo.isActivo()}">Prestado</span>
+                <a
+                  class="btn btn-danger btn-sm"
+                  th:href="@{/ListarEjemplares/devolverPrestamo/} + ${ej.prestamo.IdPrestamo}"
+                  th:text="Devolver"
+                  title="Devolver el Préstamo"
+                  onclick="return confirm('¿Desea devolver el préstamo?');"
+                >
+                </a>
+              </span>
+            </td>
+            <td th:switch="${ej.reserva}">
+              <span th:case="${null}">No hay reserva</span>
+              <span th:case="*">
+                <span
+                  th:if="${ej.reserva.fechaReserva!=null}"
+                  th:text="'Reservado hasta el '+${ej.reserva.fechaReserva} +' por '+${ej.reserva.user.nombre}+' '+${ej.reserva.user.apellidos}"
+                ></span>
+                <br>
+                <a
+                  class="btn btn-danger btn-sm"
+                  th:href="@{/ListarEjemplares/cancelarReserva/} + ${ej.reserva.IdReserva}"
+                  th:text="Cancelar"
+                  title="Cancelar la Reserva"
+                  onclick="return confirm('¿Desea cancelar la reserva?');"
+                >
+                </a>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

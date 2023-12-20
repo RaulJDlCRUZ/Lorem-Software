@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EjemplarController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Lorem_Software.LMS</a> &gt; <a href="index.source.html" class="el_package">Lorem_Software.Library_Maintenance_System.business.controller</a> &gt; <span class="el_source">EjemplarController.java</span></div><h1>EjemplarController.java</h1><pre class="source lang-java linenums">package Lorem_Software.Library_Maintenance_System.business.controller;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import Lorem_Software.Library_Maintenance_System.business.entity.Ejemplar;
+import Lorem_Software.Library_Maintenance_System.business.entity.Titulo;
+import Lorem_Software.Library_Maintenance_System.persistance.EjemplarDAO;
+import Lorem_Software.Library_Maintenance_System.persistance.TituloDAO;
+
+@Controller
+public class EjemplarController {
+<span class="fc" id="L26">    private static final Logger log = LoggerFactory.getLogger(EjemplarController.class);</span>
+
+    @Autowired
+    private EjemplarDAO ejemplarDAO;
+
+    @Autowired
+    private TituloDAO tituloDAO;
+
+    Ejemplar ejemplar;
+
+    public EjemplarController() {
+<span class="fc" id="L37">        super();</span>
+<span class="fc" id="L38">        this.ejemplar = new Ejemplar();</span>
+<span class="fc" id="L39">    }</span>
+
+    @GetMapping(&quot;/ListarEjemplares/{idTitulo}&quot;)
+    public String listarEjemplares(@PathVariable(&quot;idTitulo&quot;) long idTitulo, Model model) {
+<span class="fc" id="L43">        List&lt;Ejemplar&gt; ejemplaresProv = ejemplarDAO.findAll();</span>
+<span class="fc" id="L44">        List&lt;Ejemplar&gt; ejemplares = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L45">        String tituloName = &quot;&quot;;</span>
+
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        for (Ejemplar e : ejemplaresProv) {</span>
+<span class="pc bpc" id="L48" title="1 of 2 branches missed.">            if (e.getTit().getId().equals(idTitulo)) {</span>
+<span class="fc" id="L49">                tituloName = e.getTit().getTitulo();</span>
+<span class="fc" id="L50">                ejemplares.add(e);</span>
+            }
+<span class="fc" id="L52">        }</span>
+
+<span class="fc" id="L54">        model.addAttribute(&quot;ListEjemplarHeader&quot;, &quot;Lista de Ejemplares de &quot; + tituloName);</span>
+<span class="fc" id="L55">        model.addAttribute(&quot;ejemplares&quot;, ejemplares);</span>
+
+<span class="fc" id="L57">        return &quot;ejemplar/ListarEjemplares&quot;;</span>
+    }
+
+    @GetMapping(&quot;/AltaEjemplar&quot;)
+    public String altaEjemplar(Model model) {
+<span class="fc" id="L62">        model.addAttribute(&quot;ejemplarheader&quot;, &quot;Añadir un Ejemplar&quot;);</span>
+<span class="fc" id="L63">        model.addAttribute(&quot;ejemplares&quot;, new Ejemplar());</span>
+<span class="fc" id="L64">        List&lt;Titulo&gt; listadoTitulos = tituloDAO.findAll();</span>
+<span class="fc" id="L65">        Collections.sort(listadoTitulos, new TitleComparator());</span>
+<span class="fc" id="L66">        model.addAttribute(&quot;listatitulos&quot;, listadoTitulos);</span>
+<span class="fc" id="L67">        return &quot;ejemplar/NuevoEjemplar&quot;;</span>
+    }
+
+    @PostMapping(&quot;/AltaEjemplar&quot;)
+    public String ejemplarSubmit(@ModelAttribute Ejemplar ejemplar, Model model, RedirectAttributes attribute) {
+<span class="nc" id="L72">        log.info(&quot;El id del ejemplar es {}&quot;, ejemplar.getIdEjemplar());</span>
+<span class="nc" id="L73">        this.ejemplar = ejemplar;</span>
+<span class="nc" id="L74">        model.addAttribute(&quot;ejemplar&quot;, ejemplar);</span>
+<span class="nc" id="L75">        ejemplarDAO.save(ejemplar);</span>
+<span class="nc" id="L76">        attribute.addFlashAttribute(&quot;success&quot;, &quot;El ejemplar se ha dado correctamente de alta&quot;);</span>
+<span class="nc" id="L77">        return &quot;redirect:/ListarTitulos&quot;;</span>
+    }
+
+    @GetMapping(&quot;/AltaEjemplar/delete/{IdPrestamo}&quot;)
+    public String eliminarTitulo(@PathVariable(&quot;IdPrestamo&quot;) long idPrestamo, RedirectAttributes attribute) {
+<span class="nc" id="L82">        Optional&lt;Ejemplar&gt; ejemplarOpt = ejemplarDAO.findById(idPrestamo);</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (ejemplarOpt.isPresent()) {</span>
+<span class="nc" id="L84">            Ejemplar e = ejemplarOpt.get();</span>
+<span class="nc bnc" id="L85" title="All 4 branches missed.">            if (e.getPrestamo() != null || e.getReserva() != null) {</span>
+<span class="nc" id="L86">                attribute.addFlashAttribute(&quot;error&quot;,</span>
+                        &quot;No se puede eliminar el ejemplar porque está prestado o tiene una reserva&quot;);
+<span class="nc" id="L88">                return &quot;redirect:/ListarEjemplares/&quot; + e.getTit().getId();</span>
+            }
+<span class="nc" id="L90">            ejemplarDAO.deleteById(idPrestamo);</span>
+<span class="nc" id="L91">            attribute.addFlashAttribute(&quot;warning&quot;, &quot;El ejemplar ha sido eliminado&quot;);</span>
+        }
+<span class="nc" id="L93">        return &quot;redirect:/ListarTitulos&quot;;</span>
+    }
+
+<span class="fc" id="L96">    class TitleComparator implements java.util.Comparator&lt;Titulo&gt; {</span>
+        @Override
+        public int compare(Titulo a, Titulo b) {
+<span class="nc" id="L99">            return a.getTitulo().compareTo(b.getTitulo());</span>
+        }
+    }
+
+    public EjemplarDAO getEjemplarDAO() {
+<span class="nc" id="L104">        return ejemplarDAO;</span>
+    }
+
+    public void setEjemplarDAO(EjemplarDAO ejemplarDAO) {
+<span class="fc" id="L108">        this.ejemplarDAO = ejemplarDAO;</span>
+<span class="fc" id="L109">    }</span>
+
+    public TituloDAO getTituloDAO() {
+<span class="nc" id="L112">        return tituloDAO;</span>
+    }
+
+    public void setTituloDAO(TituloDAO tituloDAO) {
+<span class="fc" id="L116">        this.tituloDAO = tituloDAO;</span>
+<span class="fc" id="L117">    }</span>
+
+    public Ejemplar getEjemplar() {
+<span class="nc" id="L120">        return ejemplar;</span>
+    }
+
+    public void setEjemplar(Ejemplar ejemplar) {
+<span class="nc" id="L124">        this.ejemplar = ejemplar;</span>
+<span class="nc" id="L125">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
